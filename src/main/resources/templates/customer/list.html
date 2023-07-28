@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Customer</title>
+</head>
+<body>
+
+<h1>Customer List</h1>
+
+<form>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <td>STT</td>
+                <td>Full Name</td>
+                <td>Gender</td>
+                <td>Date Of Birth</td>
+                <td>Detail</td>
+                <td>Delete</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="customerr,status : ${customerList}">
+                <td th:text="${customerList.number*2 + status.count}"></td>
+                <td th:text="${customerr.fullName}"></td>
+                <td th:text="${customerr.gender}"></td>
+                <td th:text="${customerr.dob}"></td>
+                <td><a th:href="@{/customers/info/__${customerr.id}__}"></a></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</form>
+
+</body>
+</html>
