@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+
+<div aria-atomic="true" aria-live="assertive" class="toast show" role="alert" th:if="${success != null}"
+     style="
+    position: fixed;right: 10px;top: 100px; animation: slideInRight ease 1s, fadeOut linear 1s 4s forwards; // thời gian msg trượt
+            transition: all linear 0.3s;z-index: 999999">
+    <div class="toast-header bg-success">
+        <strong class="me-auto">Notification</strong>
+        <small>1 second ago</small>
+    </div>
+    <div class="toast-body" th:text="${success}"></div>
+</div>
+
+<div aria-atomic="true" aria-live="assertive" class="toast show" role="alert" th:if="${fail!=null}"
+     style="
+    position: fixed;right: 10px;top: 100px; animation: slideInRight ease 1s, fadeOut linear 1s 4s forwards; // thời gian msg trượt
+            transition: all linear 0.3s;z-index: 999999">
+    <div class="toast-header bg-danger">
+        <strong class="me_auto">Notification</strong>
+        <small>1 second ago</small>
+    </div>
+    <div class="toast-body" th:text="${fail}"></div>
+</div>
+
+<div class="container" id="container">
+    <div class="form-container sign-up-container">
+        <!--Form sign up -->
+        <form action="/signup" method="post" th:object="${customerDto}">
+            <h1>Sign up</h1>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+
+            <div class="row" style=" height: 70px">
+                <div class="col-md-6 mb-2 col-6">
+                    <div class="form-outline mb-4" style="height: 50px;width: 250px">
+                        <input required id="form2Example18" type="text" th:field="*{fullName}"
+                               class="form-control form-control-lg"
+                               style="padding-right: 10px;padding-left: 10px;width: 100%"/>
+                        <span style="color: red" th:if="${#fields.hasErrors('fullName')}"
+                              th:errors="*{fullName}"></span>
+                        <label class="form-label" for="form2Example18">Full Name</label>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-2 col-6">
+                    <div class="form-outline mb-4" style="height: 50px;width: 250px">
+                        <input required id="form2Example19" type="text" th:field="*{gender}"
+                               class="form-control form-control-lg"
+                               style="padding-right: 10px;padding-left: 10px;width: 100%"/>
+                        <span style="color: red" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></span>
+                        <label class="form-label" for="form2Example19">Gender</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style=" height: 70px">
+                <div class="col-md-6 mb-2 col-6">
+                    <div class="form-outline mb-4" style="height: 50px;width: 250px">
+                        <input required id="form2Example20" type="text" th:field="*{dob}"
+                               class="form-control form-control-lg"
+                               style="padding-right: 10px;padding-left: 10px;width: 100%"/>
+                        <span style="color: red" th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}"></span>
+                        <label class="form-label" for="form2Example20">Date Of Birth</label>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-2 col-6">
+                    <div class="form-outline mb-4" style="height: 50px;width: 250px">
+                        <input required id="form2Example2" type="text" th:field="*{address}"
+                               class="form-control form-control-lg"
+                               style="padding-right: 10px;padding-left: 10px;width: 100%"/>
+                        <span style="color: red" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+                        <label class="form-label" for="form2Example2">Address</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-outline mb-4" style="height: 50px">
+                <input type="text" id="form2Example4" style="width: 100%" th:field="*{accountUserDto.email}"
+                       class="form-control form-control-lg"/>
+                <span style="color: red" th:if="${#fields.hasErrors('accountUserDto.email')}"
+                      th:errors="*{accountUserDto.email}"></span>
+                <label class="form-label" for="form2Example4">Email</label>
+            </div>
+
+            <div class="row" style=" height: 70px">
+                <div class="col-md-6 mb-2">
+                    <div class="form-outline mb-4" style="height: 50px;width: 250px">
+                        <input required type="password" id="form2Example5" th:field="*{accountUserDto.pass}"
+                               class="form-control form-control-lg"
+                               style="padding-right: 10px;padding-left: 10px;width: 100%"/>
+                        <span style="color: red" th:if="${#fields.hasErrors('accountUserDto.pass')}"
+                              th:errors="*{accountUserDto.pass}"></span>
+                        <label class="form-label" for="form2Example5">Password</label>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="form-outline mb-4" style="height: 50px;width: 250px">
+                        <input required type="password" id="form2Example6" onkeyup="checkRPW()"
+                               class="form-control form-control-lg"
+                               style="padding-right: 10px;padding-left: 10px;width: 100%"/>
+                        <span style="color: red" id="message"></span>
+                        <label class="form-label" for="form2Example6">Confirm Password</label>
+                    </div>
+                </div>
+            </div>
+            <button id="button" type="submit">Sign Up</button>
+        </form>
+    </div>
+
+
+    <div class="form-container sign-in-container">
+        <form th:action="@{/j_spring_security_check}" method="post" th:object="${accountDto}">
+            <h1>Sign in</h1>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <p style="color: #D90B0B" th:if="${msg!= null}" th:text="${msg}"></p>
+            <div class="form-outline mb-4" style="height: 50px;width: 70%">
+                <input type="email" required id="form2Example8" th:field="*{email}" class="form-control form-control-lg"
+                       style="padding-right: 10px;padding-left: 10px;width: 250px"/>
+                <label class="form-label" for="form2Example8">Email</label>
+            </div>
+            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+
+            <div class="form-outline mb-4" style="height: 50px;width: 70%">
+                <input type="password" required id="form2Example7" th:field="*{pass}"
+                       class="form-control form-control-lg"
+                       style="padding-right: 10px;padding-left: 10px;width: 250px"/>
+                <label class="form-label" for="form2Example7">Password</label>
+            </div>
+            <p th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}"></p>
+            <a href="/email">Forgot your password?</a>
+            <button type="submit">Sign In</button>
+        </form>
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Welcome Back!</h1>
+                <p>To keep connected with us please log_in with your personal info</p>
+                <button class="ghost" id="signIn">Sign In</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1> Welcome to Retro Cinema!</h1>
+                <p>Enter your personal details and start journey with us</p>
+                <button class="ghost" id="signUp">Sign Up</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script>
+    const signUpButton = document.getElementById("signUp");
+    const signInButton = document.getElementById("signIn");
+    const container = document.getElementById("container");
+
+    signUpButton.addEventListener("click", () => {
+        container.classList.add("right-panel-active");
+    });
+
+    signInButton.addEventListener("click", () => {
+        container.classList.remove("right-panel-active");
+    });
+
+    function checkRPW() {
+        let pw = document.getElementById("form2Example5").value;
+        let rpw = document.getElementById("form2Example6").value;
+        let message = document.getElementById("message");
+        if (pw.length >= 6) {
+            if (pw === rpw) {
+                message.textContent = "";
+                document.getElementById('button').style.display = 'block';
+            } else {
+                message.textContent = "Password not match.";
+                message.style.color = "#C71010FF"
+                document.getElementById('button').style.display = 'none';
+            }
+        } else {
+            message.textContent = "Password must be at least 6 characters";
+            message.style.color = "#C71010FF";
+            document.getElementById('button').style.display = 'none';
+
+        }
+    }
+</script>
+</body>
+</html>
