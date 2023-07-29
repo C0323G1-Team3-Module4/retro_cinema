@@ -1,6 +1,7 @@
 package com.example.retro_cinema.user.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 
@@ -13,13 +14,16 @@ public class Roles {
     @Column(columnDefinition = "bit default 0")
     private boolean flagDelete;
 
+    @OneToMany(mappedBy = "roles")
+    private Set<AccountUser> accountUserSet;
     public Roles() {
     }
 
-    public Roles(Integer id, String roleName, boolean flagDelete) {
+    public Roles(Integer id, String roleName, boolean flagDelete, Set<AccountUser> accountUserSet) {
         this.id = id;
         this.roleName = roleName;
         this.flagDelete = flagDelete;
+        this.accountUserSet = accountUserSet;
     }
 
     public Integer getId() {
@@ -44,5 +48,13 @@ public class Roles {
 
     public void setFlagDelete(boolean flagDelete) {
         this.flagDelete = flagDelete;
+    }
+
+    public Set<AccountUser> getAccountUserSet() {
+        return accountUserSet;
+    }
+
+    public void setAccountUserSet(Set<AccountUser> accountUserSet) {
+        this.accountUserSet = accountUserSet;
     }
 }

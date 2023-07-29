@@ -47,6 +47,21 @@ public class CustomerDto implements Validator {
         this.accountUserDto = accountUserDto;
     }
 
+    public CustomerDto(String fullName, String address, String gender, String dob, AccountUserDto accountUserDto) {
+        this.fullName = fullName;
+        this.address = address;
+        this.gender = gender;
+        this.dob = dob;
+        this.accountUserDto = accountUserDto;
+    }
+
+    public CustomerDto(String fullName, String address, String gender, String dob) {
+        this.fullName = fullName;
+        this.address = address;
+        this.gender = gender;
+        this.dob = dob;
+    }
+
     public Integer getId() {
         return id;
     }

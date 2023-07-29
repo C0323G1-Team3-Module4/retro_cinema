@@ -10,8 +10,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
-    @Query(value = "select * from Customers where full_name like CONCAT('%', :name,'%') ",nativeQuery = true)
-    Page<Customer> findByCustomers(@Param("name") String fullName, Pageable pageable);
+    @Query(value = "select * from Customers where full_name like CONCAT('%', :searchByName,'%') ",nativeQuery = true)
+    Page<Customer> findAll(@Param("searchByName") String name, Pageable pageable);
     Optional<Customer> findById(Integer id);
     Customer findCustomerByAccountUser_Id(Integer id);
     Customer findByAccountUser_Email(String email);

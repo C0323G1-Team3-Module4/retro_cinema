@@ -31,8 +31,8 @@ public class CustomerService implements ICustomerService {
     private JavaMailSender mailSender;
 
     @Override
-    public Page<Customer> findByCustomer(String fullName, Pageable pageable) {
-        return iCustomerRepository.findByCustomers(fullName, pageable);
+    public Page<Customer> findAll(String searchByName, Pageable pageable) {
+        return iCustomerRepository.findAll(searchByName, pageable);
     }
 
     @Override
