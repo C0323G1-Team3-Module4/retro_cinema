@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Customer</title>
+</head>
+<body>
+<h2>Update Customer</h2>
+<button><a th:href="@{/customers}">Back to home</a></button>
+
+<form th:action="@{/customers/update}" method="post" th:object="${customerDto}">
+    <input type="hidden" th:field="*{id}"/>
+
+    <div class="col-md-12">
+        <p>Name</p>
+        <input class="form-control" type="text" th:field="*{fullName}"
+               required>
+        <p style="color: red" th:if="${#fields.hasErrors('fullName')}"
+           th:errors="*{fullName}"></p>
+    </div>
+
+    <div class="col-md-12">
+        <p>Name</p>
+        <input class="form-control" type="text" th:field="*{phone}"
+               required>
+        <p style="color: red" th:if="${#fields.hasErrors('phone')}"
+           th:errors="*{phone}"></p>
+    </div>
+
+    <div class="col-md-12">
+        <p>Address</p>
+        <input class="form-control" type="text" th:field="*{address}"
+               required>
+        <p style="color: red" th:if="${#fields.hasErrors('address')}"
+           th:errors="*{address}"></p>
+    </div>
+
+    <div class="col-md-12">
+        <p>Gender</p>
+        <input class="form-control" type="text" th:field="*{gender}"
+               required>
+        <p style="color: red" th:if="${#fields.hasErrors('gender')}"
+           th:errors="*{gender}"></p>
+    </div>
+
+    <div class="col-md-12">
+        <p>Date Of Birth</p>
+        <input class="form-control" type="text" th:field="*{dob}"
+               required>
+        <p style="color: red" th:if="${#fields.hasErrors('dob')}"
+           th:errors="*{dob}"></p>
+    </div>
+
+        <button id="submit" type="submit"
+                style="width: 130px;height: 40px;background: #3893cc;border-radius: 30px;color: whitesmoke">
+            Submit
+        </button>
+
+</form>
+
+</body>
+</html>

@@ -1,263 +1,342 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <!-- Poppins -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
-    />
-    <style>
-      body {
-        background-color: #333333;
-        color: #f5f5dc;
-        position: relative;
-      }
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8"/>-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>-->
+<!--    <title>Login</title>-->
+<!--    <link-->
+<!--            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"-->
+<!--            rel="stylesheet"-->
+<!--    />-->
+<!--    &lt;!&ndash; Poppins &ndash;&gt;-->
+<!--    <link rel="preconnect" href="https://fonts.googleapis.com"/>-->
+<!--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>-->
+<!--    <link-->
+<!--            href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"-->
+<!--            rel="stylesheet"-->
+<!--    />-->
+<!--    <link-->
+<!--            rel="stylesheet"-->
+<!--            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"-->
+<!--    />-->
+<!--    <style>-->
+<!--        body {-->
+<!--            background-color: #333333;-->
+<!--            color: #f5f5dc;-->
+<!--            position: relative;-->
+<!--        }-->
 
-      .nav-item {
-        border: #f4eee0 solid 1px;
-        margin-bottom: 2rem;
-        border-radius: 10px;
-        margin: 1rem;
-      }
-      .nav-pills .nav-link.active,
-      .nav-pills .show > .nav-link {
-        color: #f4eee0;
-        background-color: #ffa500;
-      }
+<!--        .nav-item {-->
+<!--            border: #f4eee0 solid 1px;-->
+<!--            margin-bottom: 2rem;-->
+<!--            border-radius: 10px;-->
+<!--            margin: 1rem;-->
+<!--        }-->
 
-      .nav-pills .nav-link {
-        color: #f4eee0;
-      }
+<!--        .nav-pills .nav-link.active,-->
+<!--        .nav-pills .show > .nav-link {-->
+<!--            color: #f4eee0;-->
+<!--            background-color: #ffa500;-->
+<!--        }-->
 
-      .nav-pills .nav-link:hover {
-        color: gray;
-      }
+<!--        .nav-pills .nav-link {-->
+<!--            color: #f4eee0;-->
+<!--        }-->
 
-      .form-outline {
-        margin: 1rem;
-      }
+<!--        .nav-pills .nav-link:hover {-->
+<!--            color: gray;-->
+<!--        }-->
 
-      .form-outline input {
-        padding: 0.5rem;
-        border-radius: 0.5rem;
-        border: none;
-        background-color: white;
-        color: #f4eee0;
-      }
+<!--        .form-outline {-->
+<!--            margin: 1rem;-->
+<!--        }-->
 
-      button {
-        padding: 0.5rem;
-        border-radius: 0.5rem;
-        border: none;
-        background-color: #f4eee0;
-        color: #333;
-        cursor: pointer;
-      }
+<!--        .form-outline input {-->
+<!--            padding: 0.5rem;-->
+<!--            border-radius: 0.5rem;-->
+<!--            border: none;-->
+<!--            background-color: white;-->
+<!--            color: #f4eee0;-->
+<!--        }-->
 
-      button:hover {
-        background-color: #ccc;
-      }
+<!--        button {-->
+<!--            padding: 0.5rem;-->
+<!--            border-radius: 0.5rem;-->
+<!--            border: none;-->
+<!--            background-color: #f4eee0;-->
+<!--            color: #333;-->
+<!--            cursor: pointer;-->
+<!--        }-->
 
-      .btn-sign-in {
-        text-align: center;
-      }
+<!--        button:hover {-->
+<!--            background-color: #ccc;-->
+<!--        }-->
 
-      .background-sign-in {
-        width: 100%;
-        height: auto;
-        z-index: -1;
-      }
-      .container {
-        width: 100%;
-        max-width: 600px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #333333;
-        border-radius: 10px;
-        border: 1px white solid;
-      }
-      .password-input {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .forget-pass {
-        margin: 0.2rem 1rem;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="background-img">
-      <img
-        class="background-sign-in"
-        src="/static/img/background-sign-in.png"
-        alt=""
-      />
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="input-form" style="padding-top: 2rem">
-          <!-- adjust column width as needed -->
-          <!-- Pills navs -->
-          <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
-            <li class="nav-item" role="presentation">
-              <a
-                class="nav-link active"
-                id="tab-login"
-                data-bs-toggle="pill"
-                data-bs-target="#pills-login"
-                role="tab"
-                aria-controls="pills-login"
-                aria-selected="true"
-                >Login</a
-              >
-            </li>
-            <li class="nav-item" role="presentation">
-              <a
-                class="nav-link"
-                id="tab-register"
-                data-bs-toggle="pill"
-                data-bs-target="#pills-register"
-                role="tab"
-                aria-controls="pills-register"
-                aria-selected="false"
-                >Register</a
-              >
-            </li>
-          </ul>
-          <!-- Pills content -->
-          <div class="tab-content">
-            <div
-              class="tab-pane fade show active"
-              id="pills-login"
-              role="tabpanel"
-              aria-labelledby="tab-login"
-            >
-              <form action="#" method="post">
-                <!-- Email input -->
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="loginName">Email</label>
-                  <input
-                    name="username"
-                    type="text"
-                    id="loginName"
-                    class="form-control"
-                  />
-                </div>
+<!--        .btn-sign-in {-->
+<!--            text-align: center;-->
+<!--        }-->
 
-                <!-- Password input -->
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="loginPassword">Password</label>
-                  <input
-                    name="password"
-                    type="password"
-                    id="loginPassword"
-                    class="form-control"
-                  />
-                </div>
+<!--        .background-sign-in {-->
+<!--            width: 100%;-->
+<!--            height: auto;-->
+<!--            z-index: -1;-->
+<!--        }-->
 
-                <div class="forget-pass">
-                  <a href="#">Forget Password?</a>
-                </div>
+<!--        .container {-->
+<!--            width: 100%;-->
+<!--            max-width: 600px;-->
+<!--            position: absolute;-->
+<!--            top: 50%;-->
+<!--            left: 50%;-->
+<!--            transform: translate(-50%, -50%);-->
+<!--            background-color: #333333;-->
+<!--            border-radius: 10px;-->
+<!--            border: 1px white solid;-->
+<!--        }-->
 
-                <!-- Submit button -->
-                <div class="btn-sign-in">
-                  <button type="submit" class="btn btn-primary btn-block mb-4">
-                    Sign in
-                  </button>
-                </div>
-              </form>
-            </div>
-            <div
-              class="tab-pane fade"
-              id="pills-register"
-              role="tabpanel"
-              aria-labelledby="tab-register"
-            >
-              <form action="#" method="post">
-                <input type="hidden" name="action" value="createByUser" />
-                <input type="hidden" name="roleOption" value="customer" />
-                <input
-                  type="hidden"
-                  name="mess"
-                  value="Create successful. Please login again"
-                />
-                <!-- Username input -->
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="registerUsername"
-                    >Username</label
-                  >
-                  <input
-                    type="text"
-                    id="registerUsername"
-                    class="form-control"
-                    name="username"
-                  />
-                </div>
+<!--        .password-input {-->
+<!--            display: grid;-->
+<!--            grid-template-columns: repeat(2, 1fr);-->
+<!--        }-->
 
-                <!-- Email input -->
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="registerEmail">Email</label>
-                  <input
-                    type="email"
-                    id="registerEmail"
-                    class="form-control"
-                    name="email"
-                  />
-                </div>
+<!--        .forget-pass {-->
+<!--            margin: 0.2rem 1rem;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
 
-                <!-- Password input -->
-                <div class="password-input">
-                  <div class="form-outline mb-4">
-                    <label class="form-label" for="registerPassword"
-                      >Password</label
-                    >
-                    <input
-                      type="password"
-                      id="registerPassword"
-                      class="form-control"
-                      name="password"
-                    />
-                  </div>
-                  <div class="form-outline mb-4">
-                    <label class="form-label" for="registerPassword"
-                      >Re-enter password</label
-                    >
-                    <input
-                      type="password"
-                      id="registerPassword"
-                      class="form-control"
-                      name="password"
-                    />
-                  </div>
-                </div>
-                <!-- Submit button -->
-                <div class="btn-sign-in">
-                  <button type="submit" class="btn btn-primary btn-block mb-3">
-                    Register
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-          <!-- Pills content -->
-        </div>
-      </div>
-    </div>
-  </body>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-</html>
+<!--<div aria-atomic="true" aria-live="assertive" class="toast show" role="alert" th:if="${success != null}"-->
+<!--     style="-->
+<!--    position: fixed;right: 10px;top: 100px; animation: slideInRight ease 1s, fadeOut linear 1s 4s forwards; // thời gian msg trượt-->
+<!--            transition: all linear 0.3s;z-index: 999999">-->
+<!--    <div class="toast-header bg-success">-->
+<!--        <strong class="me-auto">Notification</strong>-->
+<!--        <small>1 second ago</small>-->
+<!--    </div>-->
+<!--    <div class="toast-body" th:text="${success}"></div>-->
+<!--</div>-->
+
+<!--<div aria-atomic="true" aria-live="assertive" class="toast show" role="alert" th:if="${fail!=null}"-->
+<!--     style="-->
+<!--    position: fixed;right: 10px;top: 100px; animation: slideInRight ease 1s, fadeOut linear 1s 4s forwards; // thời gian msg trượt-->
+<!--            transition: all linear 0.3s;z-index: 999999">-->
+<!--    <div class="toast-header bg-danger">-->
+<!--        <strong class="me_auto">Notification</strong>-->
+<!--        <small>1 second ago</small>-->
+<!--    </div>-->
+<!--    <div class="toast-body" th:text="${fail}"></div>-->
+<!--</div>-->
+
+<!--<div class="background-img">-->
+<!--    <img-->
+<!--            class="background-sign-in"-->
+<!--            src="/static/img/background-sign-in.png"-->
+<!--            alt=""-->
+<!--    />-->
+<!--</div>-->
+<!--<div class="container">-->
+<!--    <div class="row" >-->
+<!--        <div class="input-form" style="padding-top: 2rem">-->
+<!--            &lt;!&ndash; adjust column width as needed &ndash;&gt;-->
+<!--            &lt;!&ndash; Pills navs &ndash;&gt;-->
+<!--            <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">-->
+<!--                <li class="nav-item" role="presentation">-->
+<!--                    <a-->
+<!--                            class="nav-link active"-->
+<!--                            id="tab-login"-->
+<!--                            data-bs-toggle="pill"-->
+<!--                            data-bs-target="#pills-login"-->
+<!--                            role="tab"-->
+<!--                            aria-controls="pills-login"-->
+<!--                            aria-selected="true"-->
+<!--                    >Login</a-->
+<!--                    >-->
+<!--                </li>-->
+<!--                <li class="nav-item" role="presentation">-->
+<!--                    <a-->
+<!--                            class="nav-link"-->
+<!--                            id="tab-register"-->
+<!--                            data-bs-toggle="pill"-->
+<!--                            data-bs-target="#pills-register"-->
+<!--                            role="tab"-->
+<!--                            aria-controls="pills-register"-->
+<!--                            aria-selected="false"-->
+<!--                    >Register</a-->
+<!--                    >-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--            &lt;!&ndash; Pills content &ndash;&gt;-->
+<!--            <div class="tab-content">-->
+<!--                <div-->
+<!--                        class="tab-pane fade show active"-->
+<!--                        id="pills-login"-->
+<!--                        role="tabpanel"-->
+<!--                        aria-labelledby="tab-login"-->
+<!--                >-->
+<!--                    <form th:action="@{/j_spring_security_check}" method="post" th:object="${accountDto}">-->
+<!--                        &lt;!&ndash; Email input &ndash;&gt;-->
+<!--                        <div class="form-outline mb-4">-->
+<!--                            <label class="form-label" for="form2Example8">Email</label>-->
+<!--                            <input-->
+<!--                                    name="username"-->
+<!--                                    type="email"-->
+<!--                                    id="form2Example8"-->
+<!--                                    class="form-control"-->
+<!--                                    required-->
+<!--                                    th:field="*{email}"-->
+<!--                            />-->
+<!--                        </div>-->
+<!--                        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>-->
+
+<!--                        &lt;!&ndash; Password input &ndash;&gt;-->
+<!--                        <div class="form-outline mb-4">-->
+<!--                            <label class="form-label" for="form2Example7">Password</label>-->
+<!--                            <input-->
+<!--                                    name="password"-->
+<!--                                    type="password"-->
+<!--                                    id="form2Example7"-->
+<!--                                    required-->
+<!--                                    class="form-control"-->
+<!--                                    th:field="*{pass}"-->
+<!--                            />-->
+<!--                        </div>-->
+<!--                        <p th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}"></p>-->
+
+<!--                        <div class="forget-pass">-->
+<!--                            <a href="/email">Forget Password?</a>-->
+<!--                        </div>-->
+
+<!--                        &lt;!&ndash; Submit button &ndash;&gt;-->
+<!--                        <div class="btn-sign-in">-->
+<!--                            <button type="submit" class="btn btn-primary btn-block mb-4">-->
+<!--                                Sign in-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--                <div-->
+<!--                        class="tab-pane fade"-->
+<!--                        id="pills-register"-->
+<!--                        role="tabpanel"-->
+<!--                        aria-labelledby="tab-register"-->
+<!--                >-->
+<!--                    <form action="/signup" method="post" th:object="${customerDto}">-->
+<!--                        <input type="hidden" name="action" value="createByUser"/>-->
+<!--                        <input type="hidden" name="roleOption" value="customer"/>-->
+<!--                        <input-->
+<!--                                type="hidden"-->
+<!--                                name="mess"-->
+<!--                                value="Create successful. Please login again"-->
+<!--                        />-->
+<!--                        &lt;!&ndash; Username input &ndash;&gt;-->
+<!--                        <div class="form-outline mb-4">-->
+<!--                            <label class="form-label" for="form2Example18"-->
+<!--                            >Username</label-->
+<!--                            >-->
+<!--                            <input-->
+<!--                                    type="text"-->
+<!--                                    id="form2Example18"-->
+<!--                                    class="form-control"-->
+<!--                                    required-->
+<!--                                    name="username"-->
+<!--                                    th:field="*{fullName}"-->
+<!--                            />-->
+<!--                            <span style="color: red" th:if="${#fields.hasErrors()}"-->
+<!--                            th:errors="*{fullName}">-->
+<!--                            </span>-->
+<!--                        </div>-->
+
+<!--                        &lt;!&ndash; Email input &ndash;&gt;-->
+<!--                        <div class="form-outline mb-4">-->
+<!--                            <label class="form-label" for="form2Example4">Email</label>-->
+<!--                            <input-->
+<!--                                    type="email"-->
+<!--                                    id="form2Example4"-->
+<!--                                    class="form-control"-->
+<!--                                    name="email"-->
+<!--                                    th:field="*{accountUserDto.email}"-->
+<!--                            />-->
+<!--                            <span style="color: red" th:if="${#fields.hasErrors('accountUserDto.email')}"-->
+<!--                                  th:errors="*{accountUserDto.email}"></span>-->
+<!--                        </div>-->
+
+<!--                        &lt;!&ndash; Password input &ndash;&gt;-->
+<!--                        <div class="password-input">-->
+<!--                            <div class="form-outline mb-4">-->
+<!--                                <label class="form-label" for="form2Example5"-->
+<!--                                >Password</label-->
+<!--                                >-->
+<!--                                <input-->
+<!--                                        type="password"-->
+<!--                                        id="form2Example5"-->
+<!--                                        class="form-control"-->
+<!--                                        name="password"-->
+<!--                                        th:field="*{accountUserDto.pass}"/>-->
+<!--                                <span style="color: red" th:if="${#fields.hasErrors('accountUserDto.pass')}"-->
+<!--                                      th:errors="*{accountUserDto.pass}"></span>-->
+<!--                            </div>-->
+<!--                            <div class="form-outline mb-4">-->
+<!--                                <label class="form-label" for="form2Example6"-->
+<!--                                >Re-enter password</label-->
+<!--                                >-->
+<!--                                <input-->
+<!--                                        type="password"-->
+<!--                                        id="form2Example6"-->
+<!--                                        class="form-control"-->
+<!--                                        name="password"-->
+<!--                                        onkeyup="checkRPW()"-->
+<!--                                />-->
+<!--                                <span style="color: red" id="message"></span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash; Submit button &ndash;&gt;-->
+<!--                        <div class="btn-sign-in">-->
+<!--                            <button type="submit" class="btn btn-primary btn-block mb-3">-->
+<!--                                Register-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            &lt;!&ndash; Pills content &ndash;&gt;-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>-->
+<!--<script>-->
+<!--    const signUpButton = document.getElementById("signUp");-->
+<!--    const signInButton = document.getElementById("signIn");-->
+<!--    const container = document.getElementById("container");-->
+
+<!--    signUpButton.addEventListener("click", () => {-->
+<!--        container.classList.add("right-panel-active");-->
+<!--    });-->
+
+<!--    signInButton.addEventListener("click", () => {-->
+<!--        container.classList.remove("right-panel-active");-->
+<!--    });-->
+
+<!--    function checkRPW() {-->
+<!--        let pw = document.getElementById("form2Example5").value;-->
+<!--        let rpw = document.getElementById("form2Example6").value;-->
+<!--        let message = document.getElementById("message");-->
+<!--        if (pw.length >= 6) {-->
+<!--            if (pw === rpw) {-->
+<!--                message.textContent = "";-->
+<!--                document.getElementById('button').style.display = 'block';-->
+<!--            } else {-->
+<!--                message.textContent = "Password not match.";-->
+<!--                message.style.color = "#C71010FF"-->
+<!--                document.getElementById('button').style.display = 'none';-->
+<!--            }-->
+<!--        } else {-->
+<!--            message.textContent = "Password must be at least 6 characters";-->
+<!--            message.style.color = "#C71010FF";-->
+<!--            document.getElementById('button').style.display = 'none';-->
+
+<!--        }-->
+<!--    }-->
+<!--</script>-->
+<!--</html>-->

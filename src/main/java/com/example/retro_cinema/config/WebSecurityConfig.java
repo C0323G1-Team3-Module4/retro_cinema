@@ -34,9 +34,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests().antMatchers("/", "/login").permitAll();
-        http.authorizeRequests().antMatchers("/customer/edit/{id}", "/customer/update").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
-        http.authorizeRequests().antMatchers("/customer", "/customer/*").access("hasAnyRole('ROLE_ADMIN')");
-        http.authorizeRequests().antMatchers("/customer/delete").access("hasAnyRole('ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/customers/edit/{id}", "/customers/update","/customers/test").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/customers", "/customers/*").access("hasAnyRole('ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/customers/delete").access("hasAnyRole('ROLE_ADMIN')");
 //        http.authorizeRequests().antMatchers("/").access("hasAnyRole('ROLE_ADMIN')");
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/400");
         http.authorizeRequests().and().formLogin()

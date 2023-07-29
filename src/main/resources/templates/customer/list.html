@@ -13,6 +13,13 @@
 
 <h1>Customer List</h1>
 
+<form  role="search" action="/customers">
+    <input  type="text" name="searchByName" placeholder="(Search by name)"
+           aria-label="Search"/>
+    <input type="submit" class="btn btn-primary btn-outline-light" value="Search"/>
+</form>
+
+
 <form>
     <div>
         <table>
@@ -23,6 +30,7 @@
                 <td>Gender</td>
                 <td>Date Of Birth</td>
                 <td>Detail</td>
+                <td>Update</td>
                 <td>Delete</td>
             </tr>
             </thead>
@@ -32,13 +40,24 @@
                 <td th:text="${customerr.fullName}"></td>
                 <td th:text="${customerr.gender}"></td>
                 <td th:text="${customerr.dob}"></td>
-                <td><a th:href="@{/info/__${customerr.id}__}" class="btn btn-primary btn-outline-light">Detail</a></td>
+                <td><a th:href="@{customers/info/__${customerr.id}__}" class="btn btn-primary btn-outline-light">Detail</a></td>
+                <td><a th:href="@{/customers/edit/__${customerr.id}__}" class="btn btn-primary btn-outline-light">Update</a></td>
                 <td></td>
             </tr>
             </tbody>
         </table>
+        <div>
+            <a th:href="@{'/customers'(page=${customerList.number -1}, searchByName=${searchByName})}"
+               th:if="${customerList.hasPrevious()}">Lui về</a>
+            <span th:text="${customerList.number +1}"></span>/<span th:text="${customerList.totalPages}"></span>
+            <a th:href="@{'/customers'(page=${customerList.number +1},searchByName=${searchByName})}"
+               th:if="${customerList.hasNext()}">Tiếp theo</a>
+        </div>
     </div>
 </form>
+
+
+
 <a th:href="@{/logout}" type="submit">logout</a>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
