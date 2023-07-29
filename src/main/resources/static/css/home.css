@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #333333;
+  color: #f5f5dc;
+}
+
+.header {
+  display: flex;
+  justify-content: space-around;
+  background-color: #ffa500;
+}
+
+.header-item {
+  padding: 2rem;
+}
+
+.banner-img img {
+  width: 100%;
+  height: auto;
+}
+
+/*Footer*/
+.footer {
+  color: white;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  font-family: Arial;
+  font-size: 1.3rem;
+  text-shadow: 0.05rem 0.05rem gray;
+}
+
+.fab {
+  color: white;
+  height: 3rem;
+  width: 3rem;
+}
