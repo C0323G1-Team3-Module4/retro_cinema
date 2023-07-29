@@ -18,6 +18,7 @@ public class AccountUser {
     @Column(columnDefinition = "bit default 1")
     private boolean flag;
     @ManyToOne
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Roles roles;
 
     @OneToMany(mappedBy = "accountUser")
