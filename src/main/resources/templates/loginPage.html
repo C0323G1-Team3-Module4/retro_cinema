@@ -1,13 +1,314 @@
-<!doctype html>
+<!--<!doctype html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <meta name="viewport"-->
+<!--          content="width=device-width, user-scalable=no, initial-scale=1">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="ie=edge">-->
+<!--    <title>Title</title>-->
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"-->
+<!--          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div aria-atomic="true" aria-live="assertive" class="toast show" role="alert" th:if="${success != null}"-->
+<!--     style="-->
+<!--    position: fixed;right: 10px;top: 100px; animation: slideInRight ease 1s, fadeOut linear 1s 4s forwards; // thời gian msg trượt-->
+<!--            transition: all linear 0.3s;z-index: 999999">-->
+<!--    <div class="toast-header bg-success">-->
+<!--        <strong class="me-auto">Notification</strong>-->
+<!--        <small>1 second ago</small>-->
+<!--    </div>-->
+<!--    <div class="toast-body" th:text="${success}"></div>-->
+<!--</div>-->
+
+<!--<div aria-atomic="true" aria-live="assertive" class="toast show" role="alert" th:if="${fail!=null}"-->
+<!--     style="-->
+<!--    position: fixed;right: 10px;top: 100px; animation: slideInRight ease 1s, fadeOut linear 1s 4s forwards; // thời gian msg trượt-->
+<!--            transition: all linear 0.3s;z-index: 999999">-->
+<!--    <div class="toast-header bg-danger">-->
+<!--        <strong class="me_auto">Notification</strong>-->
+<!--        <small>1 second ago</small>-->
+<!--    </div>-->
+<!--    <div class="toast-body" th:text="${fail}"></div>-->
+<!--</div>-->
+
+<!--<div class="container" id="container">-->
+<!--    <div class="form-container sign-up-container">-->
+<!--        &lt;!&ndash;Form sign up &ndash;&gt;-->
+<!--        <form action="/signup" method="post" th:object="${customerDto}">-->
+<!--            <h1>Sign up</h1>-->
+<!--            <div class="social-container">-->
+<!--                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>-->
+<!--                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>-->
+<!--                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>-->
+<!--            </div>-->
+
+<!--            <div class="row" style=" height: 70px">-->
+<!--                <div class="col-md-6 mb-2 col-6">-->
+<!--                    <div class="form-outline mb-4" style="height: 50px;width: 250px">-->
+<!--                        <input required id="form2Example18" type="text" th:field="*{fullName}"-->
+<!--                               class="form-control form-control-lg"-->
+<!--                               style="padding-right: 10px;padding-left: 10px;width: 100%"/>-->
+<!--                        <span style="color: red" th:if="${#fields.hasErrors('fullName')}"-->
+<!--                              th:errors="*{fullName}"></span>-->
+<!--                        <label class="form-label" for="form2Example18">Full Name</label>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-6 mb-2 col-6">-->
+<!--                    <div class="form-outline mb-4" style="height: 50px;width: 250px">-->
+<!--                        <input required id="form2Example19" type="text" th:field="*{gender}"-->
+<!--                               class="form-control form-control-lg"-->
+<!--                               style="padding-right: 10px;padding-left: 10px;width: 100%"/>-->
+<!--                        <span style="color: red" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></span>-->
+<!--                        <label class="form-label" for="form2Example19">Gender</label>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="row" style=" height: 70px">-->
+<!--                <div class="col-md-6 mb-2 col-6">-->
+<!--                    <div class="form-outline mb-4" style="height: 50px;width: 250px">-->
+<!--                        <input required id="form2Example20" type="text" th:field="*{dob}"-->
+<!--                               class="form-control form-control-lg"-->
+<!--                               style="padding-right: 10px;padding-left: 10px;width: 100%"/>-->
+<!--                        <span style="color: red" th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}"></span>-->
+<!--                        <label class="form-label" for="form2Example20">Date Of Birth</label>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-6 mb-2 col-6">-->
+<!--                    <div class="form-outline mb-4" style="height: 50px;width: 250px">-->
+<!--                        <input required id="form2Example2" type="text" th:field="*{address}"-->
+<!--                               class="form-control form-control-lg"-->
+<!--                               style="padding-right: 10px;padding-left: 10px;width: 100%"/>-->
+<!--                        <span style="color: red" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>-->
+<!--                        <label class="form-label" for="form2Example2">Address</label>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="form-outline mb-4" style="height: 50px">-->
+<!--                <input type="text" id="form2Example4" style="width: 100%" th:field="*{accountUserDto.email}"-->
+<!--                       class="form-control form-control-lg"/>-->
+<!--                <span style="color: red" th:if="${#fields.hasErrors('accountUserDto.email')}"-->
+<!--                      th:errors="*{accountUserDto.email}"></span>-->
+<!--                <label class="form-label" for="form2Example4">Email</label>-->
+<!--            </div>-->
+
+<!--            <div class="row" style=" height: 70px">-->
+<!--                <div class="col-md-6 mb-2">-->
+<!--                    <div class="form-outline mb-4" style="height: 50px;width: 250px">-->
+<!--                        <input required type="password" id="form2Example5" th:field="*{accountUserDto.pass}"-->
+<!--                               class="form-control form-control-lg"-->
+<!--                               style="padding-right: 10px;padding-left: 10px;width: 100%"/>-->
+<!--                        <span style="color: red" th:if="${#fields.hasErrors('accountUserDto.pass')}"-->
+<!--                              th:errors="*{accountUserDto.pass}"></span>-->
+<!--                        <label class="form-label" for="form2Example5">Password</label>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-6 mb-4">-->
+<!--                    <div class="form-outline mb-4" style="height: 50px;width: 250px">-->
+<!--                        <input required type="password" id="form2Example6" onkeyup="checkRPW()"-->
+<!--                               class="form-control form-control-lg"-->
+<!--                               style="padding-right: 10px;padding-left: 10px;width: 100%"/>-->
+<!--                        <span style="color: red" id="message"></span>-->
+<!--                        <label class="form-label" for="form2Example6">Confirm Password</label>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <button id="button" type="submit">Sign Up</button>-->
+<!--        </form>-->
+<!--    </div>-->
+
+
+<!--    <div class="form-container sign-in-container">-->
+<!--        <form th:action="@{/j_spring_security_check}" method="post" th:object="${accountDto}">-->
+<!--            <h1>Sign in</h1>-->
+<!--            <div class="social-container">-->
+<!--                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>-->
+<!--                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>-->
+<!--                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>-->
+<!--            </div>-->
+<!--            <p style="color: #D90B0B" th:if="${msg!= null}" th:text="${msg}"></p>-->
+<!--            <div class="form-outline mb-4" style="height: 50px;width: 70%">-->
+<!--                <input type="email" required id="form2Example8" th:field="*{email}" class="form-control form-control-lg"-->
+<!--                       style="padding-right: 10px;padding-left: 10px;width: 250px"/>-->
+<!--                <label class="form-label" for="form2Example8">Email</label>-->
+<!--            </div>-->
+<!--            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>-->
+
+<!--            <div class="form-outline mb-4" style="height: 50px;width: 70%">-->
+<!--                <input type="password" required id="form2Example7" th:field="*{pass}"-->
+<!--                       class="form-control form-control-lg"-->
+<!--                       style="padding-right: 10px;padding-left: 10px;width: 250px"/>-->
+<!--                <label class="form-label" for="form2Example7">Password</label>-->
+<!--            </div>-->
+<!--            <p th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}"></p>-->
+<!--            <a href="/email">Forgot your password?</a>-->
+<!--            <button type="submit">Sign In</button>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--    <div class="overlay-container">-->
+<!--        <div class="overlay">-->
+<!--            <div class="overlay-panel overlay-left">-->
+<!--                <h1>Welcome Back!</h1>-->
+<!--                <p>To keep connected with us please log_in with your personal info</p>-->
+<!--                <button class="ghost" id="signIn">Sign In</button>-->
+<!--            </div>-->
+<!--            <div class="overlay-panel overlay-right">-->
+<!--                <h1> Welcome to Retro Cinema!</h1>-->
+<!--                <p>Enter your personal details and start journey with us</p>-->
+<!--                <button class="ghost" id="signUp">Sign Up</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"-->
+<!--        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"-->
+<!--        crossorigin="anonymous"></script>-->
+<!--<script>-->
+<!--    const signUpButton = document.getElementById("signUp");-->
+<!--    const signInButton = document.getElementById("signIn");-->
+<!--    const container = document.getElementById("container");-->
+
+<!--    signUpButton.addEventListener("click", () => {-->
+<!--        container.classList.add("right-panel-active");-->
+<!--    });-->
+
+<!--    signInButton.addEventListener("click", () => {-->
+<!--        container.classList.remove("right-panel-active");-->
+<!--    });-->
+
+<!--    function checkRPW() {-->
+<!--        let pw = document.getElementById("form2Example5").value;-->
+<!--        let rpw = document.getElementById("form2Example6").value;-->
+<!--        let message = document.getElementById("message");-->
+<!--        if (pw.length >= 6) {-->
+<!--            if (pw === rpw) {-->
+<!--                message.textContent = "";-->
+<!--                document.getElementById('button').style.display = 'block';-->
+<!--            } else {-->
+<!--                message.textContent = "Password not match.";-->
+<!--                message.style.color = "#C71010FF"-->
+<!--                document.getElementById('button').style.display = 'none';-->
+<!--            }-->
+<!--        } else {-->
+<!--            message.textContent = "Password must be at least 6 characters";-->
+<!--            message.style.color = "#C71010FF";-->
+<!--            document.getElementById('button').style.display = 'none';-->
+
+<!--        }-->
+<!--    }-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Title</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+    />
+    <!-- Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet"
+    />
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+    />
+    <style>
+        body {
+            background-color: #333333;
+            color: #f5f5dc;
+            position: relative;
+        }
+
+        .nav-item {
+            border: #f4eee0 solid 1px;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            margin: 1rem;
+        }
+
+        .nav-pills .nav-link.active,
+        .nav-pills .show > .nav-link {
+            color: #f4eee0;
+            background-color: #ffa500;
+        }
+
+        .nav-pills .nav-link {
+            color: #f4eee0;
+        }
+
+        .nav-pills .nav-link:hover {
+            color: gray;
+        }
+
+        .form-outline {
+            margin: 1rem;
+        }
+
+        .form-outline input {
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            background-color: white;
+            color: #f4eee0;
+        }
+
+        button {
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            background-color: #f4eee0;
+            color: #333;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ccc;
+        }
+
+        .btn-sign-in {
+            text-align: center;
+        }
+
+        .background-sign-in {
+            width: 100%;
+            height: auto;
+            z-index: -1;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #333333;
+            border-radius: 10px;
+            border: 1px white solid;
+        }
+
+        .password-input {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .forget-pass {
+            margin: 0.2rem 1rem;
+        }
+    </style>
 </head>
 <body>
 
@@ -33,139 +334,183 @@
     <div class="toast-body" th:text="${fail}"></div>
 </div>
 
-<div class="container" id="container">
-    <div class="form-container sign-up-container">
-        <!--Form sign up -->
-        <form action="/signup" method="post" th:object="${customerDto}">
-            <h1>Sign up</h1>
-            <div class="social-container">
-                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-            </div>
+<div class="background-img">
+    <img
+            class="background-sign-in"
+            src="/static/img/background-sign-in.png"
+            alt=""
+    />
+</div>
+<div class="container">
+    <div class="row" >
+        <div class="input-form" style="padding-top: 2rem">
+            <!-- adjust column width as needed -->
+            <!-- Pills navs -->
+            <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a
+                            class="nav-link active"
+                            id="tab-login"
+                            data-bs-toggle="pill"
+                            data-bs-target="#pills-login"
+                            role="tab"
+                            aria-controls="pills-login"
+                            aria-selected="true"
+                    >Login</a
+                    >
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a
+                            class="nav-link"
+                            id="tab-register"
+                            data-bs-toggle="pill"
+                            data-bs-target="#pills-register"
+                            role="tab"
+                            aria-controls="pills-register"
+                            aria-selected="false"
+                    >Register</a
+                    >
+                </li>
+            </ul>
+            <!-- Pills content -->
+            <div class="tab-content">
+                <div
+                        class="tab-pane fade show active"
+                        id="pills-login"
+                        role="tabpanel"
+                        aria-labelledby="tab-login"
+                >
+                    <form th:action="@{/j_spring_security_check}" method="post" th:object="${accountDto}">
+                        <!-- Email input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form2Example8">Email</label>
+                            <input
+                                    name="username"
+                                    type="email"
+                                    id="form2Example8"
+                                    class="form-control"
+                                    required
+                                    th:field="*{email}"
+                            />
+                        </div>
+                        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
 
-            <div class="row" style=" height: 70px">
-                <div class="col-md-6 mb-2 col-6">
-                    <div class="form-outline mb-4" style="height: 50px;width: 250px">
-                        <input required id="form2Example18" type="text" th:field="*{fullName}"
-                               class="form-control form-control-lg"
-                               style="padding-right: 10px;padding-left: 10px;width: 100%"/>
-                        <span style="color: red" th:if="${#fields.hasErrors('fullName')}"
-                              th:errors="*{fullName}"></span>
-                        <label class="form-label" for="form2Example18">Full Name</label>
-                    </div>
+                        <!-- Password input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form2Example7">Password</label>
+                            <input
+                                    name="password"
+                                    type="password"
+                                    id="form2Example7"
+                                    required
+                                    class="form-control"
+                                    th:field="*{pass}"
+                            />
+                        </div>
+                        <p th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}"></p>
+
+                        <div class="forget-pass">
+                            <a href="/email">Forget Password?</a>
+                        </div>
+
+                        <!-- Submit button -->
+                        <div class="btn-sign-in">
+                            <button type="submit" class="btn btn-primary btn-block mb-4">
+                                Sign in
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <div class="col-md-6 mb-2 col-6">
-                    <div class="form-outline mb-4" style="height: 50px;width: 250px">
-                        <input required id="form2Example19" type="text" th:field="*{gender}"
-                               class="form-control form-control-lg"
-                               style="padding-right: 10px;padding-left: 10px;width: 100%"/>
-                        <span style="color: red" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></span>
-                        <label class="form-label" for="form2Example19">Gender</label>
-                    </div>
+                <div
+                        class="tab-pane fade"
+                        id="pills-register"
+                        role="tabpanel"
+                        aria-labelledby="tab-register"
+                >
+                    <form action="/signup" method="post" th:object="${customerDto}">
+                        <input type="hidden" name="action" value="createByUser"/>
+                        <input type="hidden" name="roleOption" value="customer"/>
+                        <input
+                                type="hidden"
+                                name="mess"
+                                value="Create successful. Please login again"
+                        />
+                        <!-- Username input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form2Example18"
+                            >Username</label
+                            >
+                            <input
+                                    type="text"
+                                    id="form2Example18"
+                                    class="form-control"
+                                    required
+                                    name="username"
+                                    th:field="*{fullName}"
+                            />
+                            <span style="color: red" th:if="${#fields.hasErrors()}"
+                                  th:errors="*{fullName}">
+                            </span>
+                        </div>
+
+                        <!-- Email input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form2Example4">Email</label>
+                            <input
+                                    type="email"
+                                    id="form2Example4"
+                                    class="form-control"
+                                    name="email"
+                                    th:field="*{accountUserDto.email}"
+                            />
+                            <span style="color: red" th:if="${#fields.hasErrors('accountUserDto.email')}"
+                                  th:errors="*{accountUserDto.email}"></span>
+                        </div>
+
+                        <!-- Password input -->
+                        <div class="password-input">
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="form2Example5"
+                                >Password</label
+                                >
+                                <input
+                                        type="password"
+                                        id="form2Example5"
+                                        class="form-control"
+                                        name="password"
+                                        th:field="*{accountUserDto.pass}"/>
+                                <span style="color: red" th:if="${#fields.hasErrors('accountUserDto.pass')}"
+                                      th:errors="*{accountUserDto.pass}"></span>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="form2Example6"
+                                >Re-enter password</label
+                                >
+                                <input
+                                        type="password"
+                                        id="form2Example6"
+                                        class="form-control"
+                                        name="password"
+                                        onkeyup="checkRPW()"
+                                />
+                                <span style="color: red" id="message"></span>
+                            </div>
+                        </div>
+                        <!-- Submit button -->
+                        <div class="btn-sign-in">
+                            <button type="submit" class="btn btn-primary btn-block mb-3">
+                                Register
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
-
-            <div class="row" style=" height: 70px">
-                <div class="col-md-6 mb-2 col-6">
-                    <div class="form-outline mb-4" style="height: 50px;width: 250px">
-                        <input required id="form2Example20" type="text" th:field="*{dob}"
-                               class="form-control form-control-lg"
-                               style="padding-right: 10px;padding-left: 10px;width: 100%"/>
-                        <span style="color: red" th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}"></span>
-                        <label class="form-label" for="form2Example20">Date Of Birth</label>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-2 col-6">
-                    <div class="form-outline mb-4" style="height: 50px;width: 250px">
-                        <input required id="form2Example2" type="text" th:field="*{address}"
-                               class="form-control form-control-lg"
-                               style="padding-right: 10px;padding-left: 10px;width: 100%"/>
-                        <span style="color: red" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
-                        <label class="form-label" for="form2Example2">Address</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-outline mb-4" style="height: 50px">
-                <input type="text" id="form2Example4" style="width: 100%" th:field="*{accountUserDto.email}"
-                       class="form-control form-control-lg"/>
-                <span style="color: red" th:if="${#fields.hasErrors('accountUserDto.email')}"
-                      th:errors="*{accountUserDto.email}"></span>
-                <label class="form-label" for="form2Example4">Email</label>
-            </div>
-
-            <div class="row" style=" height: 70px">
-                <div class="col-md-6 mb-2">
-                    <div class="form-outline mb-4" style="height: 50px;width: 250px">
-                        <input required type="password" id="form2Example5" th:field="*{accountUserDto.pass}"
-                               class="form-control form-control-lg"
-                               style="padding-right: 10px;padding-left: 10px;width: 100%"/>
-                        <span style="color: red" th:if="${#fields.hasErrors('accountUserDto.pass')}"
-                              th:errors="*{accountUserDto.pass}"></span>
-                        <label class="form-label" for="form2Example5">Password</label>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="form-outline mb-4" style="height: 50px;width: 250px">
-                        <input required type="password" id="form2Example6" onkeyup="checkRPW()"
-                               class="form-control form-control-lg"
-                               style="padding-right: 10px;padding-left: 10px;width: 100%"/>
-                        <span style="color: red" id="message"></span>
-                        <label class="form-label" for="form2Example6">Confirm Password</label>
-                    </div>
-                </div>
-            </div>
-            <button id="button" type="submit">Sign Up</button>
-        </form>
-    </div>
-
-
-    <div class="form-container sign-in-container">
-        <form th:action="@{/j_spring_security_check}" method="post" th:object="${accountDto}">
-            <h1>Sign in</h1>
-            <div class="social-container">
-                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-            <p style="color: #D90B0B" th:if="${msg!= null}" th:text="${msg}"></p>
-            <div class="form-outline mb-4" style="height: 50px;width: 70%">
-                <input type="email" required id="form2Example8" th:field="*{email}" class="form-control form-control-lg"
-                       style="padding-right: 10px;padding-left: 10px;width: 250px"/>
-                <label class="form-label" for="form2Example8">Email</label>
-            </div>
-            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
-
-            <div class="form-outline mb-4" style="height: 50px;width: 70%">
-                <input type="password" required id="form2Example7" th:field="*{pass}"
-                       class="form-control form-control-lg"
-                       style="padding-right: 10px;padding-left: 10px;width: 250px"/>
-                <label class="form-label" for="form2Example7">Password</label>
-            </div>
-            <p th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}"></p>
-            <a href="/email">Forgot your password?</a>
-            <button type="submit">Sign In</button>
-        </form>
-    </div>
-    <div class="overlay-container">
-        <div class="overlay">
-            <div class="overlay-panel overlay-left">
-                <h1>Welcome Back!</h1>
-                <p>To keep connected with us please log_in with your personal info</p>
-                <button class="ghost" id="signIn">Sign In</button>
-            </div>
-            <div class="overlay-panel overlay-right">
-                <h1> Welcome to Retro Cinema!</h1>
-                <p>Enter your personal details and start journey with us</p>
-                <button class="ghost" id="signUp">Sign Up</button>
-            </div>
+            <!-- Pills content -->
         </div>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     const signUpButton = document.getElementById("signUp");
     const signInButton = document.getElementById("signIn");
@@ -200,5 +545,5 @@
         }
     }
 </script>
-</body>
 </html>
+
