@@ -25,7 +25,9 @@
       <div class="header-item">Home</div>
       <div class="header-item">Home</div>
       <div class="header-item">Home</div>
-      <div class="header-item">Login</div>
+      <div class="header-item" th:if="${session.userLogin==null}"><a th:href="@{/login}">Login</a></div>
+      <div class="header-item" th:if="${session.userLogin!=null}"><a th:href="@{/logoutSuccessful}">Logout</a></div>
+      <div class="header-item" th:if="${session.userLogin}"><span th:text="${session.userLogin.getEmail()}">></span></div>
     </div>
     <div class="body">
       <div class="body-banner">
