@@ -1,6 +1,7 @@
 package com.example.retro_cinema.user.dto;
 
 
+import com.example.retro_cinema.customer.model.Customer;
 import com.example.retro_cinema.user.model.Roles;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -19,9 +20,21 @@ public class AccountUserDto implements Validator {
     @Size(min = 6, max = 30, message = "Password must be at least 6 character!")
     private String pass;
     private Roles roles;
+    private Customer customer;
     private boolean flag;
 
     public AccountUserDto() {
+    }
+
+    public AccountUserDto(String email, String pass) {
+        this.email = email;
+        this.pass = pass;
+    }
+
+    public AccountUserDto(String email, String pass, Customer customer) {
+        this.email = email;
+        this.pass = pass;
+        this.customer = customer;
     }
 
     public AccountUserDto(Integer id, String email, String pass, Roles roles, boolean flag) {
@@ -29,6 +42,15 @@ public class AccountUserDto implements Validator {
         this.email = email;
         this.pass = pass;
         this.roles = roles;
+        this.flag = flag;
+    }
+
+    public AccountUserDto(Integer id, String email, String pass, Roles roles, Customer customer, boolean flag) {
+        this.id = id;
+        this.email = email;
+        this.pass = pass;
+        this.roles = roles;
+        this.customer = customer;
         this.flag = flag;
     }
 
@@ -70,6 +92,14 @@ public class AccountUserDto implements Validator {
 
     public void setFlag(boolean flag) {
         this.flag = flag;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     @Override
