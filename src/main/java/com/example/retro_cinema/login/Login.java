@@ -140,7 +140,7 @@ public class Login {
             , RedirectAttributes redirectAttributes, HttpServletRequest request, Model model) throws UnsupportedEncodingException, MessagingException {
         if (bindingResult.hasErrors()) {
             model.addAttribute("accountDto", new AccountUserDto());
-            return "/loginPage";
+            return "loginPage";
         }
         if (iCustomerService.findByEmail(customerDto.getAccountUserDto().getEmail()) != null) {
             redirectAttributes.addFlashAttribute("fail", "This email already exists!");
@@ -174,7 +174,7 @@ public class Login {
 
     @GetMapping("/email")
     public String email() {
-        return "/email_reset_pw";
+        return "email_reset_pw";
     }
 
     @PostMapping("/confirm_email")
@@ -213,7 +213,7 @@ public class Login {
         if (iCustomerService.verifyReset(code)) {
             Customer customer = iCustomerService.findByEmail(email);
             model.addAttribute("customers", customer);
-            return "/reset_pw";
+            return "reset_pw";
         } else {
             redirectAttributes.addFlashAttribute("fail", "Sorry, we could not verify account. It maybe already verified, or verification code is incorrect.");
             return "redirect:/login";

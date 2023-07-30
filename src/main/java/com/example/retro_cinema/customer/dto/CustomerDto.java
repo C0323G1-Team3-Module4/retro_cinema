@@ -16,13 +16,13 @@ public class CustomerDto implements Validator {
     @NotBlank(message = "Name could not be void!")
     @Size(min = 2, max = 50)
     private String fullName;
-    @NotBlank(message = "Phone could not be void!")
-    @Size(min = 10, max = 12)
+//    @NotBlank(message = "Phone could not be void!")
+//    @Size(min = 10, max = 12)
     private String phone;
-    @NotBlank(message = "Address could not be void!")
+//    @NotBlank(message = "Address could not be void!")
     private String address;
     private String gender;
-    @NotNull(message = "Date of birth could not be void!")
+//    @NotNull(message = "Date of birth could not be void!")
     private String dob;
     private boolean enabled;
     private Date expiryDate;

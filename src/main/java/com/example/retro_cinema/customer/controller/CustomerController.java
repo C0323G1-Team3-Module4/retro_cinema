@@ -4,6 +4,7 @@ package com.example.retro_cinema.customer.controller;
 import com.example.retro_cinema.customer.dto.CustomerDto;
 import com.example.retro_cinema.customer.model.Customer;
 import com.example.retro_cinema.customer.service.ICustomerService;
+import com.example.retro_cinema.user.service.account.IAccountService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -23,11 +24,13 @@ import javax.validation.Valid;
 public class CustomerController {
     @Autowired
     private ICustomerService iCustomerService;
-
+    @Autowired
+    private IAccountService iAccountService;
     @GetMapping("")
     public String CustomerList(@PageableDefault(value = 1, sort = "id", direction = Sort.Direction.DESC)
                                Pageable pageable, @RequestParam(value = "searchByName", defaultValue = "") String searchByName, Model model) {
         model.addAttribute("customerList", iCustomerService.findAll(searchByName, pageable));
+        model.addAttribute("accountUser",iAccountService.findAll());
         model.addAttribute("searchByName", searchByName);
         return "/customer/list";
     }
