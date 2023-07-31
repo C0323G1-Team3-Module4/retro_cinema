@@ -58,6 +58,11 @@ public class CustomerDto implements Validator {
         this.fullName = fullName;
     }
 
+    public CustomerDto(String fullName, AccountUserDto accountUserDto) {
+        this.fullName = fullName;
+        this.accountUserDto = accountUserDto;
+    }
+
     public Integer getId() {
         return id;
     }
