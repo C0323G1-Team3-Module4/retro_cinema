@@ -16,13 +16,13 @@ public class CustomerDto implements Validator {
     @NotBlank(message = "Name could not be void!")
     @Size(min = 2, max = 50)
     private String fullName;
-//    @NotBlank(message = "Phone could not be void!")
-//    @Size(min = 10, max = 12)
+    @NotBlank(message = "Phone could not be void!")
+    @Size(min = 10, max = 12)
     private String phone;
-//    @NotBlank(message = "Address could not be void!")
+    @NotBlank(message = "Address could not be void!")
     private String address;
     private String gender;
-//    @NotNull(message = "Date of birth could not be void!")
+    @NotNull(message = "Date of birth could not be void!")
     private String dob;
     private boolean enabled;
     private Date expiryDate;
@@ -47,19 +47,15 @@ public class CustomerDto implements Validator {
         this.accountUserDto = accountUserDto;
     }
 
-    public CustomerDto(String fullName, String address, String gender, String dob, AccountUserDto accountUserDto) {
-        this.fullName = fullName;
-        this.address = address;
-        this.gender = gender;
-        this.dob = dob;
-        this.accountUserDto = accountUserDto;
-    }
-
     public CustomerDto(String fullName, String address, String gender, String dob) {
         this.fullName = fullName;
         this.address = address;
         this.gender = gender;
         this.dob = dob;
+    }
+
+    public CustomerDto(String fullName) {
+        this.fullName = fullName;
     }
 
     public Integer getId() {
