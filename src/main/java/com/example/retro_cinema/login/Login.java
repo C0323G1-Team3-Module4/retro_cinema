@@ -4,6 +4,7 @@ import com.example.retro_cinema.customer.dto.CustomerDto;
 import com.example.retro_cinema.customer.model.Customer;
 import com.example.retro_cinema.customer.service.ICustomerService;
 import com.example.retro_cinema.user.dto.AccountUserDto;
+import com.example.retro_cinema.user.dto.UserDto;
 import com.example.retro_cinema.user.model.AccountUser;
 import com.example.retro_cinema.user.model.Roles;
 import com.example.retro_cinema.user.service.account.IAccountService;
@@ -122,7 +123,7 @@ public class Login {
     }
 
     @PostMapping("/signup")
-    public String signup(@Valid @ModelAttribute CustomerDto customerDto, BindingResult bindingResult
+    public String signup(@Valid @ModelAttribute UserDto customerDto, BindingResult bindingResult
             , RedirectAttributes redirectAttributes, HttpServletRequest request, Model model) throws UnsupportedEncodingException, MessagingException {
         if (bindingResult.hasErrors()) {
             model.addAttribute("accountDto", new AccountUserDto());
