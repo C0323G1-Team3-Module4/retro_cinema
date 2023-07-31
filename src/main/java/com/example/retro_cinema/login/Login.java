@@ -46,26 +46,21 @@ public class Login {
     }
 
 
-
     @GetMapping("/login")
     public String formLogin(@RequestParam(value = "error", required = false)
-                            boolean error, Principal principal, Model model, HttpServletRequest request) {
+                            boolean error, Principal principal, Model model) {
         String authentication = SecurityContextHolder.getContext().getAuthentication().getName();
         if (!"anonymousUser".equals(authentication)) {
             AccountUser accountUser = iAccountService.findByEmail(principal.getName());
             System.out.println(accountUser.getEmail());
-            HttpSession session = request.getSession(); //Make session
-            session.setAttribute("userLogin", accountUser);
-            session.setMaxInactiveInterval(600); //login max in 30minutes
+
             if (!iCustomerService.findByEmail(accountUser.getEmail()).isEnabled()) {
                 model.addAttribute("accountDto", new AccountUserDto());
                 model.addAttribute("customerDto", new CustomerDto());
-//                model.addAttribute("fail", "Sorry, we could not verify account. It maybe already verified, or verification code is incorrect.");
                 return "/loginPage";
             } else {
                 model.addAttribute("info", iCustomerService.findByIdAccount(accountUser.getId()));
             }
-            model.addAttribute("userLogin",accountUser);
             return "home";
         }
         if (error) {
@@ -77,24 +72,15 @@ public class Login {
     }
 
     @GetMapping("/logoutSuccessful")
-    public String logout(HttpServletRequest request, RedirectAttributes redirectAttributes) {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (authentication != null){
-//            SecurityContextHolder.clearContext();
-//            redirectAttributes.addFlashAttribute("message","successful logout");
-//        }
-//        HttpSession session = request.getSession();
-//        session.removeAttribute("userLogin");
-//        return "home";
-
-        HttpSession session = request.getSession();
-        session.removeAttribute("userLogin");
-
-        // Add a flash attribute for displaying a success message on the redirected page
-//        redirectAttributes.addFlashAttribute("message", "Logout successful");
-
-        // Redirect the user to the home page or any other page after logout
-        return "home"; // Replace "home" with the appropriate URL mapping for your home page
+    public String logout(Model model,RedirectAttributes redirectAttributes) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            SecurityContextHolder.clearContext();
+            redirectAttributes.addFlashAttribute("message", "successful logout");
+        }
+        redirectAttributes.addFlashAttribute("message", "Logout successful");
+        model.addAttribute("info",null);
+        return "home";
     }
 
     @GetMapping(value = "/userInfo")
@@ -108,6 +94,7 @@ public class Login {
                 return "redirect:/login";
             } else {
                 model.addAttribute("info", iCustomerService.findByIdAccount(accountUser.getId()));
+                System.out.println("userName: " + userName);
                 return "/home";
             }
         } else if (accountUser.getRoles().getRoleName().equals("ROLE_ADMIN")) {
@@ -117,7 +104,6 @@ public class Login {
         }
         return "/home";
     }
-
 
 
     @GetMapping("/400")
