@@ -109,6 +109,11 @@
             transform: translateX(-50%);
             z-index: 1000;
         }
+        input[type="password"],
+        input[type="text"],
+        input[type="email"] {
+            color: #0d060e;
+        }
     </style>
 </head>
 <body>
@@ -138,8 +143,8 @@
 
 <div class="fail-msg">
     <div aria-atomic="true" aria-live="assertive" class="toast show" role="alert" th:if="${fail!=null}">
-        <div class="toast-header bg-light">
-            <strong class="me-auto text-danger">Notification</strong>
+        <div class="toast-header" style="background-color: #e32f38">
+            <strong class="me-auto" style="color: white">Notification</strong>
             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body text-danger" th:text="${fail}"></div>
@@ -172,8 +177,7 @@
                     >
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a
-                            class="nav-link"
+                    <a class="nav-link"
                             id="tab-register"
                             data-bs-toggle="pill"
                             data-bs-target="#pills-register"
@@ -356,6 +360,16 @@
 
         }
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Check if the "fail" message is "This email already exists!"
+        const failMsg = document.querySelector('.toast-body').textContent;
+        const checkMsg = "This email already exists!";
+        if(failMsg == checkMsg) {
+            const tabRegister = document.getElementById("tab-register");
+            tabRegister.click();
+        }
+    });
 </script>
 </html>
 
