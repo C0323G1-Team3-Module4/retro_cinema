@@ -11,8 +11,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+
+import javax.sql.DataSource;
 
 
 @Configuration
@@ -20,7 +22,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailServiceImpl userDetailService;
-
+    @Autowired
+    private DataSource dataSource;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -34,8 +37,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.authorizeRequests().antMatchers("/","/login").permitAll();
-        http.authorizeRequests().antMatchers("/customers/edit/{id}", "/customers/update","/customers/test").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/", "/login").permitAll();
+        http.authorizeRequests().antMatchers("/customers/edit/{id}", "/customers/update", "/customers/test").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
         http.authorizeRequests().antMatchers("/customers", "/customers/*").access("hasAnyRole('ROLE_ADMIN')");
         http.authorizeRequests().antMatchers("/customers/delete").access("hasAnyRole('ROLE_ADMIN')");
 //        http.authorizeRequests().antMatchers("/").access("hasAnyRole('ROLE_ADMIN')");
@@ -50,15 +53,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //cau hinh logout
                 .and().logout().logoutUrl("/logout")
                 .logoutSuccessUrl("/logoutSuccessful");
+
         // cau hinh remember me
         http.authorizeRequests().and()
                 .rememberMe().tokenRepository(this.persistentTokenRepository())
-                .tokenValiditySeconds(24 * 60 * 60);
+                .tokenValiditySeconds(86400);
     }
 
     @Bean
     public PersistentTokenRepository persistentTokenRepository() {
-        InMemoryTokenRepositoryImpl memory = new InMemoryTokenRepositoryImpl();
-        return memory;
+        JdbcTokenRepositoryImpl db = new JdbcTokenRepositoryImpl();
+        db.setDataSource(dataSource);
+        return db;
     }
+//    @Bean
+//    public PersistentTokenRepository persistentTokenRepository(){
+//        InMemoryTokenRepositoryImpl memory = new InMemoryTokenRepositoryImpl();
+//        return memory;
+//    }
 }
