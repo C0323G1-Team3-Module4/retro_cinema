@@ -102,6 +102,18 @@
         .forget-pass {
             margin: 0.2rem 1rem;
         }
+        .fail-msg {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+        input[type="password"],
+        input[type="text"],
+        input[type="email"] {
+            color: #0d060e;
+        }
     </style>
 </head>
 <body>
@@ -116,15 +128,27 @@
     <div class="toast-body" th:text="${success}"></div>
 </div>
 
-<div aria-atomic="true" aria-live="assertive" class="toast show" role="alert" th:if="${fail!=null}"
-     style="
-    position: fixed;right: 10px;top: 100px; animation: slideInRight ease 1s, fadeOut linear 1s 4s forwards; // thời gian msg trượt
-            transition: all linear 0.3s;z-index: 999999">
-    <div class="toast-header bg-danger">
-        <strong class="me_auto">Notification</strong>
-        <small>1 second ago</small>
+<!--<div class="fail-msg">-->
+<!--    <div aria-atomic="true" aria-live="assertive" class="toast show" role="alert" th:if="${fail!=null}"-->
+<!--         style="-->
+<!--    position: fixed;right: 10px;top: 100px; animation: slideInRight ease 1s, fadeOut linear 1s 4s forwards; // thời gian msg trượt-->
+<!--            transition: all linear 0.3s;z-index: 999999">-->
+<!--        <div class="toast-header bg-danger">-->
+<!--            <strong class="me_auto">Notification</strong>fail-->
+<!--            <small>1 second ago</small>-->
+<!--        </div>-->
+<!--        <div class="toast-body" th:text="${fail}"></div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<div class="fail-msg">
+    <div aria-atomic="true" aria-live="assertive" class="toast show" role="alert" th:if="${fail!=null}">
+        <div class="toast-header" style="background-color: #e32f38">
+            <strong class="me-auto" style="color: white">Notification</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body text-danger" th:text="${fail}"></div>
     </div>
-    <div class="toast-body" th:text="${fail}"></div>
 </div>
 
 <div class="background-img">
@@ -153,8 +177,7 @@
                     >
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a
-                            class="nav-link"
+                    <a class="nav-link"
                             id="tab-register"
                             data-bs-toggle="pill"
                             data-bs-target="#pills-register"
@@ -337,6 +360,16 @@
 
         }
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Check if the "fail" message is "This email already exists!"
+        const failMsg = document.querySelector('.toast-body').textContent;
+        const checkMsg = "This email already exists!";
+        if(failMsg == checkMsg) {
+            const tabRegister = document.getElementById("tab-register");
+            tabRegister.click();
+        }
+    });
 </script>
 </html>
 
