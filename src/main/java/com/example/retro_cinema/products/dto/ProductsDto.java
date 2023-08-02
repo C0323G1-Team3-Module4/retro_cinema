@@ -3,13 +3,19 @@ package com.example.retro_cinema.products.dto;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import javax.persistence.Column;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class ProductsDto implements Validator {
     private int id;
     private String productName;
+    @NotNull(message = "Price is required")
+    @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than 0")
     private double price;
     private boolean flag;
+    @NotBlank(message = "Img cannot is empty")
     private String img;
 
     public ProductsDto() {
@@ -72,9 +78,10 @@ public class ProductsDto implements Validator {
     public void validate(Object target, Errors errors) {
         ProductsDto productsDto = (ProductsDto) target;
         if(productsDto.getProductName().equals("")){
-            errors.rejectValue("productsName",null,"Product name cannot empty!");
-        } else if (!productsDto.getProductName().matches("^[a-zA-Z0-9]+([ \\\\t]+[a-zA-Z0-9]+)*$")) {
-            errors.rejectValue("productsName",null,"");
+            errors.rejectValue("productName",null,"Product name cannot empty!");
+        } else if (!productsDto.getProductName().matches("^[a-zA-Z0-9]+([\\\\t]+[a-zA-Z0-9]+)*$")) {
+            errors.rejectValue("productName",null,"Product name no special characters");
         }
+
     }
 }
