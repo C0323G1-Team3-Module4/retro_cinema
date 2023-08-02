@@ -65,7 +65,7 @@ public class Login {
             return "home";
         }
         if (error) {
-            model.addAttribute("fail", "Email or Password error");
+            model.addAttribute("fail", "Email or Password is incorrect");
         }
         model.addAttribute("accountDto", new AccountUserDto());
         model.addAttribute("customerDto", new CustomerDto());
