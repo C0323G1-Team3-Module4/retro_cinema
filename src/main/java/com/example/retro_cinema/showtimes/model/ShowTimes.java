@@ -19,7 +19,7 @@ public class ShowTimes {
     @Column(columnDefinition = "boolean default true")
     private boolean flag;
     @ManyToOne
-    @JoinColumn(name = "id",referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "room_id",referencedColumnName = "id", insertable = false, updatable = false)
     private Rooms rooms;
 
     public ShowTimes() {
