@@ -36,4 +36,21 @@ public class UserDetailServiceImpl implements UserDetailsService {
         }
         return (UserDetails) new User(accountUser.getEmail(),accountUser.getPass(), authorityList);
     }
+
+//    @Override
+//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+//        AccountUser accountUser = this.iAccountRepository.findAccountUserByEmail(email);
+//        if (accountUser == null) {
+//            System.out.println("User name not found: " + email);
+//            throw new UsernameNotFoundException("User " + email + " was not found in the database");
+//        }
+//        System.out.println("Found User: " + email);
+//
+//        return User.builder()
+//                .username(accountUser.getEmail())
+//                .password(accountUser.getPass()) // Password is already hashed in the database.
+//                .authorities(accountUser.getRoles().getRoleName()) // Assuming getRoles() returns a single role name
+//                .build();
+//    }
+
 }
