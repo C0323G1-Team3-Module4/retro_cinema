@@ -73,151 +73,150 @@ public class Login {
     }
 
     @GetMapping("/logoutSuccessful")
-    public String logout(Model model,RedirectAttributes redirectAttributes) {
+    public String logout(Model model, RedirectAttributes redirectAttributes) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {
             SecurityContextHolder.clearContext();
             redirectAttributes.addFlashAttribute("message", "successful logout");
         }
         redirectAttributes.addFlashAttribute("message", "Logout successful");
-        model.addAttribute("info",null);
+        model.addAttribute("info", null);
         return "home";
-  }
+    }
 
 
-@GetMapping(value = "/userInfo")
-public String userInfo(Model model,Principal principal,RedirectAttributes redirectAttributes){
-        String userName=principal.getName();
-        AccountUser accountUser=iAccountService.findByEmail(principal.getName());
-        model.addAttribute("acc",accountUser);
-        if(accountUser.getRoles().getRoleName().equals("ROLE_USER")){
-        if(!iCustomerService.findByEmail(accountUser.getEmail()).isEnabled()){
-        redirectAttributes.addFlashAttribute("fail","Sorry, we could not verify account. It maybe already verified, or verification code is incorrect.");
-        return"redirect:/login";
-        }else{
-        model.addAttribute("info",iCustomerService.findByIdAccount(accountUser.getId()));
-        System.out.println("userName: "+userName);
-        return"/home";
+    @GetMapping(value = "/userInfo")
+    public String userInfo(Model model, Principal principal, RedirectAttributes redirectAttributes) {
+        String userName = principal.getName();
+        AccountUser accountUser = iAccountService.findByEmail(principal.getName());
+        model.addAttribute("acc", accountUser);
+        if (accountUser.getRoles().getRoleName().equals("ROLE_USER")) {
+            if (!iCustomerService.findByEmail(accountUser.getEmail()).isEnabled()) {
+                redirectAttributes.addFlashAttribute("fail", "Sorry, we could not verify account. It maybe already verified, or verification code is incorrect.");
+                return "redirect:/login";
+            } else {
+                model.addAttribute("info", iCustomerService.findByIdAccount(accountUser.getId()));
+                System.out.println("userName: " + userName);
+                return "/home";
+            }
+        } else if (accountUser.getRoles().getRoleName().equals("ROLE_ADMIN")) {
+            System.out.println("userName: " + userName);
+            model.addAttribute("info", iCustomerService.findByIdAccount(accountUser.getId()));
+            return "/home";
         }
-        }else if(accountUser.getRoles().getRoleName().equals("ROLE_ADMIN")){
-        System.out.println("userName: "+userName);
-        model.addAttribute("info",iCustomerService.findByIdAccount(accountUser.getId()));
-        return"/home";
-        }
-        return"/home";
-        }
+        return "/home";
+    }
 
+    @GetMapping("/400")
+    public String accountDenied(Model model, Principal principal) {
+        if (principal != null) {
+            User loginedUser = (User) ((Authentication) principal).getPrincipal();
+            String userInfo = WebUtils.toString(loginedUser);
+            AccountUser accountUser = iAccountService.findByEmail(principal.getName());
+            model.addAttribute("userInfo", userInfo);
+            String message = "Hi " + principal.getName()
+                    + " You do not have permission to access this page!";
+            model.addAttribute("info", iCustomerService.findByIdAccount(accountUser.getId()));
+            model.addAttribute("message", message);
+        }
+        return "400Page";
+    }
 
-@GetMapping("/400")
-public String accountDenied(Model model,Principal principal){
-        if(principal!=null){
-        User loginedUser=(User)((Authentication)principal).getPrincipal();
-        String userInfo=WebUtils.toString(loginedUser);
-        AccountUser accountUser=iAccountService.findByEmail(principal.getName());
-        model.addAttribute("userInfo",userInfo);
-        String message="Hi "+principal.getName()
-        +" You do not have permission to access this page!";
-        model.addAttribute("info",iCustomerService.findByIdAccount(accountUser.getId()));
-        model.addAttribute("message",message);
+    @PostMapping("/signup")
+    public String signup(@Valid @ModelAttribute UserDto customerDto, BindingResult bindingResult
+            , RedirectAttributes redirectAttributes, HttpServletRequest request, Model model) throws UnsupportedEncodingException, MessagingException {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("accountDto", new AccountUserDto());
+            return "loginPage";
         }
-        return"400Page";
+        if (iCustomerService.findByEmail(customerDto.getAccountUserDto().getEmail()) != null) {
+            redirectAttributes.addFlashAttribute("fail", "This email already exists!");
+        } else {
+            customerDto.setExpiryDate(calculateExpiryDate());
+            Roles roles = iAccountService.findRoleById(2);
+            AccountUser accountUser = new AccountUser();
+            BeanUtils.copyProperties(customerDto.getAccountUserDto(), accountUser);
+            accountUser.setRoles(roles);
+            iAccountService.createAccount(accountUser);
+            Customer customer = new Customer();
+            BeanUtils.copyProperties(customerDto, customer);
+            customer.setAccountUser(accountUser);
+            iCustomerService.create(customer);
+            String siteURL = getSiteURL(request);
+            iCustomerService.sendVerificationEmail(customer, siteURL);
+            redirectAttributes.addFlashAttribute("success", "You have signed up successfully! Please check your email to verify your account.");
         }
+        return "redirect:/login";
+    }
 
-@PostMapping("/signup")
-public String signup(@Valid @ModelAttribute UserDto customerDto,BindingResult bindingResult
-        ,RedirectAttributes redirectAttributes,HttpServletRequest request,Model model)throws UnsupportedEncodingException,MessagingException{
-        if(bindingResult.hasErrors()){
-        model.addAttribute("accountDto",new AccountUserDto());
-        return"loginPage";
+    @GetMapping("/verify")
+    public String verifyUser(@RequestParam("code") String code, RedirectAttributes redirectAttributes) {
+        if (iCustomerService.verify(code)) {
+            redirectAttributes.addFlashAttribute("success", "Congratulations, your account has been verified.");
+        } else {
+            redirectAttributes.addFlashAttribute("fail", "Sorry, we could not verify account. It maybe already verified, or verification code is incorrect.");
         }
-        if(iCustomerService.findByEmail(customerDto.getAccountUserDto().getEmail())!=null){
-        redirectAttributes.addFlashAttribute("fail","This email already exists!");
-        }else{
-        customerDto.setExpiryDate(calculateExpiryDate());
-        Roles roles=iAccountService.findRoleById(2);
-        AccountUser accountUser=new AccountUser();
-        BeanUtils.copyProperties(customerDto.getAccountUserDto(),accountUser);
-        accountUser.setRoles(roles);
-        iAccountService.createAccount(accountUser);
-        Customer customer=new Customer();
-        BeanUtils.copyProperties(customerDto,customer);
-        customer.setAccountUser(accountUser);
-        iCustomerService.create(customer);
-        String siteURL=getSiteURL(request);
-        iCustomerService.sendVerificationEmail(customer,siteURL);
-        redirectAttributes.addFlashAttribute("success","You have signed up successfully! Please check your email to verify your account.");
-        }
-        return"redirect:/login";
-        }
+        return "redirect:/login";
+    }
 
-@GetMapping("/verify")
-public String verifyUser(@RequestParam("code") String code,RedirectAttributes redirectAttributes){
-        if(iCustomerService.verify(code)){
-        redirectAttributes.addFlashAttribute("success","Congratulations, your account has been verified.");
-        }else{
-        redirectAttributes.addFlashAttribute("fail","Sorry, we could not verify account. It maybe already verified, or verification code is incorrect.");
-        }
-        return"redirect:/login";
-        }
+    @GetMapping("/email")
+    public String email() {
+        return "email_reset_pw";
+    }
 
-@GetMapping("/email")
-public String email(){
-        return"email_reset_pw";
-        }
-
-@PostMapping("/confirm_email")
-public String confirm_email(@RequestParam("email") String email,HttpServletRequest request,RedirectAttributes redirectAttributes)throws UnsupportedEncodingException,MessagingException{
-        Customer customer=iCustomerService.findByEmail(email);
+    @PostMapping("/confirm_email")
+    public String confirm_email(@RequestParam("email") String email, HttpServletRequest request, RedirectAttributes redirectAttributes) throws UnsupportedEncodingException, MessagingException {
+        Customer customer = iCustomerService.findByEmail(email);
         customer.setExpiryDate(calculateExpiryDate());
         iCustomerService.reset(customer);
-        String siteURL=getSiteURL(request);
-        iCustomerService.sendVerificationReset(customer,siteURL);
-        redirectAttributes.addFlashAttribute("success","Please check your email to verify your account.");
-        return"redirect:/login";
-        }
+        String siteURL = getSiteURL(request);
+        iCustomerService.sendVerificationReset(customer, siteURL);
+        redirectAttributes.addFlashAttribute("success", "Please check your email to verify your account.");
+        return "redirect:/login";
+    }
 
-@GetMapping("/reset_pw")
-public String reset_pw(@ModelAttribute Customer customer,Model model){
-        return"reset_pw";
-        }
+    @GetMapping("/reset_pw")
+    public String reset_pw(@ModelAttribute Customer customer, Model model) {
+        return "reset_pw";
+    }
 
-@PostMapping("/new_pw")
-public String new_pw(@RequestParam("new_pw") String new_pw,
-@ModelAttribute Customer customer,
-        RedirectAttributes redirectAttributes){
-        iCustomerService.reset_pw(customer,new_pw);
-        redirectAttributes.addFlashAttribute("success","Password change successful.");
-        return"redirect:/login";
-        }
+    @PostMapping("/new_pw")
+    public String new_pw(@RequestParam("new_pw") String new_pw,
+                         @ModelAttribute Customer customer,
+                         RedirectAttributes redirectAttributes) {
+        iCustomerService.reset_pw(customer, new_pw);
+        redirectAttributes.addFlashAttribute("success", "Password change successful.");
+        return "redirect:/login";
+    }
 
-@GetMapping("/verify_reset")
-public String verify_reset(@RequestParam("code") String code,Model model,
-        RedirectAttributes redirectAttributes){
-        String email=null;
-        if(iCustomerService.findByCode(code)!=null){
-        Customer customer=iCustomerService.findByCode(code);
-        email=customer.getAccountUser().getEmail();
+    @GetMapping("/verify_reset")
+    public String verify_reset(@RequestParam("code") String code, Model model,
+                               RedirectAttributes redirectAttributes) {
+        String email = null;
+        if (iCustomerService.findByCode(code) != null) {
+            Customer customer = iCustomerService.findByCode(code);
+            email = customer.getAccountUser().getEmail();
         }
-        if(iCustomerService.verifyReset(code)){
-        Customer customer=iCustomerService.findByEmail(email);
-        model.addAttribute("customers",customer);
-        return"reset_pw";
-        }else{
-        redirectAttributes.addFlashAttribute("fail","Sorry, we could not verify account. It maybe already verified, or verification code is incorrect.");
-        return"redirect:/login";
+        if (iCustomerService.verifyReset(code)) {
+            Customer customer = iCustomerService.findByEmail(email);
+            model.addAttribute("customers", customer);
+            return "reset_pw";
+        } else {
+            redirectAttributes.addFlashAttribute("fail", "Sorry, we could not verify account. It maybe already verified, or verification code is incorrect.");
+            return "redirect:/login";
         }
-        }
+    }
 
-private Date calculateExpiryDate(){
-        Calendar cal=Calendar.getInstance();
+    private Date calculateExpiryDate() {
+        Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
-        cal.add(Calendar.MINUTE,1);
+        cal.add(Calendar.MINUTE, 1);
         return new Date(cal.getTime().getTime());
-        }
+    }
 
-private String getSiteURL(HttpServletRequest request){
-        String siteURL=request.getRequestURL().toString();
-        return siteURL.replace(request.getServletPath(),"");
-        }
-        }
+    private String getSiteURL(HttpServletRequest request) {
+        String siteURL = request.getRequestURL().toString();
+        return siteURL.replace(request.getServletPath(), "");
+    }
+}
 

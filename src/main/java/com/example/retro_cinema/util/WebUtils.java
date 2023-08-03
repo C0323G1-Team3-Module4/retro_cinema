@@ -15,11 +15,11 @@ public class WebUtils {
         if (authorities != null && !authorities.isEmpty()) {
             sb.append(" (");
             boolean first = true;
-            for (GrantedAuthority a : authorities){
-                if (first){
+            for (GrantedAuthority a : authorities) {
+                if (first) {
                     sb.append(a.getAuthority());
                     first = false;
-                }else {
+                } else {
                     sb.append(", ").append(a.getAuthority());
                 }
             }
