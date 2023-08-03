@@ -67,15 +67,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .tokenValiditySeconds(24 * 60 * 60);
     }
 
-        @Bean
-    public PersistentTokenRepository persistentTokenRepository() {
-        JdbcTokenRepositoryImpl db = new JdbcTokenRepositoryImpl();
-        db.setDataSource(dataSource);
-        return db;
-    }
-//    @Bean
+//        @Bean
 //    public PersistentTokenRepository persistentTokenRepository() {
-//        InMemoryTokenRepositoryImpl memory = new InMemoryTokenRepositoryImpl();
-//        return memory;
+//        JdbcTokenRepositoryImpl db = new JdbcTokenRepositoryImpl();
+//        db.setDataSource(dataSource);
+//        return db;
 //    }
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        InMemoryTokenRepositoryImpl memory = new InMemoryTokenRepositoryImpl();
+        return memory;
+    }
+
 }

@@ -84,18 +84,6 @@ public class Login {
         return "home";
   }
 
-//    public String logout(HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
-//        HttpSession session = request.getSession(false);
-//        if (session != null) {
-//            session.invalidate(); // Invalidates the session and clears all session attributes.
-//        }
-//        SecurityContextHolder.clearContext();
-//        redirectAttributes.addFlashAttribute("message", "Logout successful");
-//        model.addAttribute("info", null);
-//        return "home";
-//    }
-
-
 
 @GetMapping(value = "/userInfo")
 public String userInfo(Model model,Principal principal,RedirectAttributes redirectAttributes){
