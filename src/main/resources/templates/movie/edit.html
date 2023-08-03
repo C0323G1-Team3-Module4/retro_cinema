@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Retro Cinema</title>
+</head>
+<body>
+<form th:action="@{/movie/edit}" th:object="${movieDto}" method="post">
+    <input type="hidden" th:field="*{id}">
+    <label for="1">Name movie</label><br>
+    <input th:field="*{movieName}" id="1"><br>
+    <small style="color: red" th:if="${#fields.hasErrors('movieName')}"
+           th:errors="*{movieName}"></small><br>
+    <label for="2">Duration</label><br>
+    <input th:field="*{duration}" id="2" type="number"><br>
+    <small style="color: red" th:if="${#fields.hasErrors('duration')}"
+           th:errors="*{duration}"></small><br>
+    <label for="3">Description</label><br>
+    <input th:field="*{description}" id="3"><br>
+    <small style="color: red" th:if="${#fields.hasErrors('description')}"
+           th:errors="*{description}"></small><br>
+    <label for="4">Release Date</label><br>
+    <input th:field="*{releaseDate}" id="4" type="date"><br>
+    <small style="color: red" th:if="${#fields.hasErrors('releaseDate')}"
+           th:errors="*{releaseDate}"></small><br>
+    <label for="5">Director</label><br>
+    <input th:field="*{director}" id="5"><br>
+    <small style="color: red" th:if="${#fields.hasErrors('director')}"
+           th:errors="*{director}"></small><br>
+    <label for="6">Performer</label><br>
+    <input th:field="*{performer}" id="6"><br>
+    <small style="color: red" th:if="${#fields.hasErrors('performer')}"
+           th:errors="*{performer}"></small><br>
+    <label for="7">img</label><br>
+    <input th:field="*{img}" id="7"><br>
+    <small style="color: red" th:if="${#fields.hasErrors('img')}"
+           th:errors="*{img}"></small><br>
+    <label for="8">Trailer</label><br>
+    <input th:field="*{trailer}" id="8"><br>
+    <small style="color: red" th:if="${#fields.hasErrors('trailer')}"
+           th:errors="*{trailer}"></small><br>
+    <label for="9">Price</label><br>
+    <input th:field="*{price}" id="9" type="number"><br>
+    <small style="color: red" th:if="${#fields.hasErrors('price')}"
+           th:errors="*{price}"></small><br>
+    <label for="ca">Movie Types</label><br>
+    <select th:field="*{movieTypes}" id="ca">
+        <option value="">--Movie Types--</option>
+        <option th:each="cate : ${movieTypesList}"
+                th:value="${cate.id}" th:text="${cate.movieTypes}">
+        </option>
+    </select><br>
+    <small style="color: red" th:if="${#fields.hasErrors('movieTypes')}"
+           th:errors="*{movieTypes}"></small><br>
+    <button>Edit</button>
+<p th:if="${msg}" th:text="${msg}"></p>
+</form>
+</body>
+</html>
