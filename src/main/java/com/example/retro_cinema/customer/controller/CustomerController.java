@@ -47,6 +47,7 @@ public class CustomerController {
         CustomerDto customerDto = new CustomerDto();
         BeanUtils.copyProperties(customer, customerDto);
         model.addAttribute("customerDto", customerDto);
+        model.addAttribute("accountDto", iAccountService.findAll());
         return "/customer/update";
     }
 
