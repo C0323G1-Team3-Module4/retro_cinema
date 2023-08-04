@@ -13,9 +13,9 @@ public class Rooms {
     private int id;
     @Column(name = "room_name")
     private String roomName;
-    @Column(columnDefinition = "50")
     private int capacity;
-    @Column(columnDefinition = "bit default 1")
+  
+    @Column(columnDefinition = "boolean default true")
     private boolean flag;
     @OneToMany(mappedBy = "rooms")
     private Set<ShowTimes> showTimes;
