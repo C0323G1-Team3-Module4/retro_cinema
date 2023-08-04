@@ -14,6 +14,7 @@ public class Rooms {
     @Column(name = "room_name")
     private String roomName;
     private int capacity;
+  
     @Column(columnDefinition = "boolean default true")
     private boolean flag;
     @OneToMany(mappedBy = "rooms")

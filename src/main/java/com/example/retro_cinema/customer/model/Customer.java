@@ -23,7 +23,7 @@ public class Customer {
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
     @ManyToOne
-    @JoinColumn(name = "account_user_id", referencedColumnName = "id")
+    @JoinColumn(name = "account_id", referencedColumnName = "id")
     private AccountUser accountUser;
 
     public Customer() {

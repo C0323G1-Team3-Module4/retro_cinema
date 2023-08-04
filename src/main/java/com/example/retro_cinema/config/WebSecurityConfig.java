@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
-import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import javax.sql.DataSource;
@@ -21,7 +20,7 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    private UserDetailServiceImpl userDetailService;
+    private UserDetailServiceImpl userDetailServiceImpl;
     @Autowired
     private DataSource dataSource;
 
@@ -31,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailServiceImpl).passwordEncoder(passwordEncoder());
     }
 
     @Autowired
@@ -51,24 +50,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("email")
                 .passwordParameter("pass")
                 //cau hinh logout
-                .and().logout().logoutUrl("/logout")
-                .logoutSuccessUrl("/logoutSuccessful");
+                .and().logout()
+                .logoutUrl("/logout")
+                .clearAuthentication(true)
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID", "websparrow-login-remember-me")
+                .logoutSuccessUrl("/logoutSuccessful")
+                .permitAll();
 
         // cau hinh remember me
         http.authorizeRequests().and()
-                .rememberMe().tokenRepository(this.persistentTokenRepository())
-                .tokenValiditySeconds(86400);
+                .rememberMe().key("myUniqueKey")
+                .rememberMeCookieName("websparrow-login-remember-me")
+                .tokenRepository(this.persistentTokenRepository())
+                .tokenValiditySeconds(24 * 60 * 60);
     }
 
     @Bean
     public PersistentTokenRepository persistentTokenRepository() {
-        JdbcTokenRepositoryImpl db = new JdbcTokenRepositoryImpl();
-        db.setDataSource(dataSource);
-        return db;
+        InMemoryTokenRepositoryImpl memory = new InMemoryTokenRepositoryImpl();
+        return memory;
     }
-//    @Bean
-//    public PersistentTokenRepository persistentTokenRepository(){
-//        InMemoryTokenRepositoryImpl memory = new InMemoryTokenRepositoryImpl();
-//        return memory;
-//    }
+
 }

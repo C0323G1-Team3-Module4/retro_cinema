@@ -73,16 +73,17 @@ public class Login {
     }
 
     @GetMapping("/logoutSuccessful")
-    public String logout(Model model,RedirectAttributes redirectAttributes) {
+    public String logout(Model model, RedirectAttributes redirectAttributes) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {
             SecurityContextHolder.clearContext();
             redirectAttributes.addFlashAttribute("message", "successful logout");
         }
         redirectAttributes.addFlashAttribute("message", "Logout successful");
-        model.addAttribute("info",null);
+        model.addAttribute("info", null);
         return "home";
     }
+
 
     @GetMapping(value = "/userInfo")
     public String userInfo(Model model, Principal principal, RedirectAttributes redirectAttributes) {
@@ -105,7 +106,6 @@ public class Login {
         }
         return "/home";
     }
-
 
     @GetMapping("/400")
     public String accountDenied(Model model, Principal principal) {

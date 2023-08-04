@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
     @Autowired
@@ -21,19 +22,19 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         AccountUser accountUser = this.iAccountRepository.findAccountUserByEmail(email);
-        if (accountUser == null){
+        if (accountUser == null) {
             System.out.println("User name not found" + email);
-            throw new UsernameNotFoundException("User "+email+" was not found in the database");
+            throw new UsernameNotFoundException("User " + email + " was not found in the database");
         }
-        System.out.println("Found User: "+email);
+        System.out.println("Found User: " + email);
         List<AccountUser> accountUserList = this.iAccountRepository.findByEmail(email);
         List<GrantedAuthority> authorityList = new ArrayList<>();
-        if (accountUserList != null){
-            for (AccountUser user: accountUserList) {
+        if (accountUserList != null) {
+            for (AccountUser user : accountUserList) {
                 GrantedAuthority authority = new SimpleGrantedAuthority(user.getRoles().getRoleName());
                 authorityList.add(authority);
             }
         }
-        return (UserDetails) new User(accountUser.getEmail(),accountUser.getPass(), authorityList);
+        return new User(accountUser.getEmail(), accountUser.getPass(), authorityList);
     }
 }
