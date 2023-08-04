@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -43,4 +44,12 @@ public class ProductsController {
         productsService.addProducts(products);
         return "redirect:/products/list";
     }
+
+    @PostMapping("/products/delete")
+    public String deleteProducts(@RequestParam int id) {
+        System.out.println(id);
+        productsService.deleteProducts(id);
+        return "redirect:/products/list";
+    }
+
 }
