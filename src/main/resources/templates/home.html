@@ -25,11 +25,29 @@
     <div class="header-item">Home</div>
     <div class="header-item">Home</div>
     <div class="header-item">Home</div>
-    <div class="header-item" th:if="${acc==null}"><a th:href="@{/login}">Login</a></div>
-    <div class="header-item" th:if="${acc!=null && acc.roles.roleName=='ROLE_ADMIN'}"><a
-            th:test="${info.fullName}" th:if="${info.fullName!=null}"
-            th:href="@{/logoutSuccessful}">Logout</a></div>
-<!--    <div class="header-item" th:if="${info!=null}"><span th:text="${info.getFullName()}"></span></div>-->
+
+
+    // chạy ok
+<!--    <li th:if="${acc == null}"><a href="/login">Log in</a></li>-->
+<!--    <li th:if="${acc != null && acc.roles.roleName == 'ROLE_USER'}" class="dropdown">-->
+<!--        <a href="#" class="dropdown-toggle" data-hover="" data-toggle="dropdown"-->
+<!--           role="button" aria-haspopup="true" aria-expanded="false" th:text="${info.fullName}"-->
+<!--           th:if="${info.fullName != null}"></a>-->
+<!--    <li><a href="/logout">Logout</a></li>-->
+<!--    -->
+<!--    </li>-->
+<!--    <li th:if="${acc != null && acc.roles.roleName == 'ROLE_ADMIN'}" class="dropdown">-->
+<!--        <a href="#" class="dropdown-toggle" data-hover="" data-toggle="dropdown"-->
+<!--           role="button" aria-haspopup="true" aria-expanded="false" th:text="${info.fullName}"-->
+<!--           th:if="${info.fullName != null}"></a>-->
+<!--        <ul class="dropdown-menu">-->
+<!--            <li><a href="/customers/update">Update personal info</a></li>-->
+<!--            <li><a href="/logout">Logout</a></li>-->
+<!--        </ul>-->
+<!--    </li>-->
+
+
+<!--        <div class="header-item" th:if="${info!=null}"><span th:text="${info.getFullName()}"></span></div>-->
 </div>
 <div class="body">
     <div class="body-banner">
