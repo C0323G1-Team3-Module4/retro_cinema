@@ -4,6 +4,7 @@ package com.example.retro_cinema.customer.controller;
 import com.example.retro_cinema.customer.dto.CustomerDto;
 import com.example.retro_cinema.customer.model.Customer;
 import com.example.retro_cinema.customer.service.ICustomerService;
+import com.example.retro_cinema.user.model.AccountUser;
 import com.example.retro_cinema.user.service.account.IAccountService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,5 +70,13 @@ public class CustomerController {
         iCustomerService.delete(id);
         redirectAttributes.addFlashAttribute("msg","Delete Customer Success!");
         return "redirect:/customer";
+    }
+
+    @PostMapping("/toPreference")
+    public String toPreference(@RequestParam("username") String username, Model model) {
+        AccountUser accountUser = iAccountService.findByUsername(username);
+        Customer customer = iCustomerService.findByIdAccount(accountUser.getId());
+        model.addAttribute("customer", customer);
+        return "/customer/detail";
     }
 }

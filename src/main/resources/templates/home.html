@@ -55,9 +55,13 @@
                   class="user-info"></span>
             <!-- Dropdown list Start -->
             <div th:if="${#request.userPrincipal!=null}" class="dropdown-list">
-                <div class="dropdown-item">
+                <div class="dropdown-item" th:if="${#request.isUserInRole('ROLE_ADMIN')}">
                     <i class="bx bx-cog"></i>
-                    <div class="dropdown-text">Preferences</div>
+                    <div class="dropdown-text" onclick="toPreference()">Preferences</div>
+                </div>
+                <div class="dropdown-item" th:if="${#request.isUserInRole('ROLE_USER')}">
+                    <i class="bx bx-cog"></i>
+                    <div class="dropdown-text" onclick="toCustomerDetails()">Preferences</div>
                 </div>
                 <div class="dropdown-item">
                     <i class="bx bx-log-out-circle"></i>
@@ -407,6 +411,10 @@
     </div>
 </footer>
 
+<form action="/customers/toPreference" method="post" id="toCustomerPreference" th:if="${#request.userPrincipal !=null }">
+    <input type="hidden" name="username" id="username" th:value="${#request.userPrincipal.getName()}">
+</form>
+
 <script>
     function toLogin() {
         window.location.href = "/login";
@@ -414,6 +422,12 @@
 
     function toLogout() {
         window.location.href = "/logout";
+    }
+    function toPreference() {
+        window.location.href = "/preference";
+    }
+    function toCustomerDetails() {
+        document.getElementById("toCustomerPreference").submit();
     }
 </script>
 <!-- Link to Swiper JS -->

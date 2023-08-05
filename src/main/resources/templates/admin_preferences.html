@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<!-- Created by CodingLab |www.youtube.com/CodingLabYT-->
-<html lang="en" dir="ltr">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <title>Responsive Sidebar Menu | CodingLab</title>
@@ -87,38 +86,43 @@
         </li>
         <li class="profile">
           <div class="profile-details">
-            <img src="profile.jpg" alt="profileImg" />
+            <img src="https://cdn.landesa.org/wp-content/uploads/default-user-image.png" alt="profileImg" />
             <div class="name_job">
-              <div class="name">Username</div>
+              <div class="name" th:text="${#request.userPrincipal.getName()}">Username</div>
             </div>
           </div>
-          <i class="bx bx-log-out" id="log_out"></i>
+          <i class="bx bx-log-out" id="log_out" onclick="toHome()"></i>
         </li>
       </ul>
     </div>
     <section class="home-section">
-      <div class="text">Dashboard</div>
+      <div class="text">
+           Dashboard Nhet thong tin vao day
+      </div>
     </section>
     <script>
       let sidebar = document.querySelector(".sidebar");
       let closeBtn = document.querySelector("#btn");
       let searchBtn = document.querySelector(".bx-search");
       closeBtn.addEventListener("click", () => {
-        admin_preferences.classList.toggle("open");
+        sidebar.classList.toggle("open");
         menuBtnChange(); //calling the function(optional)
       });
       searchBtn.addEventListener("click", () => {
         // Sidebar open when you click on the search iocn
-        admin_preferences.classList.toggle("open");
+        sidebar.classList.toggle("open");
         menuBtnChange(); //calling the function(optional)
       });
       // following are the code to change sidebar button(optional)
       function menuBtnChange() {
-        if (admin_preferences.classList.contains("open")) {
+        if (sidebar.classList.contains("open")) {
           closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
         } else {
           closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
         }
+      }
+      function toHome() {
+        window.location.href = "/";
       }
     </script>
   </body>
