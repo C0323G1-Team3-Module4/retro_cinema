@@ -16,6 +16,7 @@ public class Customer {
     private String address;
     private String gender;
     private String dob;
+    private String image;
     @Column(columnDefinition = "bit default 1")
     private boolean flag;
     @ManyToOne
@@ -29,13 +30,14 @@ public class Customer {
         this.accountUser = accountUser;
     }
 
-    public Customer(Integer id, String fullName, String phone, String address, String gender, String dob, boolean flag, AccountUser accountUser) {
+    public Customer(Integer id, String fullName, String phone, String address, String gender, String dob, String image, boolean flag, AccountUser accountUser) {
         this.id = id;
         this.fullName = fullName;
         this.phone = phone;
         this.address = address;
         this.gender = gender;
         this.dob = dob;
+        this.image = image;
         this.flag = flag;
         this.accountUser = accountUser;
     }
@@ -88,6 +90,13 @@ public class Customer {
         this.dob = dob;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public boolean isFlag() {
         return flag;
