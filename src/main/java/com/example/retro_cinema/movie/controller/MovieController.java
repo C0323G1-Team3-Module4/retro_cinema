@@ -5,6 +5,7 @@ import com.example.retro_cinema.customer.model.Customer;
 import com.example.retro_cinema.movie.dto.MovieDto;
 import com.example.retro_cinema.movie.model.Movie;
 import com.example.retro_cinema.movie.service.IMovieService;
+import com.example.retro_cinema.movie_types.model.MovieTypes;
 import com.example.retro_cinema.movie_types.service.IMovieTypesService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/movie")
@@ -88,12 +90,6 @@ public class MovieController {
         redirectAttributes.addFlashAttribute("msg", "Update movie Success!");
         return "redirect:/movie";
     }
-//    @PostMapping("/edit")
-//    public String edit(@ModelAttribute Movie movie, RedirectAttributes redirectAttributes) {
-//        movieService.editMovie(movie);
-//        redirectAttributes.addFlashAttribute("msg", "edit successfully");
-//        return "redirect:/movie";
-//    }
 
     @GetMapping("/delete")
     public String delete(@RequestParam int id, RedirectAttributes redirectAttributes) {

@@ -17,6 +17,7 @@ public class MovieService implements IMovieService {
         return movieRepository.findMovieByMovieNameContaining(pageable, name);
     }
 
+
     @Override
     public void addMovie(Movie movie) {
         movieRepository.save(movie);
