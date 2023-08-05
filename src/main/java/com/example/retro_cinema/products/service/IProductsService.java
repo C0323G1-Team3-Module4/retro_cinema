@@ -9,4 +9,5 @@ public interface IProductsService {
     void addProducts(Products products);
     void deleteProducts(int id);
     void editProducts(Products products);
+    Products findProduct(int id);
 }
