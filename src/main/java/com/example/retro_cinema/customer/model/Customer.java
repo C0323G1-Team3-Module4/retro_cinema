@@ -16,12 +16,8 @@ public class Customer {
     private String address;
     private String gender;
     private String dob;
-    private boolean enabled;
     @Column(columnDefinition = "bit default 1")
     private boolean flag;
-    private Date expiryDate;
-    @Column(name = "verification_code", length = 64)
-    private String verificationCode;
     @ManyToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     private AccountUser accountUser;
@@ -29,17 +25,18 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(Integer id, String fullName, String phone, String address, String gender, String dob, boolean enabled, boolean flag, Date expiryDate, String verificationCode, AccountUser accountUser) {
+    public Customer(AccountUser accountUser) {
+        this.accountUser = accountUser;
+    }
+
+    public Customer(Integer id, String fullName, String phone, String address, String gender, String dob, boolean flag, AccountUser accountUser) {
         this.id = id;
         this.fullName = fullName;
         this.phone = phone;
         this.address = address;
         this.gender = gender;
         this.dob = dob;
-        this.enabled = enabled;
         this.flag = flag;
-        this.expiryDate = expiryDate;
-        this.verificationCode = verificationCode;
         this.accountUser = accountUser;
     }
 
@@ -91,21 +88,6 @@ public class Customer {
         this.dob = dob;
     }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public Date getExpiryDate() {
-        return expiryDate;
-    }
-
-    public void setExpiryDate(Date expiryDate) {
-        this.expiryDate = expiryDate;
-    }
 
     public boolean isFlag() {
         return flag;
@@ -113,14 +95,6 @@ public class Customer {
 
     public void setFlag(boolean flag) {
         this.flag = flag;
-    }
-
-    public String getVerificationCode() {
-        return verificationCode;
-    }
-
-    public void setVerificationCode(String verificationCode) {
-        this.verificationCode = verificationCode;
     }
 
     public AccountUser getAccountUser() {

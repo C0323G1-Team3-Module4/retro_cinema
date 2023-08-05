@@ -4,81 +4,421 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Retro Cinema</title>
+    <!-- Link CSS -->
     <link rel="stylesheet" href="/static/css/home.css"/>
-    <!-- Poppins -->
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link
-            href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-            rel="stylesheet"
-    />
+    <!-- Box Icon -->
     <link
             rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+            href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
     />
+    <!-- or -->
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
+    />
+    <!-- Link Swiper CSS -->
+    <link rel="stylesheet" href="/static/css/swiper-bundle.min.css"/>
 </head>
 <body>
-<div class="header">
-    <div class="header-item">Logo</div>
-    <div class="header-item">Home</div>
-    <div class="header-item">Home</div>
-    <div class="header-item">Home</div>
-    <div class="header-item">Home</div>
-    <div class="header-item">Home</div>
+<!-- Header -->
+<header>
+    <!-- Navigation Bar -->
+    <div class="nav container">
+        <!-- Logo -->
+        <a href="home.html" class="logo"> Retro<span>Cinema</span> </a>
+        <!-- Search Box -->
+        <div class="search-box">
+            <input
+                    type="search"
+                    name=""
+                    id="search-input"
+                    placeholder="Search Movie"
+            />
+            <i class="bx bx-search"></i>
+        </div>
+        <!-- User -->
+        <div>
 
-
-    // chạy ok
-<!--    <li th:if="${acc == null}"><a href="/login">Log in</a></li>-->
-<!--    <li th:if="${acc != null && acc.roles.roleName == 'ROLE_USER'}" class="dropdown">-->
-<!--        <a href="#" class="dropdown-toggle" data-hover="" data-toggle="dropdown"-->
-<!--           role="button" aria-haspopup="true" aria-expanded="false" th:text="${info.fullName}"-->
-<!--           th:if="${info.fullName != null}"></a>-->
-<!--    <li><a href="/logout">Logout</a></li>-->
-<!--    -->
-<!--    </li>-->
-<!--    <li th:if="${acc != null && acc.roles.roleName == 'ROLE_ADMIN'}" class="dropdown">-->
-<!--        <a href="#" class="dropdown-toggle" data-hover="" data-toggle="dropdown"-->
-<!--           role="button" aria-haspopup="true" aria-expanded="false" th:text="${info.fullName}"-->
-<!--           th:if="${info.fullName != null}"></a>-->
-<!--        <ul class="dropdown-menu">-->
-<!--            <li><a href="/customers/update">Update personal info</a></li>-->
-<!--            <li><a href="/logout">Logout</a></li>-->
-<!--        </ul>-->
-<!--    </li>-->
-
-
-<!--        <div class="header-item" th:if="${info!=null}"><span th:text="${info.getFullName()}"></span></div>-->
-</div>
-<div class="body">
-    <div class="body-banner">
-        <div class="banner-img">
-            <img src="/static/img/pop-corn.png" alt=""/>
+        </div>
+        <a href="#" class="user">
+            <img th:if="${#request.userPrincipal == null}"
+                 src="https://cdn.landesa.org/wp-content/uploads/default-user-image.png"
+                 alt="user-img"
+                 class="user-img"
+            />
+            <img th:if="${#request.userPrincipal !=null}"
+                 src="https://cdn2.iconfinder.com/data/icons/audio-16/96/user_avatar_profile_login_button_account_member-512.png"
+                 alt="user-img"
+                 class="user-img">
+            <span th:if="${#request.userPrincipal == null}" class="user-info" onclick="toLogin()">Login</span>
+            <span th:if="${#request.userPrincipal !=null}" th:text="${#request.userPrincipal.getName()}"
+                  class="user-info"></span>
+            <!-- Dropdown list Start -->
+            <div th:if="${#request.userPrincipal!=null}" class="dropdown-list">
+                <div class="dropdown-item">
+                    <i class="bx bx-cog"></i>
+                    <div class="dropdown-text">Preferences</div>
+                </div>
+                <div class="dropdown-item">
+                    <i class="bx bx-log-out-circle"></i>
+                    <div class="dropdown-text" onclick="toLogout()">Log out</div>
+                </div>
+            </div>
+            <!-- Dropdown list end -->
+        </a>
+        <!-- Nav bar column -->
+        <div class="navbar">
+            <a href="#home" class="nav-link nav-active">
+                <i class="bx bx-home"></i>
+                <span class="nav-link-title">Home</span>
+            </a>
+            <a href="#home" class="nav-link">
+                <i class="bx bxs-hot"></i>
+                <span class="nav-link-title">Upcoming</span>
+            </a>
+            <a href="#home" class="nav-link">
+                <i class="bx bx-camera-movie"></i>
+                <span class="nav-link-title">Onscreen</span>
+            </a>
+            <a href="#home" class="nav-link">
+                <i class="bx bx-heart"></i>
+                <span class="nav-link-title">Favorite</span>
+            </a>
         </div>
     </div>
+</header>
+
+<!-- Home Begin -->
+<section class="home container" id="home">
+    <!-- Home Image -->
+    <img src="static/img/home-background.png" alt="home-img" class="home-img"/>
+    <!-- Home Text -->
+    <div class="home-text">
+        <h1 class="home-title">
+            Big Pop,<br/>
+            Bigger Fun!
+        </h1>
+        <p>Catch the Popcorn Party at the Cinema!</p>
+        <a href="#" class="promo-button">
+            <i class="bx bx-bell"></i>
+            <span>About Promotion</span>
+        </a>
+    </div>
+</section>
+<!-- Home End -->
+
+<!-- Popular Section Start -->
+<section class="popular container" id="popular">
+    <!-- Heading -->
+    <div class="heading">
+        <h2 class="heading-title">Popular Movies</h2>
+        <div class="swiper-btn">
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </div>
+    <!-- Content -->
+    <div class="popular-content swiper">
+        <div class="swiper-wrapper">
+            <!-- Movie Box 1 Start -->
+            <div class="swiper-slide">
+                <div class="movie-box">
+                    <img
+                            src="static/img/demo_fiml_poster.jpg"
+                            alt=""
+                            class="movie-box-img"
+                    />
+                    <div class="box-text">
+                        <h2 class="movie-title">Movie Title</h2>
+                        <span class="movie-type"> Movie Type </span>
+                        <a href="play-page.html" class="promo-button play-btn">
+                            <i class="bx bx-right-arrow"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Movie Box 1 End -->
+            <!-- Movie Box 2 Start -->
+            <div class="swiper-slide">
+                <div class="movie-box">
+                    <img
+                            src="static/img/demo_fiml_poster.jpg"
+                            alt=""
+                            class="movie-box-img"
+                    />
+                    <div class="box-text">
+                        <h2 class="movie-title">Movie Title</h2>
+                        <span class="movie-type"> Movie Type </span>
+                        <a href="#" class="promo-button play-btn">
+                            <i class="bx bx-right-arrow"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Movie Box 2 End -->
+            <!-- Movie Box 3 Start -->
+            <div class="swiper-slide">
+                <div class="movie-box">
+                    <img
+                            src="static/img/demo_fiml_poster.jpg"
+                            alt=""
+                            class="movie-box-img"
+                    />
+                    <div class="box-text">
+                        <h2 class="movie-title">Movie Title</h2>
+                        <span class="movie-type"> Movie Type </span>
+                        <a href="#" class="promo-button play-btn">
+                            <i class="bx bx-right-arrow"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Movie Box 3 End -->
+            <!-- Movie Box 4 Start -->
+            <div class="swiper-slide">
+                <div class="movie-box">
+                    <img
+                            src="static/img/demo_fiml_poster.jpg"
+                            alt=""
+                            class="movie-box-img"
+                    />
+                    <div class="box-text">
+                        <h2 class="movie-title">Movie Title</h2>
+                        <span class="movie-type"> Movie Type </span>
+                        <a href="#" class="promo-button play-btn">
+                            <i class="bx bx-right-arrow"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Movie Box 4 End -->
+            <!-- Movie Box 5 Start -->
+            <div class="swiper-slide">
+                <div class="movie-box">
+                    <img
+                            src="static/img/demo_fiml_poster.jpg"
+                            alt=""
+                            class="movie-box-img"
+                    />
+                    <div class="box-text">
+                        <h2 class="movie-title">Movie Title</h2>
+                        <span class="movie-type"> Movie Type </span>
+                        <a href="#" class="promo-button play-btn">
+                            <i class="bx bx-right-arrow"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Movie Box 5 End -->
+            <!-- Movie Box 6 Start -->
+            <div class="swiper-slide">
+                <div class="movie-box">
+                    <img
+                            src="static/img/demo_fiml_poster.jpg"
+                            alt=""
+                            class="movie-box-img"
+                    />
+                    <div class="box-text">
+                        <h2 class="movie-title">Movie Title</h2>
+                        <span class="movie-type"> Movie Type </span>
+                        <a href="#" class="promo-button play-btn">
+                            <i class="bx bx-right-arrow"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Movie Box 6 End -->
+        </div>
+    </div>
+</section>
+<!-- Popular Section End -->
+
+<!-- Movies Section Start -->
+<section class="movies container" id="movies">
+    <!-- Heading -->
+    <div class="heading">
+        <h2 class="heading-title">Upcoming Movies</h2>
+    </div>
+
+    <!-- Upcoming Movies -->
+    <div class="movies-content">
+        <!-- Movie Box 1 Start -->
+        <div class="movie-box">
+            <img
+                    src="static/img/demo_fiml_poster.jpg"
+                    alt=""
+                    class="movie-box-img"
+            />
+            <div class="box-text">
+                <h2 class="movie-title">Movie Title</h2>
+                <span class="movie-type"> Movie Type </span>
+                <a href="#" class="promo-button play-btn">
+                    <i class="bx bx-right-arrow"></i>
+                </a>
+            </div>
+        </div>
+        <!-- Movie Box 1 End -->
+
+        <!-- Movie Box 2 Start -->
+        <div class="movie-box">
+            <img
+                    src="static/img/demo_fiml_poster.jpg"
+                    alt=""
+                    class="movie-box-img"
+            />
+            <div class="box-text">
+                <h2 class="movie-title">Movie Title</h2>
+                <span class="movie-type"> Movie Type </span>
+                <a href="#" class="promo-button play-btn">
+                    <i class="bx bx-right-arrow"></i>
+                </a>
+            </div>
+        </div>
+        <!-- Movie Box 2 End -->
+
+        <!-- Movie Box 3 Start -->
+        <div class="movie-box">
+            <img
+                    src="static/img/demo_fiml_poster.jpg"
+                    alt=""
+                    class="movie-box-img"
+            />
+            <div class="box-text">
+                <h2 class="movie-title">Movie Title</h2>
+                <span class="movie-type"> Movie Type </span>
+                <a href="#" class="promo-button play-btn">
+                    <i class="bx bx-right-arrow"></i>
+                </a>
+            </div>
+        </div>
+        <!-- Movie Box 3 End -->
+
+        <!-- Movie Box 4 Start -->
+        <div class="movie-box">
+            <img
+                    src="static/img/demo_fiml_poster.jpg"
+                    alt=""
+                    class="movie-box-img"
+            />
+            <div class="box-text">
+                <h2 class="movie-title">Movie Title</h2>
+                <span class="movie-type"> Movie Type </span>
+                <a href="#" class="promo-button play-btn">
+                    <i class="bx bx-right-arrow"></i>
+                </a>
+            </div>
+        </div>
+        <!-- Movie Box 4 End -->
+
+        <!-- Movie Box 5 Start -->
+        <div class="movie-box">
+            <img
+                    src="static/img/demo_fiml_poster.jpg"
+                    alt=""
+                    class="movie-box-img"
+            />
+            <div class="box-text">
+                <h2 class="movie-title">Movie Title</h2>
+                <span class="movie-type"> Movie Type </span>
+                <a href="#" class="promo-button play-btn">
+                    <i class="bx bx-right-arrow"></i>
+                </a>
+            </div>
+        </div>
+        <!-- Movie Box 5 End -->
+
+        <!-- Movie Box 6 Start -->
+        <div class="movie-box">
+            <img
+                    src="static/img/demo_fiml_poster.jpg"
+                    alt=""
+                    class="movie-box-img"
+            />
+            <div class="box-text">
+                <h2 class="movie-title">Movie Title</h2>
+                <span class="movie-type"> Movie Type </span>
+                <a href="#" class="promo-button play-btn">
+                    <i class="bx bx-right-arrow"></i>
+                </a>
+            </div>
+        </div>
+        <!-- Movie Box 6 End -->
+
+        <!-- Movie Box 7 Start -->
+        <div class="movie-box">
+            <img
+                    src="static/img/demo_fiml_poster.jpg"
+                    alt=""
+                    class="movie-box-img"
+            />
+            <div class="box-text">
+                <h2 class="movie-title">Movie Title</h2>
+                <span class="movie-type"> Movie Type </span>
+                <a href="#" class="promo-button play-btn">
+                    <i class="bx bx-right-arrow"></i>
+                </a>
+            </div>
+        </div>
+        <!-- Movie Box 7 End -->
+
+        <!-- Movie Box 8 Start -->
+        <div class="movie-box">
+            <img
+                    src="static/img/demo_fiml_poster.jpg"
+                    alt=""
+                    class="movie-box-img"
+            />
+            <div class="box-text">
+                <h2 class="movie-title">Movie Title</h2>
+                <span class="movie-type"> Movie Type </span>
+                <a href="#" class="promo-button play-btn">
+                    <i class="bx bx-right-arrow"></i>
+                </a>
+            </div>
+        </div>
+        <!-- Movie Box 8 End -->
+    </div>
+</section>
+<!-- Movies Section End -->
+
+<!-- Next Page -->
+<div class="next-page">
+    <a href="#" class="next-btn">Next Page</a>
 </div>
 
 <!-- Footer -->
-<footer class="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-8">
-                <p>280 Tran Hung Dao Street, Da Nang City, Viet Nam</p>
-                <p>ENJOY MEN IN BLACK RESPONSIBLY</p>
-                <p>MEN IN BLACK &copy; COPYRIGHT 2023 ALL RIGHTS RESERVED</p>
-            </div>
-            <div class="col-4 text-right">
-                <p></p>
-                <p>Find Men In Black on Social Media</p>
-                <a href="https://www.facebook.com"
-                ><i class="fab fa-facebook-f"></i
-                ></a>
-                <a href="https://www.instagram.com"
-                ><i class="fab fa-instagram"></i
-                ></a>
-                <a href="https://www.youtube.com"><i class="fab fa-youtube"></i></a>
-            </div>
+<footer>
+    <div class="info container">
+        <div class="info-text">
+            <p>280 Tran Hung Dao Street, Da Nang City, Viet Nam</p>
+            <p>RETRO CINEMA &copy; COPYRIGHT 2023 ALL RIGHTS RESERVED</p>
+        </div>
+        <div class="info-logo">
+            <a href="https://www.facebook.com" class="info-logo-item"
+            ><i class="bx bxl-facebook-square"></i
+            ></a>
+            <a href="https://www.instagram.com" class="info-logo-item"
+            ><i class="bx bxl-instagram"></i
+            ></a>
+            <a href="https://www.youtube.com" class="info-logo-item"
+            ><i class="bx bxl-youtube"></i
+            ></a>
         </div>
     </div>
 </footer>
+
+<script>
+    function toLogin() {
+        window.location.href = "/login";
+    }
+
+    function toLogout() {
+        window.location.href = "/logout";
+    }
+</script>
+<!-- Link to Swiper JS -->
+<script src="resources/static/js/swiper-bundle.min.js"></script>
+<!-- Link to main js -->
+<script src="/resources/static/js/home.js"></script>
 </body>
 </html>

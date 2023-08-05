@@ -14,13 +14,5 @@ public interface ICustomerService {
     void update(Customer customer);
     void delete(Integer id);
     Customer findByIdAccount(Integer id);
-    Customer findByEmail(String email);
-    void sendVerificationEmail(Customer customer, String siteURL) throws MessagingException, UnsupportedEncodingException;
-    Customer findByCode(String code);
-    boolean verify(String verificationCode);
-    void reset(Customer customer);
-    void sendVerificationReset(Customer customer, String siteURL) throws MessagingException, UnsupportedEncodingException;
-    boolean verifyReset(String verificationCode);
-    void reset_pw(Customer customer, String new_pw);
     Customer findById(int id);
 }

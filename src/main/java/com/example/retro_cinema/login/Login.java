@@ -15,13 +15,12 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
@@ -40,36 +39,14 @@ public class Login {
     private IAccountService iAccountService;
     @Autowired
     private ICustomerService iCustomerService;
-
-    @GetMapping("/")
-    public String showHomePage(Model model) {
-        return "home";
-    }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
-    @GetMapping("/login")
-    public String formLogin(@RequestParam(value = "error", required = false)
-                            boolean error, Principal principal, Model model) {
-        String authentication = SecurityContextHolder.getContext().getAuthentication().getName();
-        if (!"anonymousUser".equals(authentication)) {
-            AccountUser accountUser = iAccountService.findByEmail(principal.getName());
-            System.out.println(accountUser.getEmail());
-
-            if (!iCustomerService.findByEmail(accountUser.getEmail()).isEnabled()) {
-                model.addAttribute("accountDto", new AccountUserDto());
-                model.addAttribute("customerDto", new CustomerDto());
-                return "/loginPage";
-            } else {
-                model.addAttribute("info", iCustomerService.findByIdAccount(accountUser.getId()));
-            }
-            return "home";
-        }
-        if (error) {
-            model.addAttribute("fail", "Email or Password is incorrect");
-        }
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String loginPage(Model model) {
         model.addAttribute("accountDto", new AccountUserDto());
-        model.addAttribute("customerDto", new CustomerDto());
-        return "/loginPage";
+        return "loginPage";
     }
 
     @GetMapping("/logoutSuccessful")
@@ -88,20 +65,19 @@ public class Login {
     @GetMapping(value = "/userInfo")
     public String userInfo(Model model, Principal principal, RedirectAttributes redirectAttributes) {
         String userName = principal.getName();
-        AccountUser accountUser = iAccountService.findByEmail(principal.getName());
-        model.addAttribute("acc", accountUser);
+        AccountUser accountUser = iAccountService.findByUsername(userName);
         if (accountUser.getRoles().getRoleName().equals("ROLE_USER")) {
-            if (!iCustomerService.findByEmail(accountUser.getEmail()).isEnabled()) {
+            if (!accountUser.isEnabled()) {
                 redirectAttributes.addFlashAttribute("fail", "Sorry, we could not verify account. It maybe already verified, or verification code is incorrect.");
                 return "redirect:/login";
             } else {
-                model.addAttribute("info", iCustomerService.findByIdAccount(accountUser.getId()));
+                model.addAttribute("info", accountUser);
                 System.out.println("userName: " + userName);
                 return "/home";
             }
         } else if (accountUser.getRoles().getRoleName().equals("ROLE_ADMIN")) {
             System.out.println("userName: " + userName);
-            model.addAttribute("info", iCustomerService.findByIdAccount(accountUser.getId()));
+            model.addAttribute("info", accountUser);
             return "/home";
         }
         return "/home";
@@ -123,27 +99,28 @@ public class Login {
     }
 
     @PostMapping("/signup")
-    public String signup(@Valid @ModelAttribute UserDto customerDto, BindingResult bindingResult
+    public String signup(@Valid @ModelAttribute AccountUserDto accountUserDto, BindingResult bindingResult
             , RedirectAttributes redirectAttributes, HttpServletRequest request, Model model) throws UnsupportedEncodingException, MessagingException {
         if (bindingResult.hasErrors()) {
             model.addAttribute("accountDto", new AccountUserDto());
             return "loginPage";
         }
-        if (iCustomerService.findByEmail(customerDto.getAccountUserDto().getEmail()) != null) {
+        if (iAccountService.findByEmail(accountUserDto.getEmail()) != null) {
             redirectAttributes.addFlashAttribute("fail", "This email already exists!");
         } else {
-            customerDto.setExpiryDate(calculateExpiryDate());
+            accountUserDto.setExpiryDate(calculateExpiryDate());
             Roles roles = iAccountService.findRoleById(2);
             AccountUser accountUser = new AccountUser();
-            BeanUtils.copyProperties(customerDto.getAccountUserDto(), accountUser);
+            BeanUtils.copyProperties(accountUserDto, accountUser);
             accountUser.setRoles(roles);
+            String cryptedPass = passwordEncoder.encode(accountUser.getPass());
+            System.out.println(cryptedPass);
+            accountUser.setPass(cryptedPass);
             iAccountService.createAccount(accountUser);
-            Customer customer = new Customer();
-            BeanUtils.copyProperties(customerDto, customer);
-            customer.setAccountUser(accountUser);
+            Customer customer = new Customer(accountUser);
             iCustomerService.create(customer);
             String siteURL = getSiteURL(request);
-            iCustomerService.sendVerificationEmail(customer, siteURL);
+            iAccountService.sendVerificationEmail(accountUser, siteURL);
             redirectAttributes.addFlashAttribute("success", "You have signed up successfully! Please check your email to verify your account.");
         }
         return "redirect:/login";
@@ -151,7 +128,7 @@ public class Login {
 
     @GetMapping("/verify")
     public String verifyUser(@RequestParam("code") String code, RedirectAttributes redirectAttributes) {
-        if (iCustomerService.verify(code)) {
+        if (iAccountService.verify(code)) {
             redirectAttributes.addFlashAttribute("success", "Congratulations, your account has been verified.");
         } else {
             redirectAttributes.addFlashAttribute("fail", "Sorry, we could not verify account. It maybe already verified, or verification code is incorrect.");
@@ -166,11 +143,11 @@ public class Login {
 
     @PostMapping("/confirm_email")
     public String confirm_email(@RequestParam("email") String email, HttpServletRequest request, RedirectAttributes redirectAttributes) throws UnsupportedEncodingException, MessagingException {
-        Customer customer = iCustomerService.findByEmail(email);
-        customer.setExpiryDate(calculateExpiryDate());
-        iCustomerService.reset(customer);
+        AccountUser accountUser = iAccountService.findByEmail(email);
+        accountUser.setExpiryDate(calculateExpiryDate());
+        iAccountService.reset(accountUser);
         String siteURL = getSiteURL(request);
-        iCustomerService.sendVerificationReset(customer, siteURL);
+        iAccountService.sendVerificationReset(accountUser, siteURL);
         redirectAttributes.addFlashAttribute("success", "Please check your email to verify your account.");
         return "redirect:/login";
     }
@@ -182,9 +159,9 @@ public class Login {
 
     @PostMapping("/new_pw")
     public String new_pw(@RequestParam("new_pw") String new_pw,
-                         @ModelAttribute Customer customer,
+                         @ModelAttribute AccountUser accountUser,
                          RedirectAttributes redirectAttributes) {
-        iCustomerService.reset_pw(customer, new_pw);
+        iAccountService.reset_pw(accountUser, new_pw);
         redirectAttributes.addFlashAttribute("success", "Password change successful.");
         return "redirect:/login";
     }
@@ -193,13 +170,13 @@ public class Login {
     public String verify_reset(@RequestParam("code") String code, Model model,
                                RedirectAttributes redirectAttributes) {
         String email = null;
-        if (iCustomerService.findByCode(code) != null) {
-            Customer customer = iCustomerService.findByCode(code);
-            email = customer.getAccountUser().getEmail();
+        if (iAccountService.findByCode(code) != null) {
+            AccountUser accountUser = iAccountService.findByCode(code);
+            email = accountUser.getEmail();
         }
-        if (iCustomerService.verifyReset(code)) {
-            Customer customer = iCustomerService.findByEmail(email);
-            model.addAttribute("customers", customer);
+        if (iAccountService.verifyReset(code)) {
+            AccountUser accountUser = iAccountService.findByEmail(email);
+            model.addAttribute("customers", accountUser);
             return "reset_pw";
         } else {
             redirectAttributes.addFlashAttribute("fail", "Sorry, we could not verify account. It maybe already verified, or verification code is incorrect.");

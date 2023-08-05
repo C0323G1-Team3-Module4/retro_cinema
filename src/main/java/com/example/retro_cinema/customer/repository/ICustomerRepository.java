@@ -15,5 +15,4 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
     Optional<Customer> findById(Integer id);
     Customer findCustomerByAccountUser_Id(Integer id);
     Customer findByAccountUser_Email(String email);
-    Customer findByVerificationCode(String code);
 }
