@@ -1,6 +1,7 @@
 package com.example.retro_cinema.user.service.account;
 
 import com.example.retro_cinema.user.model.AccountUser;
+import com.example.retro_cinema.user.model.Roles;
 import com.example.retro_cinema.user.repository.accounts.IAccountRepository;
 import com.example.retro_cinema.user.repository.roles.IRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -26,27 +26,25 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        AccountUser appUser = this.accountRepository.findAccountByUsername(userName);
+        AccountUser accountUser = this.accountRepository.findAccountByUsername(userName);
 
-        if (appUser == null) {
+        if (accountUser == null) {
             System.out.println("User not found! " + userName);
             throw new UsernameNotFoundException("User " + userName + " was not found in the database");
         }
 
-        System.out.println("Found User: " + appUser.getUsername());
+        System.out.println("Found User: " + accountUser.getUsername());
 
         // [Find Role]
 
-        String role = appUser.getRoles().getRoleName();
+        String role = accountUser.getRoles().getRoleName();
 
-        List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
+        Set<GrantedAuthority> grantList = new HashSet<>();
         GrantedAuthority authority = new SimpleGrantedAuthority(role);
         grantList.add(authority);
 
-        UserDetails userDetails = (UserDetails) new User(appUser.getUsername(), //
-                appUser.getPass(), grantList);
+        UserDetails userDetails = (UserDetails) new User(accountUser.getUsername(), accountUser.getPass(), accountUser.isEnabled(), true, true, true, grantList);
 
         return userDetails;
     }
-
 }
