@@ -1,7 +1,7 @@
 package com.example.retro_cinema.config;
 
 
-import com.example.retro_cinema.user.service.account.UserDetailServiceImpl;
+import com.example.retro_cinema.user.service.account.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,55 +15,68 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 
 import javax.sql.DataSource;
 
-
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Autowired
-    private UserDetailServiceImpl userDetailServiceImpl;
+    private UserDetailsServiceImpl userDetailsService;
+
     @Autowired
     private DataSource dataSource;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailServiceImpl).passwordEncoder(passwordEncoder());
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        return bCryptPasswordEncoder;
     }
 
     @Autowired
-    public void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-        http.authorizeRequests().antMatchers("/", "/login").permitAll();
-        http.authorizeRequests().antMatchers("/customers/edit/{id}", "/customers/update", "/customers/test").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
-        http.authorizeRequests().antMatchers("/customers", "/customers/*").access("hasAnyRole('ROLE_ADMIN')");
-        http.authorizeRequests().antMatchers("/customers/delete").access("hasAnyRole('ROLE_ADMIN')");
-//        http.authorizeRequests().antMatchers("/").access("hasAnyRole('ROLE_ADMIN')");
-        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/400");
-        http.authorizeRequests().and().formLogin()
-                .loginProcessingUrl("/j_spring_security_check") //submit url
-                .loginPage("/login")
-                .defaultSuccessUrl("/userInfo")
-                .failureUrl("/login?error=true")
-                .usernameParameter("email")
-                .passwordParameter("pass")
-                //cau hinh logout
-                .and().logout()
-                .logoutUrl("/logout")
-                .clearAuthentication(true)
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID", "websparrow-login-remember-me")
-                .logoutSuccessUrl("/logoutSuccessful")
-                .permitAll();
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
-        // cau hinh remember me
-        http.authorizeRequests().and()
-                .rememberMe().key("myUniqueKey")
-                .rememberMeCookieName("websparrow-login-remember-me")
-                .tokenRepository(this.persistentTokenRepository())
-                .tokenValiditySeconds(24 * 60 * 60);
+        // Sét đặt dịch vụ để tìm kiếm User trong Database.
+        // Và sét đặt PasswordEncoder.
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+
+        http.csrf().disable();
+
+        // Các trang không yêu cầu login
+        http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
+
+        // Trang /userInfo yêu cầu phải login với vai trò ROLE_USER hoặc ROLE_ADMIN.
+        // Nếu chưa login, nó sẽ redirect tới trang /login.
+        http.authorizeRequests().antMatchers("/userInfo").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
+
+        // Trang chỉ dành cho ADMIN
+        http.authorizeRequests().antMatchers("/admin").access("hasRole('ROLE_ADMIN')");
+
+        // Khi người dùng đã login, với vai trò XX.
+        // Nhưng truy cập vào trang yêu cầu vai trò YY,
+        // Ngoại lệ AccessDeniedException sẽ ném ra.
+        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
+
+        // Cấu hình cho Login Form.
+        http.authorizeRequests().and().formLogin()//
+                // Submit URL của trang login
+                .loginProcessingUrl("/j_spring_security_check") // Submit URL
+                .loginPage("/login")//
+                .defaultSuccessUrl("/")//
+                .failureUrl("/login?error=true")//
+                .usernameParameter("username")//
+                .passwordParameter("password")
+                // Cấu hình cho Logout Page.
+                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful");
+
+        // Cấu hình Remember Me.
+        http.authorizeRequests().and() //
+                .rememberMe().tokenRepository(this.persistentTokenRepository()) //
+                .tokenValiditySeconds(1 * 24 * 60 * 60); // 24h
+
     }
 
     @Bean

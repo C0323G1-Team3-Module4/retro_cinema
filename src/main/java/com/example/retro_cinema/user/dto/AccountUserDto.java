@@ -5,14 +5,15 @@ import com.example.retro_cinema.customer.model.Customer;
 import com.example.retro_cinema.user.model.Roles;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 public class AccountUserDto implements Validator {
 
     private Integer id;
+    private String username;
     @NotBlank(message = "Email could not be void!")
     @Email
     private String email;
@@ -20,37 +21,29 @@ public class AccountUserDto implements Validator {
     @Size(min = 6, max = 30, message = "Password must be at least 6 character!")
     private String pass;
     private Roles roles;
+    private Date expiryDate;
+    private String verificationCode;
     private Customer customer;
     private boolean flag;
 
     public AccountUserDto() {
     }
 
-    public AccountUserDto(String email, String pass) {
-        this.email = email;
-        this.pass = pass;
-    }
-
-    public AccountUserDto(String email, String pass, Customer customer) {
-        this.email = email;
-        this.pass = pass;
-        this.customer = customer;
-    }
-
-    public AccountUserDto(Integer id, String email, String pass, Roles roles, boolean flag) {
-        this.id = id;
+    public AccountUserDto(String username, String email, String pass, Roles roles, Date expiryDate, String verificationCode) {
+        this.username = username;
         this.email = email;
         this.pass = pass;
         this.roles = roles;
-        this.flag = flag;
+        this.expiryDate = expiryDate;
+        this.verificationCode = verificationCode;
     }
 
-    public AccountUserDto(Integer id, String email, String pass, Roles roles, Customer customer, boolean flag) {
-        this.id = id;
+    public AccountUserDto(String username, String email, String pass, Date expiryDate, String verificationCode, boolean flag) {
+        this.username = username;
         this.email = email;
         this.pass = pass;
-        this.roles = roles;
-        this.customer = customer;
+        this.expiryDate = expiryDate;
+        this.verificationCode = verificationCode;
         this.flag = flag;
     }
 
@@ -60,6 +53,14 @@ public class AccountUserDto implements Validator {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -86,12 +87,20 @@ public class AccountUserDto implements Validator {
         this.roles = roles;
     }
 
-    public boolean isFlag() {
-        return flag;
+    public Date getExpiryDate() {
+        return expiryDate;
     }
 
-    public void setFlag(boolean flag) {
-        this.flag = flag;
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
     }
 
     public Customer getCustomer() {
@@ -100,6 +109,14 @@ public class AccountUserDto implements Validator {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
     }
 
     @Override

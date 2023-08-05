@@ -102,6 +102,7 @@
         .forget-pass {
             margin: 0.2rem 1rem;
         }
+
         .fail-msg {
             position: absolute;
             top: 30px;
@@ -109,6 +110,7 @@
             transform: translateX(-50%);
             z-index: 1000;
         }
+
         input[type="password"],
         input[type="text"],
         input[type="email"] {
@@ -127,19 +129,6 @@
     </div>
     <div class="toast-body" th:text="${success}"></div>
 </div>
-
-<!--<div class="fail-msg">-->
-<!--    <div aria-atomic="true" aria-live="assertive" class="toast show" role="alert" th:if="${fail!=null}"-->
-<!--         style="-->
-<!--    position: fixed;right: 10px;top: 100px; animation: slideInRight ease 1s, fadeOut linear 1s 4s forwards; // thời gian msg trượt-->
-<!--            transition: all linear 0.3s;z-index: 999999">-->
-<!--        <div class="toast-header bg-danger">-->
-<!--            <strong class="me_auto">Notification</strong>fail-->
-<!--            <small>1 second ago</small>-->
-<!--        </div>-->
-<!--        <div class="toast-body" th:text="${fail}"></div>-->
-<!--    </div>-->
-<!--</div>-->
 
 <div class="fail-msg">
     <div aria-atomic="true" aria-live="assertive" class="toast show" role="alert" th:if="${fail!=null}">
@@ -178,17 +167,27 @@
                 </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link"
-                            id="tab-register"
-                            data-bs-toggle="pill"
-                            data-bs-target="#pills-register"
-                            role="tab"
-                            aria-controls="pills-register"
-                            aria-selected="false"
+                       id="tab-register"
+                       data-bs-toggle="pill"
+                       data-bs-target="#pills-register"
+                       role="tab"
+                       aria-controls="pills-register"
+                       aria-selected="false"
                     >Register</a
                     >
                 </li>
             </ul>
             <!-- Pills content -->
+            <div th:if="${#request.getParameter('error') == 'true'}"
+                 style="color:red;margin:10px 0px;">
+                Login Failed!!!<br/>
+                Reason :
+                <span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
+                      th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">
+                Static summary
+         </span>
+
+            </div>
             <div class="tab-content">
                 <div
                         class="tab-pane fade show active"
@@ -196,20 +195,18 @@
                         role="tabpanel"
                         aria-labelledby="tab-login"
                 >
-                    <form th:action="@{/j_spring_security_check}" method="post" th:object="${accountDto}">
+                    <form th:action="@{/j_spring_security_check}" method="post">
                         <!-- Email input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="form2Example8">Email</label>
                             <input
                                     name="username"
-                                    type="email"
+                                    type="text"
                                     id="form2Example8"
                                     class="form-control"
                                     required
-                                    th:field="*{email}"
                             />
                         </div>
-                        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
 
                         <!-- Password input -->
                         <div class="form-outline mb-4">
@@ -220,10 +217,8 @@
                                     id="form2Example7"
                                     required
                                     class="form-control"
-                                    th:field="*{pass}"
                             />
                         </div>
-                        <p th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}"></p>
 
                         <div class="forget-pass">
                             <a href="/email">Forget Password?</a>
@@ -243,14 +238,7 @@
                         role="tabpanel"
                         aria-labelledby="tab-register"
                 >
-                    <form action="/signup" method="post" th:object="${customerDto}">
-                        <input type="hidden" name="action" value="createByUser"/>
-                        <input type="hidden" name="roleOption" value="customer"/>
-                        <input
-                                type="hidden"
-                                name="mess"
-                                value="Create successful. Please login again"
-                        />
+                    <form action="/signup" method="post" th:object="${accountDto}">
                         <!-- Username input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="form2Example18"
@@ -262,11 +250,11 @@
                                     class="form-control"
                                     required
                                     name="username"
-                                    th:field="*{fullName}"
+                                    th:field="*{username}"
                             />
-                            <span style="color: red" th:if="${#fields.hasErrors()}"
-                                  th:errors="*{fullName}">
-                            </span>
+                            <span style="color: red" th:if="${#fields.hasErrors('username')}"
+                                  th:errors="*{username}">
+                                                        </span>
                         </div>
 
                         <!-- Email input -->
@@ -277,10 +265,10 @@
                                     id="form2Example4"
                                     class="form-control"
                                     name="email"
-                                    th:field="*{accountUserDto.email}"
+                                    th:field="*{email}"
                             />
-                            <span style="color: red" th:if="${#fields.hasErrors('accountUserDto.email')}"
-                                  th:errors="*{accountUserDto.email}"></span>
+                                                        <span style="color: red" th:if="${#fields.hasErrors('email')}"
+                                                              th:errors="*{email}"></span>
                         </div>
 
                         <!-- Password input -->
@@ -294,9 +282,9 @@
                                         id="form2Example5"
                                         class="form-control"
                                         name="password"
-                                        th:field="*{accountUserDto.pass}"/>
-                                <span style="color: red" th:if="${#fields.hasErrors('accountUserDto.pass')}"
-                                      th:errors="*{accountUserDto.pass}"></span>
+                                        th:field="*{pass}"/>
+                                <span style="color: red" th:if="${#fields.hasErrors('pass')}"
+                                      th:errors="*{pass}"></span>
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="form2Example6"
@@ -365,12 +353,11 @@
         // Check if the "fail" message is "This email already exists!"
         const failMsg = document.querySelector('.toast-body').textContent;
         const checkMsg = "This email already exists!";
-        if(failMsg == checkMsg) {
+        if (failMsg == checkMsg) {
             const tabRegister = document.getElementById("tab-register");
             tabRegister.click();
         }
     });
-
 </script>
 </html>
 
