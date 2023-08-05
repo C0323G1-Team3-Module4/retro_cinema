@@ -24,7 +24,7 @@ public class MovieDto implements Validator {
     private String releaseDate;
     private String director;
     private String performer;
-    @NotBlank(message = "Link img cannot is empty")
+//    @NotBlank(message = "Link img cannot is empty")
     private String img;
     @NotBlank(message = "Link trailer cannot is empty")
     private String trailer;

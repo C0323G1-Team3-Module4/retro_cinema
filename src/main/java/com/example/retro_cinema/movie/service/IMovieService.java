@@ -5,7 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface IMovieService {
+
     Page<Movie> movieList(Pageable pageable, String name);
+
 
     void addMovie(Movie movie);
 

@@ -1,8 +1,10 @@
 package com.example.retro_cinema.movie.model;
 
 import com.example.retro_cinema.movie_types.model.MovieTypes;
+import com.example.retro_cinema.screenings.model.Screenings;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "movies")
@@ -26,7 +28,17 @@ public class Movie {
     @JoinColumn(name = "movie_type_id",referencedColumnName = "id")
     private MovieTypes movieTypes;
 
+    @OneToMany(mappedBy = "movie")
+    private Set<Screenings> screeningsSet;
     public Movie() {
+    }
+
+    public Set<Screenings> getScreeningsSet() {
+        return screeningsSet;
+    }
+
+    public void setScreeningsSet(Set<Screenings> screeningsSet) {
+        this.screeningsSet = screeningsSet;
     }
 
     public Movie(int id, String movieName, int duration, String description, String releaseDate, String director, String performer, String img, String trailer, double price, boolean flag, MovieTypes movieTypes) {

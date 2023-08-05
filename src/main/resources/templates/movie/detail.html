@@ -63,8 +63,17 @@
                 <span th:text="${movie.movieTypes.movieTypes}"></span>
             </div>
             <div class="col-lg-9">
-                <p>ok</p>
                 <img th:src="@{${movie.img}}" alt="" style="width: auto;height: 400px">
+                <span>
+                <a th:href="@{/movie/delete(id=${movie.id})}">
+                <img src="static/img/cancel.png" alt="Icon"
+                     style="width: 5rem; height: 5rem">
+                    </a>
+                <a th:href="@{/movie/edit(id=${movie.id})}">
+                <img src="static/img/video-editing.png" alt="Icon"
+                     style="width: 5rem; height: 5rem">
+                    </a>
+                </span>
             </div>
         </div>
     </fieldset>
