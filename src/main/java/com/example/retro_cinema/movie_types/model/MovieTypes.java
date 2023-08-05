@@ -3,6 +3,7 @@ package com.example.retro_cinema.movie_types.model;
 import com.example.retro_cinema.movie.model.Movie;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "movie_types")
@@ -13,14 +14,14 @@ public class MovieTypes {
     @Column(name = "movie_type")
     private String movieTypes;
     @OneToMany(mappedBy = "movieTypes")
-    Movie movieSet;
+    private Set<Movie> movieSet;
 
-    public Movie getMovieSet() {
+    public Set<Movie> getMovieSet() {
         return movieSet;
     }
 
-    public void setMovieSet(Movie movieTypesSet) {
-        this.movieSet = movieTypesSet;
+    public void setMovieSet(Set<Movie> movieSet) {
+        this.movieSet = movieSet;
     }
 
     public MovieTypes() {
