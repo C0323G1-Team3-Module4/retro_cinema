@@ -1,7 +1,6 @@
 package com.example.retro_cinema.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -10,8 +9,6 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**")
-                .addResourceLocations("classpath:/static/");
-        registry.addResourceHandler("/static/js/**")
-                .addResourceLocations("classpath:/static/js/");
+                .addResourceLocations("classpath:/static/","classpath:/static/img/");
     }
 }
