@@ -1,119 +1,215 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8"/>
     <title>Responsive Sidebar Menu | CodingLab</title>
-    <link rel="stylesheet" href="/static/css/admin_preferences.css" />
+    <link rel="stylesheet" href="/static/css/admin_preferences.css"/>
     <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
     />
     <!-- or -->
     <link
-      rel="stylesheet"
-      href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
+            rel="stylesheet"
+            href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
     />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  </head>
-  <body>
-    <div class="sidebar">
-      <div class="logo-details">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        .home-section {
+            position: relative;
+        }
+
+        .wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30rem;
+            height: auto;
+            background: #fdfeff;
+            -webkit-transition: background 0.6s ease;
+            transition: background 0.6s ease;
+            border-radius: 10px;
+            padding: 20px 20px 20px 20px;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .wrapper .top-icons {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .wrapper .top-icons i {
+            font-size: 30px;
+            color: #080911;
+            margin: 0.4rem;
+            cursor: pointer;
+        }
+
+        .wrapper .user {
+            position: relative;
+        }
+
+        .wrapper .user .thumbnail {
+            width: 10rem;
+            height: 10rem;
+            display: -webkit-box;
+            display: flex;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 1.5em;
+            border-radius: 100%;
+            box-shadow: 0 13px 26px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .wrapper .user .name {
+            color: #2d354a;
+            font-size: 2rem;
+            font-weight: 600;
+            text-align: center;
+            padding: 0.3rem 0 0.3rem;
+        }
+
+        .wrapper .user .username {
+            color: #7c8097;
+            font-size: 1.5rem;
+            font-weight: 300;
+            text-align: center;
+            letter-spacing: 1.5px;
+            padding: 0.3rem 0 0.3rem;
+        }
+
+        .wrapper .user .email {
+            color: #7c8097;
+            font-size: 1rem;
+            font-weight: 300;
+            text-align: center;
+            letter-spacing: 1.5px;
+            padding: 0.3rem 0 0.3rem;
+        }
+
+        .wrapper .user .gender {
+            color: #7c8097;
+            font-size: 1rem;
+            font-weight: 300;
+            text-align: center;
+            letter-spacing: 1.5px;
+            padding: 0.3rem 0 0.3rem;
+        }
+
+        .wrapper .user .dob {
+            color: #7c8097;
+            font-size: 0.8rem;
+            font-weight: 300;
+            text-align: center;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 0.3rem 0 0.3rem;
+        }
+
+        .wrapper .user .address {
+            color: #080911;
+            font-size: 0.8rem;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 1.3em;
+            padding: 0.3rem 0 0.3rem;
+        }
+        .background {
+            width: 100%;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body>
+<div class="sidebar">
+    <div class="logo-details">
         <i class="bx bxs-registered icon"></i>
         <div class="logo_name">Retro<span id="cinema">Cinema</span></div>
         <i class="bx bx-menu" id="btn"></i>
-      </div>
-      <ul class="nav-list">
+    </div>
+    <ul class="nav-list">
         <li>
-          <a href="#">
-            <i class="bx bx-cart-alt"></i>
-            <span class="links_name">Bookings</span>
-          </a>
-          <span class="tooltip">Bookings</span>
+            <a href="#">
+                <i class="bx bx-cart-alt"></i>
+                <span class="links_name">Bookings</span>
+            </a>
+            <span class="tooltip">Bookings</span>
         </li>
-        <li>
-          <a th:href="@{/customers/info/__${customer.id}__}">
-            <i class="bx bx-cog"></i>
-            <span class="links_name">Setting</span>
-          </a>
-          <span class="tooltip">Setting</span>
+        <li th:object="${customer}">
+            <a th:href="@{/customers/info/__${customer.id}__}">
+                <i class="bx bx-cog"></i>
+                <span class="links_name">Setting</span>
+            </a>
+            <span class="tooltip">Setting</span>
         </li>
         <li class="profile">
-          <div class="profile-details">
-            <img src="https://cdn.landesa.org/wp-content/uploads/default-user-image.png" alt="profileImg" />
-            <div class="name_job">
-              <div class="name" th:text="${#request.userPrincipal.getName()}">Username</div>
+            <div class="profile-details">
+                <img src="https://cdn.landesa.org/wp-content/uploads/default-user-image.png" alt="profileImg"/>
+                <div class="name_job">
+                    <div class="name" th:text="${#request.userPrincipal.getName()}">Username</div>
+                </div>
             </div>
-          </div>
-          <i class="bx bx-log-out" id="log_out" onclick="toHome()"></i>
+            <i class="bx bx-log-out" id="log_out" onclick="toHome()"></i>
         </li>
-      </ul>
-    </div>
-    <section class="home-section">
-      <div class="text">
-        <div th:object="${customer}">
-          <button><a th:href="@{/customers}">Back to home</a></button>
-          <table>
-            <tr>
-              <td>STT</td>
-              <td th:text="${customer.id}"></td>
-            </tr>
-            <tr>
-              <td>Full Name</td>
-              <td th:text="${customer.fullName}"></td>
-            </tr>
-            <tr>
-              <td>Phone</td>
-              <td th:text="${customer.phone}"></td>
-            </tr>
-            <tr>
-              <td>Address</td>
-              <td th:text="${customer.address}"></td>
-            </tr>
-
-            <tr>
-              <td>Gender</td>
-              <td th:text="${customer.gender}"></td>
-            </tr>
-
-            <tr>
-              <td>Date Of Birth</td>
-              <td th:text="${customer.dob}"></td>
-            </tr>
-
-            <tr>
-              <td>Email</td>
-              <td th:text="${customer.accountUser.email}"></td>
-            </tr>
-
-          </table>
-
+    </ul>
+</div>
+<section class="home-section">
+    <img src="https://i1.wp.com/static.web-backgrounds.net/uploads/2012/08/City_Landscape_Background.jpg"
+         alt="background" class="background">
+    <div class="wrapper">
+        <div class="top-icons" th:object="${customer}">
+            <i class='bx bx-trash' style="color: rgb(170, 29, 29);"></i>
+            <i class='bx bx-cog' onclick="toEdit()"></i>
         </div>
-      </div>
-    </section>
-    <script>
-      let sidebar = document.querySelector(".sidebar");
-      let closeBtn = document.querySelector("#btn");
-      let searchBtn = document.querySelector(".bx-search");
-      closeBtn.addEventListener("click", () => {
+        <div class="user" th:object="${customer}">
+            <img
+                    src="https://cdn.landesa.org/wp-content/uploads/default-user-image.png"
+                    class="thumbnail"
+            />
+            <input type="hidden" th:value="${customer.id}" id="id">
+            <h3 class="name" th:text="${customer.fullName}">Please Update Fullname</h3>
+            <p class="username" th:text="${customer.accountUser.username}">Please Update Username</p>
+            <p class="email" th:text="${customer.accountUser.email}">Please Update Email</p>
+            <p class="dob" th:text="${customer.dob}">Please Update Birthdate</p>
+            <p class="gender" th:text="${customer.gender}">Please Update Gender</p>
+            <p class="address" th:text="${customer.address}">Please Update Address</p>
+        </div>
+    </div>
+
+</section>
+<script>
+    let sidebar = document.querySelector(".sidebar");
+    let closeBtn = document.querySelector("#btn");
+    let searchBtn = document.querySelector(".bx-search");
+    closeBtn.addEventListener("click", () => {
         sidebar.classList.toggle("open");
         menuBtnChange(); //calling the function(optional)
-      });
-      searchBtn.addEventListener("click", () => {
+    });
+    searchBtn.addEventListener("click", () => {
         // Sidebar open when you click on the search iocn
         sidebar.classList.toggle("open");
         menuBtnChange(); //calling the function(optional)
-      });
-      // following are the code to change sidebar button(optional)
-      function menuBtnChange() {
+    });
+
+    // following are the code to change sidebar button(optional)
+    function menuBtnChange() {
         if (sidebar.classList.contains("open")) {
-          closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
+            closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
         } else {
-          closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
+            closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
         }
-      }
-      function toHome() {
+    }
+
+    function toHome() {
         window.location.href = "/";
-      }
-    </script>
-  </body>
+    }
+
+    function toEdit() {
+        let id = document.getElementById("id").value;
+        window.location.href = "/customers/edit/" + id;
+    }
+</script>
+</body>
 </html>
