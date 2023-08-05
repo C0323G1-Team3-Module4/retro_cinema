@@ -1,5 +1,6 @@
 package com.example.retro_cinema.screenings.model;
 
+import com.example.retro_cinema.movie.model.Movie;
 import com.example.retro_cinema.showtimes.model.ShowTimes;
 
 import javax.persistence.*;
@@ -15,4 +16,7 @@ public class Screenings {
     @ManyToOne
     @JoinColumn(name = "showtime_id",referencedColumnName = "id")
     private ShowTimes showTimes;
+    @ManyToOne
+    @JoinColumn(name ="movie_id", referencedColumnName = "id")
+    private Movie movie;
 }
