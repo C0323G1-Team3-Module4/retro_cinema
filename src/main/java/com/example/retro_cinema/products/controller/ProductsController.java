@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -27,7 +24,7 @@ public class ProductsController {
         return "products/list";
     }
 
-    @GetMapping("/products/add-product")
+    @GetMapping("/products/addProduct")
     public String showAddProducts(Model model) {
         model.addAttribute("productsDto", new ProductsDto());
         return "products/add";
@@ -47,9 +44,30 @@ public class ProductsController {
 
     @PostMapping("/products/delete")
     public String deleteProducts(@RequestParam int id) {
-        System.out.println(id);
         productsService.deleteProducts(id);
         return "redirect:/products/list";
     }
 
+    @GetMapping("/products/editProduct")
+    public String editProducts(@RequestParam int id, Model model) {
+        Products products = productsService.findProduct(id);
+        ProductsDto productsDto = new ProductsDto();
+        BeanUtils.copyProperties(products, productsDto);
+        model.addAttribute("productsDto", products);
+        model.addAttribute("id",id);
+        return "products/edit";
+    }
+
+    @PostMapping("/products/edit")
+    public String edit(@ModelAttribute ProductsDto productsDto,BindingResult bindingResult,Model model) {
+        Products products = new Products();
+        new ProductsDto().validate(productsDto,bindingResult);
+        if(bindingResult.hasErrors()){
+            model.addAttribute("productsDto",productsDto);
+            return "products/edit";
+        }
+        BeanUtils.copyProperties(productsDto,products);
+        productsService.editProducts(products);
+        return "redirect:/products/list";
+    }
 }

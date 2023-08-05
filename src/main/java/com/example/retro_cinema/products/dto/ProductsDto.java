@@ -5,7 +5,6 @@ import org.springframework.validation.Validator;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class ProductsDto implements Validator {

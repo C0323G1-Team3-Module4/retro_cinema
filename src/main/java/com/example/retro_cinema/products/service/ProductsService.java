@@ -27,6 +27,7 @@ public class ProductsService implements IProductsService {
 
     @Override
     public void addProducts(Products products) {
+        products.setFlag(true);
         productsRepository.save(products);
     }
 
@@ -39,6 +40,12 @@ public class ProductsService implements IProductsService {
 
     @Override
     public void editProducts(Products products) {
+        products.setFlag(true);
         productsRepository.save(products);
+    }
+
+    @Override
+    public Products findProduct(int id) {
+        return productsRepository.findById(id).get();
     }
 }
