@@ -1,7 +1,5 @@
 package com.example.retro_cinema.user.repository.accounts;
 
-
-import com.example.retro_cinema.customer.model.Customer;
 import com.example.retro_cinema.user.model.AccountUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 

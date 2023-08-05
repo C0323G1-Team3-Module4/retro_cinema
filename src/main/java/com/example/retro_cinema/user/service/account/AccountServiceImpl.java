@@ -1,7 +1,5 @@
 package com.example.retro_cinema.user.service.account;
 
-
-import com.example.retro_cinema.customer.model.Customer;
 import com.example.retro_cinema.user.model.AccountUser;
 import com.example.retro_cinema.user.model.Roles;
 import com.example.retro_cinema.user.repository.accounts.IAccountRepository;
@@ -19,6 +17,7 @@ import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Lazy
@@ -46,7 +45,21 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
+    public AccountUser findByIdAccount(Integer id) {
+        if (iAccountRepository.findById(id).get() !=null) {
+            return iAccountRepository.findById(id).get();
+        } else {
+            return null;
+        }
+    }
+
+    @Override
     public void createAccount(AccountUser accountUser) {
+        accountUser.setRoles(iRoleRepository.findById(2)); //Set ROLE_USER
+        String encryptedPass = passwordEncoder.encode(accountUser.getPass());
+        accountUser.setVerificationCode(UUID.randomUUID().toString());
+        System.out.println(accountUser.getVerificationCode());
+        accountUser.setPass(encryptedPass);
         accountUser.setEnabled(false);
         iAccountRepository.save(accountUser);
     }
@@ -187,6 +200,7 @@ public class AccountServiceImpl implements IAccountService {
             iAccountRepository.delete(accountUser);
             return false;
         } else {
+            accountUser.setExpiryDate(null);
             accountUser.setVerificationCode(null);
             accountUser.setEnabled(true);
             iAccountRepository.save(accountUser);

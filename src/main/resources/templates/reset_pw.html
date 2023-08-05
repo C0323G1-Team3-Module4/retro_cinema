@@ -130,10 +130,10 @@
 <!--  </style>-->
 </head>
 <body>
-<form class="login" action="/new_pw" method="post" th:object="${customers}" >
+<form class="login" action="/new_pw" method="post" th:object="${account}" >
   <h1>Enter New Password</h1>
-  <h3 th:text="${customers.getAccountUser().email}" ></h3>
-  <input type="hidden" th:field="*{accountUser.email}">
+  <h3 th:text="${account.getEmail()}" ></h3>
+  <input type="hidden" th:field="*{email}">
   <input type="hidden" th:field="*{id}">
   <input  id="form2Example5" name="new_pw" type="password" placeholder="Enter Your New Password">
   <input  id="form2Example6" type="password" placeholder="Confirm Password">

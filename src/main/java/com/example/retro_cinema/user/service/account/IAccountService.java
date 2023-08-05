@@ -1,6 +1,7 @@
 package com.example.retro_cinema.user.service.account;
 
 
+import com.example.retro_cinema.customer.model.Customer;
 import com.example.retro_cinema.user.model.AccountUser;
 import com.example.retro_cinema.user.model.Roles;
 
@@ -11,6 +12,7 @@ import java.util.List;
 public interface IAccountService {
     AccountUser findByEmail(String name);
     Roles findRoleById(int id);
+    AccountUser findByIdAccount(Integer id);
     void createAccount(AccountUser accountUser);
     List<AccountUser> findAll();
     void reset(AccountUser accountUser);

@@ -1,10 +1,8 @@
 package com.example.retro_cinema.login;
 
-import com.example.retro_cinema.customer.dto.CustomerDto;
 import com.example.retro_cinema.customer.model.Customer;
 import com.example.retro_cinema.customer.service.ICustomerService;
 import com.example.retro_cinema.user.dto.AccountUserDto;
-import com.example.retro_cinema.user.dto.UserDto;
 import com.example.retro_cinema.user.model.AccountUser;
 import com.example.retro_cinema.user.model.Roles;
 import com.example.retro_cinema.user.service.account.IAccountService;
@@ -15,7 +13,6 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,12 +22,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
 
 @Controller
 @Lazy
@@ -39,8 +37,6 @@ public class Login {
     private IAccountService iAccountService;
     @Autowired
     private ICustomerService iCustomerService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -108,14 +104,10 @@ public class Login {
         if (iAccountService.findByEmail(accountUserDto.getEmail()) != null) {
             redirectAttributes.addFlashAttribute("fail", "This email already exists!");
         } else {
-            accountUserDto.setExpiryDate(calculateExpiryDate());
-            Roles roles = iAccountService.findRoleById(2);
             AccountUser accountUser = new AccountUser();
             BeanUtils.copyProperties(accountUserDto, accountUser);
-            accountUser.setRoles(roles);
-            String cryptedPass = passwordEncoder.encode(accountUser.getPass());
-            System.out.println(cryptedPass);
-            accountUser.setPass(cryptedPass);
+            accountUser.setExpiryDate(calculateExpiryDate());
+            System.out.println(accountUser.getExpiryDate());
             iAccountService.createAccount(accountUser);
             Customer customer = new Customer(accountUser);
             iCustomerService.create(customer);
@@ -176,7 +168,7 @@ public class Login {
         }
         if (iAccountService.verifyReset(code)) {
             AccountUser accountUser = iAccountService.findByEmail(email);
-            model.addAttribute("customers", accountUser);
+            model.addAttribute("account", accountUser);
             return "reset_pw";
         } else {
             redirectAttributes.addFlashAttribute("fail", "Sorry, we could not verify account. It maybe already verified, or verification code is incorrect.");
