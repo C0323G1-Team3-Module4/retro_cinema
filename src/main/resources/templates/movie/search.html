@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Retro Cinema</title>
+    <!-- Link CSS -->
+    <link rel="stylesheet" href="/static/css/home.css"/>
+    <!-- Box Icon -->
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
+    />
+    <!-- or -->
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
+    />
+    <!-- Link Swiper CSS -->
+    <link rel="stylesheet" href="/static/css/swiper-bundle.min.css"/>
+</head>
+<body>
+<!-- Header -->
+<header>
+    <!-- Navigation Bar -->
+    <div class="nav container">
+        <!-- Logo -->
+        <a href="home.html" class="logo"> Retro<span>Cinema</span> </a>
+        <!-- Search Box -->
+        <div class="search-box">
+            <input
+                    type="search"
+                    th:name="name"
+                    id="search-input"
+                    placeholder="Search Movie"
+            />
+            <i class="bx bx-search"></i>
+        </div>
+        <!-- User -->
+        <div>
+
+        </div>
+        <a href="#" class="user">
+            <img th:if="${#request.userPrincipal == null}"
+                 src="https://cdn.landesa.org/wp-content/uploads/default-user-image.png"
+                 alt="user-img"
+                 class="user-img"
+            />
+            <img th:if="${#request.userPrincipal !=null}"
+                 src="https://cdn2.iconfinder.com/data/icons/audio-16/96/user_avatar_profile_login_button_account_member-512.png"
+                 alt="user-img"
+                 class="user-img">
+            <span th:if="${#request.userPrincipal == null}" class="user-info" onclick="toLogin()">Login</span>
+            <span th:if="${#request.userPrincipal !=null}" th:text="${#request.userPrincipal.getName()}"
+                  class="user-info"></span>
+            <!-- Dropdown list Start -->
+            <div th:if="${#request.userPrincipal!=null}" class="dropdown-list">
+                <div class="dropdown-item" th:if="${#request.isUserInRole('ROLE_ADMIN')}">
+                    <i class="bx bx-cog"></i>
+                    <div class="dropdown-text" onclick="toPreference()">Preferences</div>
+                </div>
+                <div class="dropdown-item" th:if="${#request.isUserInRole('ROLE_USER')}">
+                    <i class="bx bx-cog"></i>
+                    <div class="dropdown-text" onclick="toCustomerDetails()">Preferences</div>
+                </div>
+                <div class="dropdown-item">
+                    <i class="bx bx-log-out-circle"></i>
+                    <div class="dropdown-text" onclick="toLogout()">Log out</div>
+                </div>
+            </div>
+            <!-- Dropdown list end -->
+        </a>
+        <!-- Nav bar column -->
+        <div class="navbar">
+            <a href="#home" class="nav-link nav-active">
+                <i class="bx bx-home"></i>
+                <span class="nav-link-title">Home</span>
+            </a>
+            <a href="#home" class="nav-link">
+                <i class="bx bxs-hot"></i>
+                <span class="nav-link-title">Upcoming</span>
+            </a>
+            <a href="#home" class="nav-link">
+                <i class="bx bx-camera-movie"></i>
+                <span class="nav-link-title">Onscreen</span>
+            </a>
+            <a href="#home" class="nav-link">
+                <i class="bx bx-heart"></i>
+                <span class="nav-link-title">Favorite</span>
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- Home Begin -->
+<section class="home container" id="home">
+    <!-- Home Image -->
+    <img src="static/img/home-background.png" alt="home-img" class="home-img"/>
+    <!-- Home Text -->
+    <div class="home-text">
+        <h1 class="home-title">
+            Big Pop,<br/>
+            Bigger Fun!
+        </h1>
+        <p>Catch the Popcorn Party at the Cinema!</p>
+        <a href="#" class="promo-button">
+            <i class="bx bx-bell"></i>
+            <span>About Promotion</span>
+        </a>
+    </div>
+</section>
+<!-- Home End -->
+
+<!-- Popular Section Start -->
+<section class="popular container" id="popular">
+    <!-- Heading -->
+    <div class="heading">
+        <h2 class="heading-title">Popular Movies</h2>
+        <div class="swiper-btn">
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </div>
+    <!-- Content -->
+    <div class="popular-content swiper">
+        <div class="swiper-wrapper">
+            <!-- Movie Box  Start -->
+            <div class="swiper-slide" th:each="m:${findMovieByName}">
+                <div class="movie-box">
+                    <img
+                            th:src="${m.img}"
+                            alt=""
+                            class="movie-box-img"
+                    />
+                    <div class="box-text">
+                        <h2 class="movie-title" th:text="${m.getMovieName()}">Movie Title</h2>
+                        <span class="movie-type" th:text="${m.getMovieTypes().getMovieTypes()}"> Movie Type </span>
+                        <a th:href="@{/movie/detail/__${m.id}__}" class="promo-button play-btn">
+                            <i class="bx bx-right-arrow"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- Footer -->
+    <footer>
+        <div class="info container">
+            <div class="info-text">
+                <p>280 Tran Hung Dao Street, Da Nang City, Viet Nam</p>
+                <p>RETRO CINEMA &copy; COPYRIGHT 2023 ALL RIGHTS RESERVED</p>
+            </div>
+            <div class="info-logo">
+                <a href="https://www.facebook.com" class="info-logo-item"
+                ><i class="bx bxl-facebook-square"></i
+                ></a>
+                <a href="https://www.instagram.com" class="info-logo-item"
+                ><i class="bx bxl-instagram"></i
+                ></a>
+                <a href="https://www.youtube.com" class="info-logo-item"
+                ><i class="bx bxl-youtube"></i
+                ></a>
+            </div>
+        </div>
+    </footer>
+
+    <form action="/customers/toPreference" method="post" id="toCustomerPreference"
+          th:if="${#request.userPrincipal !=null }">
+        <input type="hidden" name="username" id="username" th:value="${#request.userPrincipal.getName()}">
+    </form>
+
+    <script>
+        function toLogin() {
+            window.location.href = "/login";
+        }
+
+        function toLogout() {
+            window.location.href = "/logout";
+        }
+
+        function toPreference() {
+            window.location.href = "/preference";
+        }
+
+        function toCustomerDetails() {
+            document.getElementById("toCustomerPreference").submit();
+        }
+
+        function toDetailMovie() {
+            window.location.href = "/movie/detail";
+        }
+    </script>
+    <!-- Link to Swiper JS -->
+    <script src="/static/js/swiper-bundle.min.js"></script>
+    <!-- Link to main js -->
+    <script src="/static/js/home.js"></script>
+</body>
+</html>

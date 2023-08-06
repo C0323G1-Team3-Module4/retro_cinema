@@ -7,6 +7,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class MovieService implements IMovieService {
     @Autowired
@@ -36,5 +41,46 @@ public class MovieService implements IMovieService {
     @Override
     public void editMovie(Movie movie) {
         movieRepository.save(movie);
+    }
+
+    @Override
+    public List<Movie> getAllMovie() {
+        return movieRepository.findAll();
+    }
+
+    @Override
+    public List<Movie> getUpcomingMovie() {
+        List<Movie> movieList = getAllMovie();
+        List<Movie> movies = new ArrayList<>();
+        for (Movie m: movieList) {
+            if(Period.between(LocalDate.parse(m.getReleaseDate()),LocalDate.now()).getDays()<0){
+                movies.add(m);
+            }
+        }
+        return movies;
+    }
+
+    @Override
+    public List<Movie> getCurrentlyShowingMovies() {
+        List<Movie> movieList = getAllMovie();
+        List<Movie> movies = new ArrayList<>();
+        for (Movie m: movieList) {
+            if(Period.between(LocalDate.parse(m.getReleaseDate()),LocalDate.now()).getDays()>=0){
+                movies.add(m);
+            }
+        }
+        return movies;
+    }
+
+    @Override
+    public List<Movie> getMovieByName(String name) {
+        List<Movie> movieList = getAllMovie();
+        List<Movie> movies = new ArrayList<>();
+        for (Movie m: movieList) {
+            if(m.getMovieName().contains(name)){
+                movies.add(m);
+            }
+        }
+        return movies;
     }
 }
