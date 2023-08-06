@@ -40,6 +40,12 @@ public class Screenings {
         this.dateMovie = dateMovie;
     }
 
+    public Screenings(ShowTimes showTimes, Movie movie, String dateMovie) {
+        this.showTimes = showTimes;
+        this.movie = movie;
+        this.dateMovie = dateMovie;
+    }
+
     public int getId() {
         return id;
     }
