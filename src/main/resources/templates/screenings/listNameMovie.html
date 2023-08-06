@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<table>
+  <tr>
+    <th>Ordinal number</th>
+    <th>Movie name</th>
+    <th>Booking date</th>
+    <th>Start time</th>
+    <th>End time</th>
+    <th>Room name</th>
+  </tr>
+  <tr th:each="s,status:${screeningsDtoList}">
+    <td th:text="${status.count}"></td>
+    <td th:text="${s.getMovieName()}"></td>
+    <td th:text="${s.getDateMovie()}"></td>
+    <td th:text="${s.getStartTime()}"></td>
+    <td th:text="${s.getEndTime()}"></td>
+    <td th:text="${s.getRoomName()}"></td>
+  </tr>
+</table>
+</body>
+</html>

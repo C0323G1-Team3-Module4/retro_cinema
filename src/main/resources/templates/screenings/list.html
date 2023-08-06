@@ -12,6 +12,7 @@
         <th>Booking date</th>
         <th>Start time</th>
         <th>End time</th>
+        <th>Room name</th>
     </tr>
     <tr th:each="s,status:${screeningDto}">
         <td th:text="${status.count}"></td>
@@ -19,6 +20,7 @@
         <td th:text="${s.getDateMovie()}"></td>
         <td th:text="${s.getStartTime()}"></td>
         <td th:text="${s.getEndTime()}"></td>
+        <td th:text="${s.getRoomName()}"></td>
     </tr>
 </table>
 </body>

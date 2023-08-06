@@ -30,11 +30,11 @@
         <div class="search-box">
             <input
                     type="search"
-                    name=""
+                    th:name="name"
                     id="search-input"
                     placeholder="Search Movie"
             />
-            <i class="bx bx-search"></i>
+            <i class="bx bx-search" onclick="toSearch()"></i>
         </div>
         <!-- User -->
         <div>
@@ -124,114 +124,24 @@
     <!-- Content -->
     <div class="popular-content swiper">
         <div class="swiper-wrapper">
-            <!-- Movie Box 1 Start -->
-            <div class="swiper-slide">
+            <!-- Movie Box  Start -->
+            <div class="swiper-slide" th:each="m:${currentlyShowingMovies}">
                 <div class="movie-box">
                     <img
-                            src="static/img/demo_fiml_poster.jpg"
+                            th:src="${m.img}"
                             alt=""
                             class="movie-box-img"
                     />
                     <div class="box-text">
-                        <h2 class="movie-title">Movie Title</h2>
-                        <span class="movie-type"> Movie Type </span>
-                        <a href="play-page.html" class="promo-button play-btn">
+                        <h2 class="movie-title" th:text="${m.getMovieName()}">Movie Title</h2>
+                        <span class="movie-type" th:text="${m.getMovieTypes().getMovieTypes()}"> Movie Type </span>
+                        <a th:href="@{/movie/detail/__${m.id}__}" class="promo-button play-btn">
                             <i class="bx bx-right-arrow"></i>
                         </a>
                     </div>
                 </div>
             </div>
-            <!-- Movie Box 1 End -->
-            <!-- Movie Box 2 Start -->
-            <div class="swiper-slide">
-                <div class="movie-box">
-                    <img
-                            src="static/img/demo_fiml_poster.jpg"
-                            alt=""
-                            class="movie-box-img"
-                    />
-                    <div class="box-text">
-                        <h2 class="movie-title">Movie Title</h2>
-                        <span class="movie-type"> Movie Type </span>
-                        <a href="#" class="promo-button play-btn">
-                            <i class="bx bx-right-arrow"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- Movie Box 2 End -->
-            <!-- Movie Box 3 Start -->
-            <div class="swiper-slide">
-                <div class="movie-box">
-                    <img
-                            src="static/img/demo_fiml_poster.jpg"
-                            alt=""
-                            class="movie-box-img"
-                    />
-                    <div class="box-text">
-                        <h2 class="movie-title">Movie Title</h2>
-                        <span class="movie-type"> Movie Type </span>
-                        <a href="#" class="promo-button play-btn">
-                            <i class="bx bx-right-arrow"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- Movie Box 3 End -->
-            <!-- Movie Box 4 Start -->
-            <div class="swiper-slide">
-                <div class="movie-box">
-                    <img
-                            src="static/img/demo_fiml_poster.jpg"
-                            alt=""
-                            class="movie-box-img"
-                    />
-                    <div class="box-text">
-                        <h2 class="movie-title">Movie Title</h2>
-                        <span class="movie-type"> Movie Type </span>
-                        <a href="#" class="promo-button play-btn">
-                            <i class="bx bx-right-arrow"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- Movie Box 4 End -->
-            <!-- Movie Box 5 Start -->
-            <div class="swiper-slide">
-                <div class="movie-box">
-                    <img
-                            src="static/img/demo_fiml_poster.jpg"
-                            alt=""
-                            class="movie-box-img"
-                    />
-                    <div class="box-text">
-                        <h2 class="movie-title">Movie Title</h2>
-                        <span class="movie-type"> Movie Type </span>
-                        <a href="#" class="promo-button play-btn">
-                            <i class="bx bx-right-arrow"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- Movie Box 5 End -->
-            <!-- Movie Box 6 Start -->
-            <div class="swiper-slide">
-                <div class="movie-box">
-                    <img
-                            src="static/img/demo_fiml_poster.jpg"
-                            alt=""
-                            class="movie-box-img"
-                    />
-                    <div class="box-text">
-                        <h2 class="movie-title">Movie Title</h2>
-                        <span class="movie-type"> Movie Type </span>
-                        <a href="#" class="promo-button play-btn">
-                            <i class="bx bx-right-arrow"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- Movie Box 6 End -->
+
         </div>
     </div>
 </section>
@@ -247,140 +157,23 @@
     <!-- Upcoming Movies -->
     <div class="movies-content">
         <!-- Movie Box 1 Start -->
-        <div class="movie-box">
+        <div class="movie-box" th:each="m:${upcomingMovie}">
             <img
-                    src="static/img/demo_fiml_poster.jpg"
+                    th:src="${m.img}"
                     alt=""
                     class="movie-box-img"
             />
             <div class="box-text">
-                <h2 class="movie-title">Movie Title</h2>
-                <span class="movie-type"> Movie Type </span>
-                <a href="#" class="promo-button play-btn">
+                <h2 class="movie-title" th:text="${m.getMovieName()}">Movie Title</h2>
+                <span class="movie-type" th:text="${m.getMovieTypes().getMovieTypes()}"> Movie Type </span>
+                <a th:href="@{/movie/detail/__${m.id}__}" class="promo-button play-btn">
                     <i class="bx bx-right-arrow"></i>
                 </a>
             </div>
         </div>
-        <!-- Movie Box 1 End -->
+        <!-- Movie Box  End -->
 
-        <!-- Movie Box 2 Start -->
-        <div class="movie-box">
-            <img
-                    src="static/img/demo_fiml_poster.jpg"
-                    alt=""
-                    class="movie-box-img"
-            />
-            <div class="box-text">
-                <h2 class="movie-title">Movie Title</h2>
-                <span class="movie-type"> Movie Type </span>
-                <a href="#" class="promo-button play-btn">
-                    <i class="bx bx-right-arrow"></i>
-                </a>
-            </div>
-        </div>
-        <!-- Movie Box 2 End -->
 
-        <!-- Movie Box 3 Start -->
-        <div class="movie-box">
-            <img
-                    src="static/img/demo_fiml_poster.jpg"
-                    alt=""
-                    class="movie-box-img"
-            />
-            <div class="box-text">
-                <h2 class="movie-title">Movie Title</h2>
-                <span class="movie-type"> Movie Type </span>
-                <a href="#" class="promo-button play-btn">
-                    <i class="bx bx-right-arrow"></i>
-                </a>
-            </div>
-        </div>
-        <!-- Movie Box 3 End -->
-
-        <!-- Movie Box 4 Start -->
-        <div class="movie-box">
-            <img
-                    src="static/img/demo_fiml_poster.jpg"
-                    alt=""
-                    class="movie-box-img"
-            />
-            <div class="box-text">
-                <h2 class="movie-title">Movie Title</h2>
-                <span class="movie-type"> Movie Type </span>
-                <a href="#" class="promo-button play-btn">
-                    <i class="bx bx-right-arrow"></i>
-                </a>
-            </div>
-        </div>
-        <!-- Movie Box 4 End -->
-
-        <!-- Movie Box 5 Start -->
-        <div class="movie-box">
-            <img
-                    src="static/img/demo_fiml_poster.jpg"
-                    alt=""
-                    class="movie-box-img"
-            />
-            <div class="box-text">
-                <h2 class="movie-title">Movie Title</h2>
-                <span class="movie-type"> Movie Type </span>
-                <a href="#" class="promo-button play-btn">
-                    <i class="bx bx-right-arrow"></i>
-                </a>
-            </div>
-        </div>
-        <!-- Movie Box 5 End -->
-
-        <!-- Movie Box 6 Start -->
-        <div class="movie-box">
-            <img
-                    src="static/img/demo_fiml_poster.jpg"
-                    alt=""
-                    class="movie-box-img"
-            />
-            <div class="box-text">
-                <h2 class="movie-title">Movie Title</h2>
-                <span class="movie-type"> Movie Type </span>
-                <a href="#" class="promo-button play-btn">
-                    <i class="bx bx-right-arrow"></i>
-                </a>
-            </div>
-        </div>
-        <!-- Movie Box 6 End -->
-
-        <!-- Movie Box 7 Start -->
-        <div class="movie-box">
-            <img
-                    src="static/img/demo_fiml_poster.jpg"
-                    alt=""
-                    class="movie-box-img"
-            />
-            <div class="box-text">
-                <h2 class="movie-title">Movie Title</h2>
-                <span class="movie-type"> Movie Type </span>
-                <a href="#" class="promo-button play-btn">
-                    <i class="bx bx-right-arrow"></i>
-                </a>
-            </div>
-        </div>
-        <!-- Movie Box 7 End -->
-
-        <!-- Movie Box 8 Start -->
-        <div class="movie-box">
-            <img
-                    src="static/img/demo_fiml_poster.jpg"
-                    alt=""
-                    class="movie-box-img"
-            />
-            <div class="box-text">
-                <h2 class="movie-title">Movie Title</h2>
-                <span class="movie-type"> Movie Type </span>
-                <a href="#" class="promo-button play-btn">
-                    <i class="bx bx-right-arrow"></i>
-                </a>
-            </div>
-        </div>
-        <!-- Movie Box 8 End -->
     </div>
 </section>
 <!-- Movies Section End -->
@@ -411,7 +204,8 @@
     </div>
 </footer>
 
-<form action="/customers/toPreference" method="post" id="toCustomerPreference" th:if="${#request.userPrincipal !=null }">
+<form action="/customers/toPreference" method="post" id="toCustomerPreference"
+      th:if="${#request.userPrincipal !=null }">
     <input type="hidden" name="username" id="username" th:value="${#request.userPrincipal.getName()}">
 </form>
 
@@ -423,11 +217,17 @@
     function toLogout() {
         window.location.href = "/logout";
     }
+
     function toPreference() {
         window.location.href = "/preference";
     }
+
     function toCustomerDetails() {
         document.getElementById("toCustomerPreference").submit();
+    }
+    function toSearch() {
+        let name = document.getElementById("search-input").value;
+        window.location.href = "/movie/search/"+name;
     }
 </script>
 <!-- Link to Swiper JS -->
