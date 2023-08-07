@@ -130,6 +130,7 @@ header {
 }
 .user-info {
   margin-left: 1rem;
+  width: 100%;
   font-size: 0.938rem;
   color: var(--text-color);
 }
