@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Film Details</title>
     <!-- Link CSS -->
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/css/home.css" />
     <!-- Box Icon -->
     <link
       rel="stylesheet"
@@ -16,6 +16,12 @@
       rel="stylesheet"
       href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
     />
+    <style>
+      .content {
+        margin-top: 1rem;
+      }
+
+    </style>
   </head>
   <body>
     <!-- Header -->
@@ -66,13 +72,13 @@
     <div class="play-container container">
       <!-- Play Image -->
       <img
-        src="https://i.pinimg.com/1200x/ec/ef/ce/ecefce8dff278e27d7ad3d8266b7732c.jpg"
+        th:src="${movie.imgTrailer}"
         alt=""
         class="play-img"
       />
       <!-- Play Text -->
       <div class="play-text">
-        <h2>Movie Title</h2>
+        <h2 th:text="${movie.getMovieName()}"></h2>
         <!-- Ratings -->
         <div class="rating">
           <i class="bx bxs-star"></i>
@@ -83,8 +89,7 @@
         </div>
         <!-- Tags -->
         <div class="tags">
-          <span>Action</span>
-          <span>Comic</span>
+          <span th:text="${movie.movieTypes.getMovieTypes()}"></span>
           <span>4K</span>
         </div>
         <!-- Trailer Button -->
@@ -103,7 +108,7 @@
         <div class="video-box">
           <video
             id="myvideo"
-            src="JUMANJI_ WELCOME TO THE JUNGLE - Official Trailer (HD).mp4"
+            th:src="${movie.trailer}"
             controls
           ></video>
           <!-- Close Video Icon -->
@@ -112,6 +117,26 @@
       </div>
     </div>
 
+    <div class="content container">
+      <div class="content-text">
+        <span style="color: var(--main-color)">Director :</span>
+        <span style="padding-left: 0.3rem" th:text="${movie.getDirector()}"></span>
+      </div>
+    </div>
+
+    <div class="content container">
+      <div class="content-text">
+        <span style="color: var(--main-color)">Performers:</span>
+        <span style="padding-left: 0.3rem" th:text="${movie.getPerformer()}"></span>
+      </div>
+    </div>
+
+    <div class="content container">
+      <div class="content-text">
+        <p style="color: var(--main-color)">Description:</p>
+        <p th:text="${movie.getDescription()}"></p>
+      </div>
+    </div>
     <!-- Footer -->
     <footer>
       <div class="info container">
@@ -134,8 +159,8 @@
     </footer>
 
     <!-- Link Swiper JS -->
-    <script src="swiper-bundle.min.js"></script>
+    <script src="/js/swiper-bundle.min.js"></script>
     <!-- Link to main js -->
-    <script src="index.js"></script>
+    <script src="/js/home.js"></script>
   </body>
 </html>

@@ -21,6 +21,7 @@ public class Movie {
     private String director;
     private String performer;
     private String img;
+    private String imgTrailer;
     private String trailer;
     private double price;
     private boolean flag;
@@ -68,6 +69,23 @@ public class Movie {
         this.price = price;
         this.flag = flag;
         this.movieTypes = movieTypes;
+    }
+
+    public Movie(int id, String movieName, int duration, String description, String releaseDate, String director, String performer, String img, String imgTrailer, String trailer, double price, boolean flag, MovieTypes movieTypes, Set<Screenings> screeningsSet) {
+        this.id = id;
+        this.movieName = movieName;
+        this.duration = duration;
+        this.description = description;
+        this.releaseDate = releaseDate;
+        this.director = director;
+        this.performer = performer;
+        this.img = img;
+        this.imgTrailer = imgTrailer;
+        this.trailer = trailer;
+        this.price = price;
+        this.flag = flag;
+        this.movieTypes = movieTypes;
+        this.screeningsSet = screeningsSet;
     }
 
     public int getId() {
@@ -152,6 +170,14 @@ public class Movie {
 
     public boolean isFlag() {
         return flag;
+    }
+
+    public String getImgTrailer() {
+        return imgTrailer;
+    }
+
+    public void setImgTrailer(String imgTrailer) {
+        this.imgTrailer = imgTrailer;
     }
 
     public void setFlag(boolean flag) {
