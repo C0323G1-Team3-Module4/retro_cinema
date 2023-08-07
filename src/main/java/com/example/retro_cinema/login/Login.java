@@ -50,11 +50,9 @@ public class Login {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {
             SecurityContextHolder.clearContext();
-            redirectAttributes.addFlashAttribute("message", "successful logout");
+            redirectAttributes.addFlashAttribute("message", "Logout successfully!");
         }
-        redirectAttributes.addFlashAttribute("message", "Logout successful");
-        model.addAttribute("info", null);
-        return "home";
+        return "redirect:/";
     }
 
 
