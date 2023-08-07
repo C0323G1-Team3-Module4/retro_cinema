@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   Swal.fire({
     title: msg,
     icon: 'success',
-    timer: 3000, // Time in milliseconds (3 seconds)
+    timer: 1500, // Time in milliseconds (2 seconds)
     timerProgressBar: true,
     showConfirmButton: false // Hide the "Confirm" button
   });
