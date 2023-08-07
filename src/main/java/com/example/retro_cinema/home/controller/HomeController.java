@@ -2,6 +2,10 @@ package com.example.retro_cinema.home.controller;
 
 import com.example.retro_cinema.movie.model.Movie;
 import com.example.retro_cinema.movie.service.IMovieService;
+import com.example.retro_cinema.screenings.dto.IScreeningsDto;
+import com.example.retro_cinema.screenings.model.Screenings;
+import com.example.retro_cinema.screenings.repository.IScreeningsRepository;
+import com.example.retro_cinema.screenings.service.IScreeningsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -10,10 +14,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 public class HomeController {
     @Autowired
     private IMovieService movieService;
+    @Autowired
+    private IScreeningsService screeningsService;
 
     @GetMapping("/")
     public String showHomePage(@RequestParam(defaultValue = "") String name, Model model) {
@@ -28,6 +36,11 @@ public class HomeController {
         model.addAttribute("movie", movie);
         return "/play_page";
     }
-
-
+    @GetMapping("/home/screening/{id}")
+    public String showScreening(@PathVariable("id") int id, Model model) {
+        Movie movie = movieService.getById(id);
+        List<IScreeningsDto> screeningsList = screeningsService.getAllByNameMovie(movie.getMovieName());
+        model.addAttribute("screeningList",screeningsList);
+        return "/screenings/screening";
+    }
 }
