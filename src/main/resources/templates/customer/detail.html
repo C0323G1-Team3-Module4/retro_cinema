@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Responsive Sidebar Menu | CodingLab</title>
+    <title>Customer Profile</title>
     <link rel="stylesheet" href="/static/css/admin_preferences.css"/>
     <link
             rel="stylesheet"
@@ -18,7 +18,9 @@
         .home-section {
             position: relative;
         }
-
+        .logo-details .logo_name, #log_out {
+            cursor: pointer;
+        }
         .wrapper {
             position: absolute;
             top: 50%;
@@ -119,6 +121,7 @@
         .background {
             width: 100%;
             min-height: 100vh;
+            position: fixed;
         }
     </style>
 </head>
@@ -126,7 +129,7 @@
 <div class="sidebar">
     <div class="logo-details">
         <i class="bx bxs-registered icon"></i>
-        <div class="logo_name">Retro<span id="cinema">Cinema</span></div>
+        <div class="logo_name" onclick="toHome()">Retro<span id="cinema">Cinema</span></div>
         <i class="bx bx-menu" id="btn"></i>
     </div>
     <ul class="nav-list">
@@ -155,7 +158,6 @@
         </li>
     </ul>
 </div>
-<!--https://i1.wp.com/static.web-backgrounds.net/uploads/2012/08/City_Landscape_Background.jpg-->
 <section class="home-section">
     <img src="/img/movie-background-collage.png"
          alt="background" class="background">
