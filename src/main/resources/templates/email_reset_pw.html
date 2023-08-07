@@ -11,62 +11,21 @@
 </head>
 <body>
 
-<div class="container" id="container">zz
-    <div class="form-container sign-up-container">
-        <form action="/login" method="post">
-            <h1>Sign in</h1>
-            <div class="social-container">
-                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-            <div class="col-md-6 mb-2">
-                <div class="form-outline mb-4" style="height: 50px">
-                    <input type="text" id="form2Example4" class="form-control form-control-lg" style="padding-right: 10px;padding-left: 10px;width: 250px" />
-                    <label class="form-label" for="form2Example4">Email</label>
-                </div>
-            </div>
-            <div class="col-md-6 mb-2">
-                <div class="form-outline mb-4" style="height: 50px">
-                    <input type="password" id="form2Example5" class="form-control form-control-lg"
-                           style="padding-right: 10px;padding-left: 10px;width: 250px"/>
-                    <label class="form-label" for="form2Example5">Password</label>
-                </div>
-            </div>
+<div class="container" id="container">
 
-            <button type="submit">Sign in</button>
-        </form>
-    </div>
     <div class="form-container sign-in-container">
         <form action="/confirm_email" method="post">
             <h1>Confirm Email Address</h1>
-            <div class="social-container">
-                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-            </div>
+
             <div class="form-outline mb-4" style="height: 50px;width: 70%">
+                <label class="form-label" for="form2Example8">Email</label>
                 <input name="email" type="text" id="form2Example8" class="form-control form-control-lg"
                        style="padding-right: 10px;padding-left: 10px;width: 250px"/>
-                <label class="form-label" for="form2Example8">Email</label>
             </div>
             <button type="submit">Send</button>
         </form>
     </div>
-    <div class="overlay-container">
-        <div class="overlay">
-            <div class="overlay-panel overlay-left">
-                <h1>Forgot Password</h1>
-                <p> We need to confirm that the email address associated with your account is valid.</p>
-                <button class="ghost" id="signIn">Email</button>
-            </div>
-            <div class="overlay-panel overlay-right">
-                <h1> Welcome Back!</h1>
-                <p>To keep connected with us please log_in with your personal info</p>
-                <button class="ghost" id="signUp">Sign In</button>
-            </div>
-        </div>
-    </div>
+
 </div>
 
 
