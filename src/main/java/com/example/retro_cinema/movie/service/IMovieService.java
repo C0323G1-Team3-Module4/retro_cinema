@@ -24,6 +24,6 @@ public interface IMovieService {
     List<Movie> getUpcomingMovie();
 
     List<Movie> getCurrentlyShowingMovies();
-
-    List<Movie> getMovieByName(String name);
+    List<Movie> getUpcomingMovieByName(String name);
+    List<Movie> getCurrentlyShowingMoviesByName(String name);
 }

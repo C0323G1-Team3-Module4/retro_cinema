@@ -16,10 +16,9 @@ public class HomeController {
     private IMovieService movieService;
 
     @GetMapping("/")
-    public String showHomePage(Model model) {
-        model.addAttribute("movieList", movieService.getAllMovie());
-        model.addAttribute("upcomingMovie", movieService.getUpcomingMovie());
-        model.addAttribute("currentlyShowingMovies", movieService.getCurrentlyShowingMovies());
+    public String showHomePage(@RequestParam(defaultValue = "") String name, Model model) {
+        model.addAttribute("upcomingMovie", movieService.getUpcomingMovieByName(name));
+        model.addAttribute("currentlyShowingMovies", movieService.getCurrentlyShowingMoviesByName(name));
         return "home";
     }
 
@@ -29,4 +28,6 @@ public class HomeController {
         model.addAttribute("movie", movie);
         return "/play_page";
     }
+
+
 }

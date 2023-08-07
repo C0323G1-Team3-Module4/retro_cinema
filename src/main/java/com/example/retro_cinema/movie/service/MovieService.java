@@ -52,8 +52,8 @@ public class MovieService implements IMovieService {
     public List<Movie> getUpcomingMovie() {
         List<Movie> movieList = getAllMovie();
         List<Movie> movies = new ArrayList<>();
-        for (Movie m: movieList) {
-            if(Period.between(LocalDate.parse(m.getReleaseDate()),LocalDate.now()).getDays()<0){
+        for (Movie m : movieList) {
+            if (Period.between(LocalDate.parse(m.getReleaseDate()), LocalDate.now()).getDays() < 0) {
                 movies.add(m);
             }
         }
@@ -64,8 +64,8 @@ public class MovieService implements IMovieService {
     public List<Movie> getCurrentlyShowingMovies() {
         List<Movie> movieList = getAllMovie();
         List<Movie> movies = new ArrayList<>();
-        for (Movie m: movieList) {
-            if(Period.between(LocalDate.parse(m.getReleaseDate()),LocalDate.now()).getDays()>=0){
+        for (Movie m : movieList) {
+            if (Period.between(LocalDate.parse(m.getReleaseDate()), LocalDate.now()).getDays() >= 0) {
                 movies.add(m);
             }
         }
@@ -73,12 +73,32 @@ public class MovieService implements IMovieService {
     }
 
     @Override
-    public List<Movie> getMovieByName(String name) {
-        List<Movie> movieList = getAllMovie();
+    public List<Movie> getUpcomingMovieByName(String name) {
+        List<Movie> movieList = getUpcomingMovie();
         List<Movie> movies = new ArrayList<>();
-        for (Movie m: movieList) {
-            if(m.getMovieName().contains(name)){
-                movies.add(m);
+        if (name == null) {
+            movies = getUpcomingMovie();
+        } else {
+            for (Movie m : movieList) {
+                if (m.getMovieName().contains(name)) {
+                    movies.add(m);
+                }
+            }
+        }
+        return movies;
+    }
+
+    @Override
+    public List<Movie> getCurrentlyShowingMoviesByName(String name) {
+        List<Movie> movieList = getCurrentlyShowingMovies();
+        List<Movie> movies = new ArrayList<>();
+        if (name == null) {
+            movies = getCurrentlyShowingMovies();
+        } else {
+            for (Movie m : movieList) {
+                if (m.getMovieName().contains(name)) {
+                    movies.add(m);
+                }
             }
         }
         return movies;

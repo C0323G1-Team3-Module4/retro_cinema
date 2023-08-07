@@ -102,9 +102,4 @@ public class MovieController {
         model.addAttribute("movie", movieService.getById(id));
         return "/movie/detail";
     }
-    @GetMapping("/search/{name}")
-    public String search(@PathVariable String name,Model model){
-        model.addAttribute("findMovieByName",movieService.getMovieByName(name));
-        return "/movie/search";
-    }
 }
