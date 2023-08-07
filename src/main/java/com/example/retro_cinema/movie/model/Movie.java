@@ -191,4 +191,5 @@ public class Movie {
     public void setMovieTypes(MovieTypes movieTypes) {
         this.movieTypes = movieTypes;
     }
+
 }

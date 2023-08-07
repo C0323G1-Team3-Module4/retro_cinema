@@ -1,11 +1,8 @@
 package com.example.retro_cinema.movie.controller;
 
-import com.example.retro_cinema.customer.dto.CustomerDto;
-import com.example.retro_cinema.customer.model.Customer;
 import com.example.retro_cinema.movie.dto.MovieDto;
 import com.example.retro_cinema.movie.model.Movie;
 import com.example.retro_cinema.movie.service.IMovieService;
-import com.example.retro_cinema.movie_types.model.MovieTypes;
 import com.example.retro_cinema.movie_types.service.IMovieTypesService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping("/movie")
@@ -91,7 +87,7 @@ public class MovieController {
         return "redirect:/movie";
     }
 
-    @GetMapping("/delete")
+    @PostMapping("/delete")
     public String delete(@RequestParam int id, RedirectAttributes redirectAttributes) {
         movieService.deleteMovie(id);
         redirectAttributes.addFlashAttribute("msg", "Delete successfully");
@@ -100,6 +96,6 @@ public class MovieController {
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable int id, Model model) {
         model.addAttribute("movie", movieService.getById(id));
-        return "/movie/detail";
+        return "movie/detail";
     }
 }
