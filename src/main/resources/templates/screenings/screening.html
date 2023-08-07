@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Screening Detail</title>
+    <!-- Link CSS -->
+    <link rel="stylesheet" href="/static/css/home.css" />
+    <!-- Box Icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
+    />
+    <!-- or -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
+    />
+
+    <style>
+      .main {
+        padding: 1rem;
+        position: relative;
+        width: 100%;
+        height: auto;
+        margin-top: 5rem !important;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .main .movie-container {
+        margin-top: 1rem;
+      }
+
+      .movie-container select {
+        background-color: #fff;
+        border: 0;
+        border-radius: 5px;
+        font-size: 14px;
+        margin-left: 10px;
+        padding: 5px 15px 5px 15px;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      .seat-container {
+        perspective: 1000px;
+      }
+
+      .seat {
+        background-color: #444451;
+        height: 2rem;
+        width: 2.3rem;
+        margin: 3px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        text-align: center;
+        color: black;
+      }
+
+      .seat.selected {
+        background-color: #6feaf6;
+      }
+
+      .seat.occupied {
+        background-color: #fff;
+      }
+
+      .seat:nth-of-type(2) {
+        margin-right: 18px;
+      }
+
+      .seat:nth-last-of-type(2) {
+        margin-left: 18px;
+      }
+
+      .seat:not(.occupied):hover {
+        cursor: pointer;
+        transform: scale(1.2);
+      }
+
+      .showcase .seat:not(.occupied):hover {
+        cursor: default;
+        transform: scale(1);
+      }
+
+      .showcase {
+        background-color: rgba(0, 0, 0, 0.1);
+        padding: 5px 10px;
+        border-radius: 5px;
+        color: #777;
+        list-style-type: none;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .showcase li {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 10px;
+      }
+
+      .showcase li small {
+        margin-left: 10px;
+      }
+
+      .row {
+        display: flex;
+        justify-content: center;
+      }
+
+      .screen {
+        background-color: #fff;
+        height: 70px;
+        width: 100%;
+        margin: 15px 0;
+        transform: rotateX(-45deg);
+        box-shadow: 0 3px 10px rgba(255, 255, 255, 0.75);
+      }
+      .left-side {
+        width: 55%;
+      }
+      .right-side {
+        width: 40%;
+      }
+
+      /* Table */
+      h1 {
+        font-size: 2rem;
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: 300;
+        text-align: center;
+      }
+      table {
+        width: 100%;
+        table-layout: fixed;
+      }
+      .tbl-header {
+        background-color: rgba(255, 255, 255, 0.3);
+      }
+      .tbl-content {
+        overflow-x: auto;
+        margin-top: 0px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+      th {
+        padding: 20px 15px;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1rem;
+        color: #fff;
+        text-transform: uppercase;
+      }
+      td {
+        padding: 15px;
+        text-align: center;
+        vertical-align: middle;
+        font-weight: 300;
+        font-size: 1rem;
+        color: #fff;
+        border-bottom: solid 1px rgba(255, 255, 255, 0.1);
+      }
+      #selected-seats {
+        width: 8rem;
+      }
+      #submit-btn {
+        font-size: 1.2rem;
+        padding: 0.2rem;
+        float: right;
+      }
+      .seat.selected-btn {
+        background-color: #6feaf6;
+      }
+      .na-btn {
+        background-color: #444451;
+        height: 2rem;
+        width: 2.3rem;
+        margin: 3px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        text-align: center;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <!-- Navigation Bar -->
+      <div class="nav container">
+        <!-- Logo -->
+        <a href="index.html" class="logo"> Retro<span>Cinema</span> </a>
+        <!-- Search Box -->
+        <div class="search-box">
+          <input
+            type="search"
+            name=""
+            id="search-input"
+            placeholder="Search Movie"
+          />
+          <i class="bx bx-search"></i>
+        </div>
+        <a href="#" class="user">
+          <img
+            src="https://cdn.landesa.org/wp-content/uploads/default-user-image.png"
+            alt="user-img"
+            class="user-img"
+          />
+        </a>
+        <div class="navbar">
+          <a href="index.html" class="nav-link nav-active">
+            <i class="bx bx-home"></i>
+            <span class="nav-link-title">Home</span>
+          </a>
+          <a href="#home" class="nav-link">
+            <i class="bx bxs-hot"></i>
+            <span class="nav-link-title">Upcoming</span>
+          </a>
+          <a href="#home" class="nav-link">
+            <i class="bx bx-camera-movie"></i>
+            <span class="nav-link-title">Onscreen</span>
+          </a>
+          <a href="#home" class="nav-link">
+            <i class="bx bx-heart"></i>
+            <span class="nav-link-title">Favorite</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Seat Container -->
+    <div class="container main">
+      <!-- Left side -->
+      <div class="left-side">
+        <!-- Pick a date -->
+        <div class="movie-container">
+          <label>Pick a date:</label>
+          <select id="movie">
+            <option th:each="screening:${screeningList}" th:text="${screening.getDateMovie()}"></option>
+          </select>
+        </div>
+
+        <!-- Show case -->
+        <ul class="showcase">
+          <li>
+            <div class="na-btn"></div>
+            <small>N/A</small>
+          </li>
+
+          <li>
+            <div class="seat selected-btn"></div>
+            <small>Selected</small>
+          </li>
+
+          <li>
+            <div class="seat occupied"></div>
+            <small>Occupied</small>
+          </li>
+        </ul>
+
+        <!-- List of seats -->
+        <div class="seat-container">
+          <div class="screen"></div>
+          <div class="row">
+            <div class="seat" id="seat1">A1</div>
+            <div class="seat" id="seat2">A2</div>
+            <div class="seat" id="seat3">A3</div>
+            <div class="seat" id="seat4">A4</div>
+            <div class="seat" id="seat5">A5</div>
+            <div class="seat" id="seat6">A6</div>
+            <div class="seat" id="seat7">A7</div>
+            <div class="seat" id="seat8">A8</div>
+            <div class="seat" id="seat9">A9</div>
+            <div class="seat" id="seat10">A10</div>
+          </div>
+          <div class="row">
+            <div class="seat" id="seat11">B1</div>
+            <div class="seat" id="seat12">B2</div>
+            <div class="seat" id="seat13">B3</div>
+            <div class="seat" id="seat14">B4</div>
+            <div class="seat" id="seat15">B5</div>
+            <div class="seat" id="seat16">B6</div>
+            <div class="seat" id="seat17">B7</div>
+            <div class="seat" id="seat18">B8</div>
+            <div class="seat" id="seat19">B9</div>
+            <div class="seat" id="seat20">B10</div>
+          </div>
+          <div class="row">
+            <div class="seat" id="seat21">C1</div>
+            <div class="seat" id="seat22">C2</div>
+            <div class="seat" id="seat23">C3</div>
+            <div class="seat" id="seat24">C4</div>
+            <div class="seat" id="seat25">C5</div>
+            <div class="seat" id="seat26">C6</div>
+            <div class="seat" id="seat27">C7</div>
+            <div class="seat" id="seat28">C8</div>
+            <div class="seat" id="seat29">C9</div>
+            <div class="seat" id="seat30">C10</div>
+          </div>
+          <div class="row">
+            <div class="seat" id="seat31">D1</div>
+            <div class="seat" id="seat32">D2</div>
+            <div class="seat" id="seat33">D3</div>
+            <div class="seat" id="seat34">D4</div>
+            <div class="seat" id="seat35">D5</div>
+            <div class="seat" id="seat36">D6</div>
+            <div class="seat" id="seat37">D7</div>
+            <div class="seat" id="seat38">D8</div>
+            <div class="seat" id="seat39">D9</div>
+            <div class="seat" id="seat40">D10</div>
+          </div>
+          <div class="row">
+            <div class="seat" id="seat41">E1</div>
+            <div class="seat" id="seat42">E2</div>
+            <div class="seat" id="seat43">E3</div>
+            <div class="seat" id="seat44">E4</div>
+            <div class="seat" id="seat45">E5</div>
+            <div class="seat" id="seat46">E6</div>
+            <div class="seat" id="seat47">E7</div>
+            <div class="seat" id="seat48">E8</div>
+            <div class="seat" id="seat49">E9</div>
+            <div class="seat" id="seat50">E10</div>
+          </div>
+          <div class="row">
+            <div class="seat" id="seat51">F1</div>
+            <div class="seat" id="seat52">F2</div>
+            <div class="seat" id="seat53">F3</div>
+            <div class="seat" id="seat54">F4</div>
+            <div class="seat" id="seat55">F5</div>
+            <div class="seat" id="seat56">F6</div>
+            <div class="seat" id="seat57">F7</div>
+            <div class="seat" id="seat58">F8</div>
+            <div class="seat" id="seat59">F9</div>
+            <div class="seat" id="seat60">F10</div>
+          </div>
+        </div>
+      </div>
+      <!-- Right side -->
+      <div class="right-side">
+        <!-- Pick a time -->
+        <div class="movie-container">
+          <label>Pick a time:</label>
+          <select id="timeSelector">
+          </select>
+        </div>
+
+        <!-- Your seats -->
+        <section>
+          <h1>YOUR SEAT(S)</h1>
+          <div class="tbl-header">
+            <table cellpadding="0" cellspacing="0" border="0">
+              <thead>
+                <tr>
+                  <th>Seat(s)</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <div class="tbl-content">
+            <table cellpadding="0" cellspacing="0" border="0">
+              <tbody>
+                <tr>
+                  <td id="selected-seats"></td>
+                  <td id="count"></td>
+                  <td id="price"></td>
+                  <td id="total"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <button type="button" id="submit-btn">Submit</button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="info container">
+        <div class="info-text">
+          <p>280 Tran Hung Dao Street, Da Nang City, Viet Nam</p>
+          <p>RETRO CINEMA &copy; COPYRIGHT 2023 ALL RIGHTS RESERVED</p>
+        </div>
+        <div class="info-logo">
+          <a href="https://www.facebook.com" class="info-logo-item"
+            ><i class="bx bxl-facebook-square"></i
+          ></a>
+          <a href="https://www.instagram.com" class="info-logo-item"
+            ><i class="bx bxl-instagram"></i
+          ></a>
+          <a href="https://www.youtube.com" class="info-logo-item"
+            ><i class="bx bxl-youtube"></i
+          ></a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      function populateTimeOptions() {
+        const dateSelector = document.getElementById('dateSelector');
+        const timeSelector = document.getElementById('timeSelector');
+
+        // Clear existing time options
+        timeSelector.innerHTML = '<option value="">Select a time</option>';
+
+        // Get the selected date
+        const selectedDate = dateSelector.value;
+
+        // Filter the screeningList based on the selected date
+        const filteredScreenings = screeningList.filter(screening => screening['Booking date'] === selectedDate);
+
+        // Populate time options based on the filtered screenings
+        filteredScreenings.forEach(screening => {
+          const startTime = screening['Start time'];
+          const endTime = screening['End time'];
+          const optionText = `${startTime} - ${endTime}`;
+          const optionValue = `${startTime}-${endTime}`;
+
+          const option = document.createElement('option');
+          option.textContent = optionText;
+          option.value = optionValue;
+
+          timeSelector.appendChild(option);
+        });
+      }
+    </script>
+    <!-- Link Swiper JS -->
+    <script src="/static/js/swiper-bundle.min.js"></script>
+    <!-- Link to main js -->
+    <script src="/static/js/screening.js"></script>
+    <script src="/static/js/home.js"></script>
+  </body>
+</html>
