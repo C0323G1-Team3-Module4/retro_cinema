@@ -122,13 +122,13 @@
 <div class="showToast" style="display:flex;justify-content: center;text-align: center">
     <div aria-atomic="true" aria-live="assertive" class="toast show" role="alert" th:if="${success != null}"
          style="
-    position: fixed;top: 100px; animation: slideInRight ease 1s, fadeOut linear 1s 4s forwards; // thời gian msg trượt
-            transition: all linear 0.3s;z-index: 999999">
-        <div class="toast-header bg-success">
+    position: fixed;top: 100px; animation: slideInRight ease 1s, fadeOut linear 1s 4s forwards;background-color:#71be34;  // thời gian msg trượt
+            transition: all linear 0.3s;z-index: 1">
+        <div class="toast-header" style="background-color:#71be34 ;color: #0d060e">
             <strong class="me-auto">Notification</strong>
             <small>1 second ago</small>
         </div>
-        <div class="toast-body" th:text="${success}"></div>
+        <div class="toast-body" style="color: #fff" th:text="${success}"></div>
     </div>
 
     <div class="fail-msg">
