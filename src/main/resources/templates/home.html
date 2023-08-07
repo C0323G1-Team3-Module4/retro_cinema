@@ -135,7 +135,7 @@
                     <div class="box-text">
                         <h2 class="movie-title" th:text="${m.getMovieName()}">Movie Title</h2>
                         <span class="movie-type" th:text="${m.getMovieTypes().getMovieTypes()}"> Movie Type </span>
-                        <a th:href="@{/movie/detail/__${m.id}__}" class="promo-button play-btn">
+                        <a th:href="@{/home/play_page/__${m.id}__}" class="promo-button play-btn">
                             <i class="bx bx-right-arrow"></i>
                         </a>
                     </div>
@@ -166,7 +166,7 @@
             <div class="box-text">
                 <h2 class="movie-title" th:text="${m.getMovieName()}">Movie Title</h2>
                 <span class="movie-type" th:text="${m.getMovieTypes().getMovieTypes()}"> Movie Type </span>
-                <a th:href="@{/movie/detail/__${m.id}__}" class="promo-button play-btn">
+                <a th:href="@{/home/play_page/__${m.id}__}" class="promo-button play-btn">
                     <i class="bx bx-right-arrow"></i>
                 </a>
             </div>

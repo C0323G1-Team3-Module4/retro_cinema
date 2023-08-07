@@ -26,6 +26,7 @@ public class MovieDto implements Validator {
     private String performer;
 //    @NotBlank(message = "Link img cannot is empty")
     private String img;
+    private String imgTrailer;
     @NotBlank(message = "Link trailer cannot is empty")
     private String trailer;
     @Min(value = 1, message = "Price must be greater than 0")
@@ -59,6 +60,37 @@ public class MovieDto implements Validator {
         this.director = director;
         this.performer = performer;
         this.img = img;
+        this.trailer = trailer;
+        this.price = price;
+        this.flag = flag;
+        this.movieTypes = movieTypes;
+    }
+
+    public MovieDto(int id, String movieName, int duration, String description, String releaseDate, String director, String performer, String img, String imgTrailer, String trailer, double price, boolean flag, MovieTypes movieTypes) {
+        this.id = id;
+        this.movieName = movieName;
+        this.duration = duration;
+        this.description = description;
+        this.releaseDate = releaseDate;
+        this.director = director;
+        this.performer = performer;
+        this.img = img;
+        this.imgTrailer = imgTrailer;
+        this.trailer = trailer;
+        this.price = price;
+        this.flag = flag;
+        this.movieTypes = movieTypes;
+    }
+
+    public MovieDto(String movieName, int duration, String description, String releaseDate, String director, String performer, String img, String imgTrailer, String trailer, double price, boolean flag, MovieTypes movieTypes) {
+        this.movieName = movieName;
+        this.duration = duration;
+        this.description = description;
+        this.releaseDate = releaseDate;
+        this.director = director;
+        this.performer = performer;
+        this.img = img;
+        this.imgTrailer = imgTrailer;
         this.trailer = trailer;
         this.price = price;
         this.flag = flag;
