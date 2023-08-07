@@ -23,6 +23,9 @@
 </head>
 <body>
 <!--Toast-->
+<div th:if="${param.message}">
+    <span th:text="${param.message}" id="message" style="display: none"></span>
+</div>
 <div th:if="${message}">
     <span th:text="${message}" id="message" style="display: none"></span>
 </div>
