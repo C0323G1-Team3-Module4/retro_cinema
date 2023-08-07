@@ -71,6 +71,7 @@ header {
   font-weight: 600;
   text-transform: uppercase;
   margin: 0 auto 0 0;
+  cursor: pointer;
 }
 .logo span {
   color: rgb(230, 0, 188);

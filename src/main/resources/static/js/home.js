@@ -1,3 +1,15 @@
+// Call swal alert
+let msg = document.getElementById("message").innerText;
+document.addEventListener("DOMContentLoaded", function () {
+  // Display a SweetAlert when the document is ready
+  Swal.fire({
+    title: msg,
+    icon: 'success',
+    timer: 3000, // Time in milliseconds (3 seconds)
+    timerProgressBar: true,
+    showConfirmButton: false // Hide the "Confirm" button
+  });
+});
 
 // Swiper js
 var swiper = new Swiper(".popular-content", {

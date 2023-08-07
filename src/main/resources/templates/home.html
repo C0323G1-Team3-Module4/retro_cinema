@@ -18,14 +18,21 @@
     />
     <!-- Link Swiper CSS -->
     <link rel="stylesheet" href="/static/css/swiper-bundle.min.css"/>
+    <!-- Using SweetAlert2 from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
 </head>
 <body>
+<!--Toast-->
+<div th:if="${message}">
+    <span th:text="${message}" id="message" style="display: none"></span>
+</div>
+
 <!-- Header -->
 <header>
     <!-- Navigation Bar -->
     <div class="nav container">
         <!-- Logo -->
-        <a href="home.html" class="logo"> Retro<span>Cinema</span> </a>
+        <a href="/" class="logo"> Retro<span>Cinema</span> </a>
         <!-- Search Box -->
         <div class="search-box">
             <input
@@ -72,7 +79,7 @@
         </a>
         <!-- Nav bar column -->
         <div class="navbar">
-            <a href="#home" class="nav-link nav-active">
+            <a href="/" class="nav-link nav-active">
                 <i class="bx bx-home"></i>
                 <span class="nav-link-title">Home</span>
             </a>
