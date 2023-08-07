@@ -24,6 +24,7 @@ public class CustomerDto implements Validator {
     private String gender;
     @NotNull(message = "Date of birth could not be void!")
     private String dob;
+    private String image;
     private boolean enabled;
     private Date expiryDate;
     @Column(name = "verification_code", length = 64)
@@ -34,24 +35,39 @@ public class CustomerDto implements Validator {
     public CustomerDto() {
     }
 
-    public CustomerDto(Integer id, String fullName, String phone, String address, String gender, String dob, boolean enabled, Date expiryDate, String verificationCode, AccountUserDto accountUserDto) {
+    public CustomerDto(Integer id, String fullName, String phone, String address, String gender, String dob, String image, boolean enabled, Date expiryDate, String verificationCode, AccountUserDto accountUserDto) {
         this.id = id;
         this.fullName = fullName;
         this.phone = phone;
         this.address = address;
         this.gender = gender;
         this.dob = dob;
+        this.image = image;
         this.enabled = enabled;
         this.expiryDate = expiryDate;
         this.verificationCode = verificationCode;
         this.accountUserDto = accountUserDto;
     }
 
-    public CustomerDto(String fullName, String address, String gender, String dob) {
+    public CustomerDto(Integer id, String fullName, String phone, String address, String gender, String dob, String image, AccountUserDto accountUserDto) {
+        this.id = id;
         this.fullName = fullName;
+        this.phone = phone;
         this.address = address;
         this.gender = gender;
         this.dob = dob;
+        this.image = image;
+        this.accountUserDto = accountUserDto;
+    }
+
+    public CustomerDto(Integer id, String fullName, String phone, String address, String gender, String dob, String image) {
+        this.id = id;
+        this.fullName = fullName;
+        this.phone = phone;
+        this.address = address;
+        this.gender = gender;
+        this.dob = dob;
+        this.image = image;
     }
 
     public CustomerDto(String fullName) {
@@ -109,6 +125,14 @@ public class CustomerDto implements Validator {
 
     public void setDob(String dob) {
         this.dob = dob;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public boolean isEnabled() {

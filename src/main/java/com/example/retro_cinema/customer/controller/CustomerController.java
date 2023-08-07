@@ -62,7 +62,7 @@ public class CustomerController {
         BeanUtils.copyProperties(customerDto, customer);
         iCustomerService.update(customer);
         redirectAttributes.addFlashAttribute("msg", "Update Customer Success!");
-        return "redirect:/customers";
+        return "redirect:/";
     }
 
     @GetMapping("/delete")
