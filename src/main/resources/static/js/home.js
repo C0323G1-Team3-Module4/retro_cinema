@@ -1,6 +1,6 @@
 // Call swal alert
-let msg = document.getElementById("message").innerText;
 document.addEventListener("DOMContentLoaded", function () {
+  let msg = document.getElementById("message").innerText;
   // Display a SweetAlert when the document is ready
   Swal.fire({
     title: msg,
