@@ -53,7 +53,7 @@
             position: relative;
         }
 
-        .wrapper .user .thumbnail {
+        .wrapper .user .image {
             width: 10rem;
             height: 10rem;
             display: -webkit-box;
@@ -169,7 +169,7 @@
         <div class="user" th:object="${customer}">
             <img
                     th:src="${customer.image}"
-                    class="thumbnail"
+                    class="image"
             />
             <input type="hidden" th:value="${customer.id}" id="id">
             <h3 class="name" th:text="${customer.fullName}">Please Update Fullname</h3>

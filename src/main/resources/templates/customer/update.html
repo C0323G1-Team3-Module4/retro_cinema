@@ -45,7 +45,7 @@
 
     <div class="col-md-12">
         <p>Phone</p>
-        <input class="form-control" type="text" th:field="*{phone}"
+        <input class="form-control" type="number" th:field="*{phone}"
                required>
         <p style="color: red" th:if="${#fields.hasErrors('phone')}"
            th:errors="*{phone}"></p>
@@ -59,17 +59,29 @@
            th:errors="*{address}"></p>
     </div>
 
+<!--    <div class="col-md-12">-->
+<!--        <p>Gender</p>-->
+<!--        <input class="form-control" type="text" th:field="*{gender}"-->
+<!--               required>-->
+<!--        <p style="color: red" th:if="${#fields.hasErrors('gender')}"-->
+<!--           th:errors="*{gender}"></p>-->
+<!--    </div>-->
+
     <div class="col-md-12">
-        <p>Gender</p>
-        <input class="form-control" type="text" th:field="*{gender}"
-               required>
+        <label for="gender">Gender</label>
+        <select class="form-control" id="gender" th:field="*{gender}" required>
+            <option value="" disabled selected>Select gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
         <p style="color: red" th:if="${#fields.hasErrors('gender')}"
            th:errors="*{gender}"></p>
     </div>
 
     <div class="col-md-12">
         <p>Date Of Birth</p>
-        <input class="form-control" type="text" th:field="*{dob}"
+        <input class="form-control" type="date" th:field="*{dob}"
                required>
         <p style="color: red" th:if="${#fields.hasErrors('dob')}"
            th:errors="*{dob}"></p>
@@ -92,30 +104,31 @@
     const dropArea = document.getElementById('drop-area');
     const previewImage = document.getElementById('preview-image');
 
+    debugger
+
     dropArea.addEventListener('dragover', (e) => {
         e.preventDefault();
-        dropArea.classList.add('highlight')
+        dropArea.classList.add('highlight');
     });
 
-    dropArea.addEventListener('dragover', () =>{
-        dropArea.classList.remove('highlight')
+    dropArea.addEventListener('dragleave', () => {
+        dropArea.classList.remove('highlight');
     });
 
-    dropArea.addEventListener('drop', (e) =>{
-        e.defaultPrevented;
+    dropArea.addEventListener('drop', (e) => {
+        e.preventDefault();
         dropArea.classList.remove('highlight');
 
         const file = e.dataTransfer.files[0];
-        if (file && file.type.startsWith('image/')){
+        if (file && file.type.startsWith('image/')) {
             const reader = new FileReader();
             reader.onload = (event) => {
                 previewImage.src = event.target.result;
-                previewImage.style.display= 'block';
+                previewImage.style.display = 'block';
             };
             reader.readAsDataURL(file);
         }
     });
 </script>
-
 </body>
 </html>
