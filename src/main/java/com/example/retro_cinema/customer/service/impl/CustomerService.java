@@ -45,6 +45,7 @@ public class CustomerService implements ICustomerService {
         oldCustomer.setGender(customer.getGender());
         oldCustomer.setPhone(customer.getPhone());
         oldCustomer.setDob(customer.getDob());
+        oldCustomer.setImage(customer.getImage());
         iCustomerRepository.save(oldCustomer);
     }
 

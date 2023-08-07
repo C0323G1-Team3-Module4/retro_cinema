@@ -168,7 +168,7 @@
         </div>
         <div class="user" th:object="${customer}">
             <img
-                    src="https://cdn.landesa.org/wp-content/uploads/default-user-image.png"
+                    th:src="${customer.image}"
                     class="thumbnail"
             />
             <input type="hidden" th:value="${customer.id}" id="id">

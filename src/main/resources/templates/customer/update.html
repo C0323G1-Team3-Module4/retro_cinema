@@ -3,6 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Update Customer</title>
+    <style>
+        .drop-area {
+            width: 300px;
+            height: 200px;
+            border: 2px dashed #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .drop-area .highlight {
+            background-color: #f0f0f0;
+        }
+
+        #preview-image {
+            max-width: 100%;
+            max-height: 300px;
+            margin-top: 10px;
+            object-fit: cover;
+            object-position: center;
+        }
+
+    </style>
 </head>
 <body>
 <h2>Update Customer</h2>
@@ -51,13 +75,47 @@
            th:errors="*{dob}"></p>
     </div>
 
+    <div id="drop-area" class="drop-area">
+        <p>Drag and Drop an image here .</p>
+        <img th:src="${customerDto.image}" alt="Preview" id="preview-image" style="display: none">
+    </div>
 
-        <button id="submit" type="submit"
-                style="width: 130px;height: 40px;background: #3893cc;border-radius: 30px;color: whitesmoke">
-            Submit
-        </button>
+
+    <button id="submit" type="submit"
+            style="width: 130px;height: 40px;background: #3893cc;border-radius: 30px;color: whitesmoke">
+        Submit
+    </button>
 
 </form>
+
+<script th:inline="javascript">
+    const dropArea = document.getElementById('drop-area');
+    const previewImage = document.getElementById('preview-image');
+
+    dropArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropArea.classList.add('highlight')
+    });
+
+    dropArea.addEventListener('dragover', () =>{
+        dropArea.classList.remove('highlight')
+    });
+
+    dropArea.addEventListener('drop', (e) =>{
+        e.defaultPrevented;
+        dropArea.classList.remove('highlight');
+
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')){
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                previewImage.src = event.target.result;
+                previewImage.style.display= 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
 
 </body>
 </html>
