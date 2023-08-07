@@ -56,4 +56,16 @@ public class ScreeningsService implements IScreeningsService {
         }
         return screeningsDtoList;
     }
+
+    @Override
+    public List<IScreeningsDto> getAllByDateTime(String dateTime) {
+        List<IScreeningsDto> screeningsDtoListByDate = new ArrayList<>();
+        List<IScreeningsDto> getAllListDto = getAll();
+        for (IScreeningsDto i: getAllListDto) {
+            if(i.getDateMovie().equals(dateTime)){
+                screeningsDtoListByDate.add(i);
+            }
+        }
+        return screeningsDtoListByDate;
+    }
 }

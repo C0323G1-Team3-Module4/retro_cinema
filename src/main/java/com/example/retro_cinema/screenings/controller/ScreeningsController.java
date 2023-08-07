@@ -52,4 +52,14 @@ public class ScreeningsController {
         model.addAttribute("screeningsDtoList",screeningsDtoList);
         return "screenings/listNameMovie";
     }
+
+    @PostMapping("/screenings/listByNameMovie")
+    public String showScreeningsByDate(@RequestParam String date, Model model) {
+        List<IScreeningsDto> screeningsDtoList  = screeningsService.getAllByDateTime(date);
+        model.addAttribute("screeningsDtoLists",screeningsDtoList);
+        return "/screenings/listScreeningsByDate";
+    }
+
+
+
 }

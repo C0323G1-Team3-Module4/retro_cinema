@@ -9,4 +9,5 @@ public interface IScreeningsService {
     List<IScreeningsDto> getAll();
     void addScreenings(ScreeningsDto screeningsDto);
     List<IScreeningsDto> getAllByNameMovie(String nameMovie);
+    List<IScreeningsDto> getAllByDateTime(String dateTime);
 }
