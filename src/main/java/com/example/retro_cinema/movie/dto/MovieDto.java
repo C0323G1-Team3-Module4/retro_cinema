@@ -189,6 +189,14 @@ public class MovieDto implements Validator {
         return movieTypes;
     }
 
+    public String getImgTrailer() {
+        return imgTrailer;
+    }
+
+    public void setImgTrailer(String imgTrailer) {
+        this.imgTrailer = imgTrailer;
+    }
+
     public void setMovieTypes(MovieTypes movieTypes) {
         this.movieTypes = movieTypes;
     }

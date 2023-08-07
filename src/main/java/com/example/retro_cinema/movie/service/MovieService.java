@@ -25,12 +25,15 @@ public class MovieService implements IMovieService {
 
     @Override
     public void addMovie(Movie movie) {
+        movie.setFlag(true);
         movieRepository.save(movie);
     }
 
     @Override
     public void deleteMovie(int id) {
-        movieRepository.deleteById(id);
+        Movie movie = getById(id);
+        movie.setFlag(false);
+        movieRepository.save(movie);
     }
 
     @Override
@@ -40,12 +43,20 @@ public class MovieService implements IMovieService {
 
     @Override
     public void editMovie(Movie movie) {
+        movie.setFlag(true);
         movieRepository.save(movie);
     }
 
     @Override
     public List<Movie> getAllMovie() {
-        return movieRepository.findAll();
+        List<Movie> movies = new ArrayList<>();
+        List<Movie> movieList = movieRepository.findAll();
+        for (Movie m: movieList) {
+            if(m.isFlag()){
+                movies.add(m);
+            }
+        }
+        return movies;
     }
 
     @Override
