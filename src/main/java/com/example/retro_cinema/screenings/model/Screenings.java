@@ -1,6 +1,7 @@
 package com.example.retro_cinema.screenings.model;
 
 import com.example.retro_cinema.movie.model.Movie;
+import com.example.retro_cinema.product_detail.model.ProductDetail;
 import com.example.retro_cinema.seatDetails.model.SeatDetails;
 import com.example.retro_cinema.showtimes.model.ShowTimes;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -27,6 +28,9 @@ public class Screenings {
     @OneToMany(mappedBy = "screenings")
     @JsonBackReference
     private Set<SeatDetails> seatDetails;
+    @OneToMany(mappedBy = "screenings")
+    @JsonBackReference
+    private Set<ProductDetail> productDetails;
 
     public Screenings() {
     }

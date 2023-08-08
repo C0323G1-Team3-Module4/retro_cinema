@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     timerProgressBar: true,
     showConfirmButton: false // Hide the "Confirm" button
   });
+  //Change URL:
   const currentUrl = window.location.href;
   const cleanUrl = currentUrl.split('?')[0];
   history.replaceState(null, null, cleanUrl);
