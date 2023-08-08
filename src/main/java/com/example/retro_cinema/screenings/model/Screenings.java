@@ -1,9 +1,11 @@
 package com.example.retro_cinema.screenings.model;
 
 import com.example.retro_cinema.movie.model.Movie;
+import com.example.retro_cinema.seatDetails.model.SeatDetails;
 import com.example.retro_cinema.showtimes.model.ShowTimes;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "screenings")
@@ -21,6 +23,8 @@ public class Screenings {
     private Movie movie;
     @Column(name = "date_movie", columnDefinition = "DATE")
     private String dateMovie;
+    @OneToMany(mappedBy = "screenings")
+    private Set<SeatDetails> seatDetails;
 
     public Screenings() {
     }
@@ -84,5 +88,13 @@ public class Screenings {
 
     public void setDateMovie(String dateMovie) {
         this.dateMovie = dateMovie;
+    }
+
+    public Set<SeatDetails> getSeatDetails() {
+        return seatDetails;
+    }
+
+    public void setSeatDetails(Set<SeatDetails> seatDetails) {
+        this.seatDetails = seatDetails;
     }
 }
