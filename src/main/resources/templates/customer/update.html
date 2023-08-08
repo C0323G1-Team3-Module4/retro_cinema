@@ -59,14 +59,6 @@
            th:errors="*{address}"></p>
     </div>
 
-<!--    <div class="col-md-12">-->
-<!--        <p>Gender</p>-->
-<!--        <input class="form-control" type="text" th:field="*{gender}"-->
-<!--               required>-->
-<!--        <p style="color: red" th:if="${#fields.hasErrors('gender')}"-->
-<!--           th:errors="*{gender}"></p>-->
-<!--    </div>-->
-
     <div class="col-md-12">
         <label for="gender">Gender</label>
         <select class="form-control" id="gender" th:field="*{gender}" required>
@@ -88,8 +80,11 @@
     </div>
 
     <div id="drop-area" class="drop-area">
-        <p>Drag and Drop an image here .</p>
-        <img th:src="${customerDto.image}" alt="Preview" id="preview-image" style="display: none">
+<!--        <p>Drag and Drop an image here .</p>-->
+<!--        <img th:src="${customerDto.image}" alt="Preview" id="preview-image" style="display: none">-->
+        <input type="hidden" id="thumbnailURL" th:field="*{image}" />
+        <input type="file" id="btnThumbnailURL" class="form-control">
+        <progress id="uploader" value="0" max="100">0%</progress>
     </div>
 
 
@@ -99,36 +94,82 @@
     </button>
 
 </form>
+<script src="https://www.gstatic.com/firebasejs/7.7.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-analytics.js"></script>
+<script>
+    // const dropArea = document.getElementById('drop-area');
+    // const previewImage = document.getElementById('preview-image');
+    //
+    // debugger
+    //
+    // dropArea.addEventListener('dragover', (e) => {
+    //     e.preventDefault();
+    //     dropArea.classList.add('highlight');
+    // });
+    //
+    // dropArea.addEventListener('dragleave', () => {
+    //     dropArea.classList.remove('highlight');
+    // });
+    //
+    // dropArea.addEventListener('drop', (e) => {
+    //     e.preventDefault();
+    //     dropArea.classList.remove('highlight');
+    //
+    //     const file = e.dataTransfer.files[0];
+    //     if (file && file.type.startsWith('image/')) {
+    //         const reader = new FileReader();
+    //         reader.onload = (event) => {
+    //             previewImage.src = event.target.result;
+    //             previewImage.style.display = 'block';
+    //         };
+    //         reader.readAsDataURL(file);
+    //     }
+    // });
 
-<script th:inline="javascript">
-    const dropArea = document.getElementById('drop-area');
-    const previewImage = document.getElementById('preview-image');
+    //paste here your copied configuration code
+    const firebaseConfig = {
+        apiKey: "AIzaSyCp05n7nwMvb43hJJZZVQn4ucIPKa2_gkA",
+        authDomain: "retro-cinema-99f73.firebaseapp.com",
+        projectId: "retro-cinema-99f73",
+        storageBucket: "retro-cinema-99f73.appspot.com",
+        messagingSenderId: "408180950215",
+        appId: "1:408180950215:web:4b49fe816a9038473eaae2",
+        measurementId: "G-8MJW1J4QL7"
+    };
 
-    debugger
-
-    dropArea.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        dropArea.classList.add('highlight');
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    // const analytics = getAnalytics(app);
+    let uploader = document.getElementById('uploader');
+    let fileButton = document.getElementById('btnThumbnailURL');
+    fileButton.addEventListener('change', function (e) {
+        let file = e.target.files[0];
+        let storageRef = firebase.storage().ref('retro/' + file.name);
+        let task = storageRef.put(file);
+        task.on('state_changed', function progress(snapshot) {
+            let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            uploader.value = percentage;
+//  lúc chưa load xong thì thì ko cho submit
+            if (percentage === 100) {
+                document.getElementById('createButton').removeAttribute('disabled');
+            } else {
+                document.getElementById('createButton').setAttribute('disabled', 'disabled');
+            }
+        });
+//   getDownloadURL() để lấy URL của file đã được lưu trữ trên Firebase Storage.
+//   Sau khi URL được lấy thành công, nó được sử dụng để đặt giá trị cho thuộc tính value của phần tử HTML có id là thumbnailURL.
+//   Điều này có nghĩa là URL được gán cho giá trị của trường input có tên là thumbnailURL.
+//   Sau đó, URL này có thể được sử dụng để hiển thị hình ảnh hoặc thực hiện các thao tác khác liên quan đến hình ảnh trong code JavaScript và HTML.
+        task.then(snapshot => snapshot.ref.getDownloadURL())
+            .then(url => {
+                document.getElementById('thumbnailURL').setAttribute("value", url);
+// tải hình ảnh
+                previewImage.style.display = 'none';
+                newImage.src = url;
+                newImage.style.display = 'block';
+            });
     });
 
-    dropArea.addEventListener('dragleave', () => {
-        dropArea.classList.remove('highlight');
-    });
-
-    dropArea.addEventListener('drop', (e) => {
-        e.preventDefault();
-        dropArea.classList.remove('highlight');
-
-        const file = e.dataTransfer.files[0];
-        if (file && file.type.startsWith('image/')) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                previewImage.src = event.target.result;
-                previewImage.style.display = 'block';
-            };
-            reader.readAsDataURL(file);
-        }
-    });
 </script>
 </body>
 </html>
