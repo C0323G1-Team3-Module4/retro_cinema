@@ -19,7 +19,7 @@
         <th>End time</th>
         <th>Room name</th>
     </tr>
-    <tr th:each="s,status:${screeningsDtoLists}">
+    <tr th:each="s,status:${screeningsLists}">
         <td th:text="${status.count}"></td>
         <td th:text="${s.getMovieName()}"></td>
         <td th:text="${s.getDateMovie()}"></td>

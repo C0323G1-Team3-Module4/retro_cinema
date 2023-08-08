@@ -1,13 +1,15 @@
 package com.example.retro_cinema.screenings.service;
 
-import com.example.retro_cinema.screenings.dto.IScreeningsDto;
-import com.example.retro_cinema.screenings.dto.ScreeningsDto;
+
+import com.example.retro_cinema.screenings.model.Screenings;
 
 import java.util.List;
+import java.util.Set;
 
 public interface IScreeningsService {
-    List<IScreeningsDto> getAll();
-    void addScreenings(ScreeningsDto screeningsDto);
-    List<IScreeningsDto> getAllByNameMovie(String nameMovie);
-    List<IScreeningsDto> getAllByDateTime(String dateTime);
+    List<Screenings> getAll();
+    void addScreenings(Screenings screenings);
+    List<Screenings> getAllByNameMovie(String nameMovie);
+    List<Screenings> getAllByDateTime(String dateTime);
+    Set<String> dateList(String name);
 }
