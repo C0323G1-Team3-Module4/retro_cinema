@@ -1,6 +1,7 @@
 package com.example.retro_cinema.payment.controller;
 
 import com.example.retro_cinema.customer.service.ICustomerService;
+import com.example.retro_cinema.screenings.service.IScreeningsService;
 import com.example.retro_cinema.seats.service.ISeatsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,5 +14,6 @@ public class PaymentController {
     private ICustomerService iCustomerService;
     @Autowired
     private ISeatsService iSeatsService;
-
+    @Autowired
+    private IScreeningsService iScreeningsService;
 }
