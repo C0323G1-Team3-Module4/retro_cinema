@@ -18,13 +18,13 @@
         <th>End time</th>
         <th>Room name</th>
     </tr>
-    <tr th:each="s,status:${screeningsDtoList}">
+    <tr th:each="s,status:${screeningsList}">
         <td th:text="${status.count}"></td>
-        <td th:text="${s.getMovieName()}"></td>
+        <td th:text="${s.getMovie().getMovieName()}"></td>
         <td th:text="${s.getDateMovie()}"></td>
-        <td th:text="${s.getStartTime()}"></td>
-        <td th:text="${s.getEndTime()}"></td>
-        <td th:text="${s.getRoomName()}"></td>
+        <td th:text="${s.getShowTimes().getStartTime()}"></td>
+        <td th:text="${s.getShowTimes().getEndTime()}"></td>
+        <td th:text="${s.getShowTimes().getRooms().getRoomName()}"></td>
     </tr>
 </table>
 </body>
