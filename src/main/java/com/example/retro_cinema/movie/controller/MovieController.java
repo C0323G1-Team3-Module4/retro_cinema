@@ -31,7 +31,7 @@ public class MovieController {
     public ModelAndView showList(@RequestParam(defaultValue = "0") int page,
                                  @RequestParam(defaultValue = "") String name) {
         Pageable pageable = PageRequest.of(page, 5, Sort.by("releaseDate").descending());
-        Page<Movie> moviePage = movieService.movieList(pageable, name);
+        Page<Movie> moviePage = movieService.movieList(pageable, name, true);
         ModelAndView modelAndView = new ModelAndView("movie/list");
         modelAndView.addObject("moviePage", moviePage);
         modelAndView.addObject("name", name);
@@ -57,7 +57,7 @@ public class MovieController {
         }
         BeanUtils.copyProperties(movieDto, movie);
         movieService.addMovie(movie);
-        redirectAttributes.addFlashAttribute("msg", "Successfully added new");
+        redirectAttributes.addFlashAttribute("message", "Add new successful movie!");
         return "redirect:/movie";
     }
 
@@ -83,14 +83,14 @@ public class MovieController {
         }
         BeanUtils.copyProperties(movieDto, movie);
         movieService.editMovie(movie);
-        redirectAttributes.addFlashAttribute("msg", "Update movie Success!");
+        redirectAttributes.addFlashAttribute("message", "Successful movie editing!");
         return "redirect:/movie";
     }
 
     @PostMapping("/delete")
     public String delete(@RequestParam int id, RedirectAttributes redirectAttributes) {
         movieService.deleteMovie(id);
-        redirectAttributes.addFlashAttribute("msg", "Delete successfully");
+        redirectAttributes.addFlashAttribute("message", "Delete movie successfully!");
         return "redirect:/movie";
     }
     @GetMapping("/detail/{id}")

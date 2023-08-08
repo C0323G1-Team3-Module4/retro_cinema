@@ -1,6 +1,7 @@
 package com.example.retro_cinema.movie.service;
 
 import com.example.retro_cinema.movie.model.Movie;
+import com.example.retro_cinema.movie_types.model.MovieTypes;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -8,7 +9,7 @@ import java.util.List;
 
 public interface IMovieService {
 
-    Page<Movie> movieList(Pageable pageable, String name);
+    Page<Movie> movieList(Pageable pageable, String name, boolean flag);
 
 
     void addMovie(Movie movie);
