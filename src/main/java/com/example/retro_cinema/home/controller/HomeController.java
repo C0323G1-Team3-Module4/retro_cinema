@@ -42,7 +42,6 @@ public class HomeController {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             String screeningsJson = objectMapper.writeValueAsString(screeningsList);
-            System.out.println(screeningsJson);
             model.addAttribute("screeningsJson",screeningsJson);
         } catch (JsonProcessingException e) {
             e.printStackTrace();

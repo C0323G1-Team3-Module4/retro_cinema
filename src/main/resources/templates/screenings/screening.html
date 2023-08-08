@@ -253,6 +253,7 @@
                 <!--                <option th:each="screening:${screeningList}" th:text="${screening.getDateMovie()}"></option>-->
             </select>
         </div>
+<!--        <button onclick="test()">SeatDetail</button>-->
 
         <!-- Show-case -->
         <ul class="showcase">
@@ -420,6 +421,8 @@
 <!-- Div to store JSON Screening, display none-->
 <div id="screeningsJson" th:text="${screeningsJson}" style="display: none"></div>
 
+<!--Didv to store JSON SeatDetail, display none-->
+<div id="seatDetailJson" th:text="${seatDetailJson}" style="display: none"></div>
 <!-- Div to store msg-->
 <div th:if="${param.message}">
     <span th:text="${param.message}" id="message" style="display: none"></span>
@@ -429,13 +432,12 @@
 </div>
 
 <!--Div to store price-->
-<div id="priceFromScreeningId" style="display: none"></div>
+<input id="priceFromScreeningId" type="hidden">
 
 
 <script>
     const timeSelector = document.getElementById("timeSelector");
     const dateSelector = document.getElementById("dateSelector");
-    const priceFromScreeningId = document.getElementById("priceFromScreeningId");
 
     function getArrayFromJson() {
         // Json to Array JS
@@ -526,6 +528,29 @@
          let screeningId = timeSelector.value;
          // alert(screeningId);
          window.location.href = "/seatDetail/" + screeningId;
+    }
+    function test() {
+        console.log(ticketPrice);
+    }
+</script>
+
+<!--Script for seat detail-->
+<script>
+
+    function seatDetail() {
+        let seatsArray = [];
+        const seatDetailJson = document.getElementById("seatDetailJson").innerText;
+        const seatDetailArray = JSON.parse(seatDetailJson);
+        console.log(seatDetailArray)
+        seatDetailArray.forEach((seatDetail) => {
+            seatsArray.push(seatDetail.seats.id);
+            let seatPrice = seatDetail.screenings.movie.price;
+            // let seatFee = seatDetail.seats.fee;
+            document.getElementById("priceFromScreeningId").value = seatPrice;
+            console.log(seatPrice);
+        });
+        console.log(seatsArray)
+        return seatsArray;
     }
 </script>
 
