@@ -2,14 +2,11 @@ package com.example.retro_cinema.home.controller;
 
 import com.example.retro_cinema.movie.model.Movie;
 import com.example.retro_cinema.movie.service.IMovieService;
-import com.example.retro_cinema.screenings.dto.IScreeningsDto;
 import com.example.retro_cinema.screenings.model.Screenings;
-import com.example.retro_cinema.screenings.repository.IScreeningsRepository;
 import com.example.retro_cinema.screenings.service.IScreeningsService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +38,7 @@ public class HomeController {
     @GetMapping("/home/screening/{id}")
     public String showScreening(@PathVariable("id") int id, Model model) {
         Movie movie = movieService.getById(id);
-        List<IScreeningsDto> screeningsList = screeningsService.getAllByNameMovie(movie.getMovieName());
+        List<Screenings> screeningsList = screeningsService.getAllByNameMovie(movie.getMovieName());
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             String screeningsJson = objectMapper.writeValueAsString(screeningsList);
