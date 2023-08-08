@@ -3,7 +3,9 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Assuming you have received the list of booked seats as an array
   // Example: const bookedSeats = [1, 2, 3, 7, 8];
-  const bookedSeats = [40, 41];
+  const bookedSeats = seatDetail();
+
+  console.log(bookedSeats);
 
   // Loop through each seat in the bookedSeats array and update its status
   bookedSeats.forEach((seatNumber) => {
@@ -12,13 +14,18 @@ document.addEventListener("DOMContentLoaded", function () {
       seatElement.classList.add("occupied");
     }
   });
+  const price = document.getElementById("price")
+  ticketPrice = document.getElementById("priceFromScreeningId").value;
+  console.log(ticketPrice);
+  price.innerText = ticketPrice + " $";
+  localStorage.setItem("price",JSON.stringify(ticketPrice));
 });
-
+let ticketPrice = 0;
 const main = document.querySelector(".main");
 const seats = document.querySelectorAll(".row .seat:not(.occupied");
 const count = document.getElementById("count");
 const total = document.getElementById("total");
-// const movieSelect = document.getElementById("movie");
+
 
 populateUI();
 
@@ -31,9 +38,6 @@ function updateSelectedCount() {
 
   localStorage.setItem("selectedSeats", JSON.stringify(seatsIndex));
   localStorage.setItem("selectedNames", JSON.stringify(seatsList));
-  const ticketPrice = priceFromScreeningId.innerText * 1;
-  console.log(ticketPrice)
-  document.getElementById("price").innerText = ticketPrice + " $";
   //copy selected seats into arr
   // map through array
   //return new array of indexes
@@ -90,17 +94,17 @@ updateSelectedCount();
 
 
 // Call swal alert
-document.addEventListener("DOMContentLoaded", function () {
-  let msg = document.getElementById("message").innerText;
-  // Display a SweetAlert when the document is ready
-  Swal.fire({
-    title: msg,
-    icon: 'success',
-    timer: 1500, // Time in milliseconds (2 seconds)
-    timerProgressBar: true,
-    showConfirmButton: false // Hide the "Confirm" button
-  });
-  const currentUrl = window.location.href;
-  const cleanUrl = currentUrl.split('?')[0];
-  history.replaceState(null, null, cleanUrl);
-});
+// document.addEventListener("DOMContentLoaded", function () {
+//   let msg = document.getElementById("message").innerText;
+//   // Display a SweetAlert when the document is ready
+//   Swal.fire({
+//     title: msg,
+//     icon: 'success',
+//     timer: 1500, // Time in milliseconds (2 seconds)
+//     timerProgressBar: true,
+//     showConfirmButton: false // Hide the "Confirm" button
+//   });
+//   const currentUrl = window.location.href;
+//   const cleanUrl = currentUrl.split('?')[0];
+//   history.replaceState(null, null, cleanUrl);
+// });
