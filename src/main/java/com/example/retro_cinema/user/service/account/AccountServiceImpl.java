@@ -90,7 +90,7 @@ public class AccountServiceImpl implements IAccountService {
                 "    </td>\n" +
                 "  </tr>\n" +
                 "  <tr>\n" +
-                "    <td bgcolor=\"#eaeaea\" style=\"padding: 30px 20px 40px 30px;background: url('https://statics.vincom.com.vn/vincom-ho/image5-1671508223.jpg') no-repeat center center;background-size: cover;\">\n" +
+                "    <td bgcolor=\"#eaeaea\" style=\"padding: 30px 20px 40px 30px;background: url('email_background.jpg') no-repeat center center;background-size: cover;\">\n" +
                 "\n" +
                 "      <p>Dear<span style=\"color: #0db9e0;font-size: 14px;font-weight: bold;\"> \"" + accountUser.getUsername() + "\" </span></p>\n" +
                 "      <p >\n" +
@@ -145,7 +145,7 @@ public class AccountServiceImpl implements IAccountService {
                 "    </td>\n" +
                 "  </tr>\n" +
                 "  <tr>\n" +
-                "    <td bgcolor=\"#eaeaea\" style=\"padding: 30px 20px 40px 30px;background: url('https://statics.vincom.com.vn/vincom-ho/image5-1671508223.jpg') no-repeat center center;background-size: cover;\">\n" +
+                "    <td bgcolor=\"#eaeaea\" style=\"padding: 30px 20px 40px 30px;background: url('email_background.jpg') no-repeat center center;background-size: cover;\">\n" +
                 "\n" +
                 "      <p>Dear<span style=\"color: #0db9e0;font-size: 14px;font-weight: bold;\"> " + accountUser.getUsername() + "</span></p>\n" +
                 "      <p >\n" +
