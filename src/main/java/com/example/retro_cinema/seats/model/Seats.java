@@ -1,6 +1,7 @@
 package com.example.retro_cinema.seats.model;
 
 import com.example.retro_cinema.seatDetails.model.SeatDetails;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -18,6 +19,7 @@ public class Seats {
     @Column(columnDefinition = "DECIMAL(10,2)")
     private double fee;
     @OneToMany(mappedBy = "seats")
+    @JsonBackReference
     private Set<SeatDetails> seatDetails;
 
     public Seats() {
