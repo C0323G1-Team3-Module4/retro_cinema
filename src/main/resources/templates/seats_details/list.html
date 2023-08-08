@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>number</th>
+        <th>seat name</th>
+        <th>room</th>
+        <th>name movie</th>
+        <th>date movie</th>
+        <th>start time</th>
+        <th>end time</th>
+    </tr>
+    <tr th:each="m,status:${seatDetailsList}">
+        <td th:text="${status.count}"></td>
+        <td th:text="${m.getSeats().getSeatName()}"></td>
+        <td th:text="${m.getScreenings().getShowTimes().getRooms().getRoomName()}"></td>
+        <th th:text="${m.getScreenings().getMovie().getMovieName()}"></th>
+        <th th:text="${m.getScreenings().getDateMovie()}"></th>
+        <th th:text="${m.getScreenings().getShowTimes().getStartTime()}"></th>
+        <th th:text="${m.getScreenings().getShowTimes().getEndTime()}"></th>
+    </tr>
+</table>
+</body>
+</html>

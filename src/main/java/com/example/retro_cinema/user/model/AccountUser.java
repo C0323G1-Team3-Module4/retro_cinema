@@ -1,6 +1,7 @@
 package com.example.retro_cinema.user.model;
 
 import com.example.retro_cinema.customer.model.Customer;
+import com.example.retro_cinema.seatDetails.model.SeatDetails;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -30,7 +31,32 @@ public class AccountUser {
     @OneToMany(mappedBy = "accountUser")
     private Set<Customer> customerSet;
 
+    @OneToMany(mappedBy = "accountUser")
+    private Set<SeatDetails> seatDetails;
+
     public AccountUser() {
+    }
+
+    public Set<SeatDetails> getSeatDetails() {
+        return seatDetails;
+    }
+
+    public void setSeatDetails(Set<SeatDetails> seatDetails) {
+        this.seatDetails = seatDetails;
+    }
+
+    public AccountUser(Integer id, String username, String email, String pass, boolean flag, Roles roles, Date expiryDate, String verificationCode, boolean enabled, Set<Customer> customerSet, Set<SeatDetails> seatDetails) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.pass = pass;
+        this.flag = flag;
+        this.roles = roles;
+        this.expiryDate = expiryDate;
+        this.verificationCode = verificationCode;
+        this.enabled = enabled;
+        this.customerSet = customerSet;
+        this.seatDetails = seatDetails;
     }
 
     public AccountUser(Integer id, String username, String email, String pass, boolean flag, Roles roles, Date expiryDate, String verificationCode) {
