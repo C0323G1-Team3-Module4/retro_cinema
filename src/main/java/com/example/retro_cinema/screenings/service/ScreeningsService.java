@@ -29,7 +29,7 @@ public class ScreeningsService implements IScreeningsService {
     @Override
     public List<Screenings> getAllByNameMovie(String nameMovie) {
         List<Screenings> screeningsList = new ArrayList<>();
-        List<Screenings> getAllListDto = getAll();
+        List<Screenings> getAllListDto = screeningsRepository.findAll();
         for (Screenings i: getAllListDto) {
             if(i.getMovie().getMovieName().equals(nameMovie)){
                 screeningsList.add(i);

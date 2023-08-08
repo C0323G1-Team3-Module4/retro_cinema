@@ -11,7 +11,7 @@ public class Products {
     private String productName;
     @Column(columnDefinition = "DECIMAL(10,2)")
     private double price;
-    @Column(columnDefinition = "Bit default '1'")
+    @Column(columnDefinition = "Bit default 1")
     private boolean flag;
     @Column(columnDefinition = "VARCHAR(255)")
     private String img;
