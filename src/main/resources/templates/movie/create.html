@@ -7,8 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-storage.js"></script>
+<!--    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>-->
+<!--    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-storage.js"></script>-->
 
 </head>
 <body>
@@ -101,7 +101,7 @@
                                             <!--                                                   th:field="*{img}"/>-->
                                             <!--                                            <label class="form-label" for="form3Example4cf">img</label>-->
 
-                                            <b>Choose picture:</b>
+                                            <b>Choose picture: Poster Film</b>
                                              <input type="hidden" id="thumbnailURL" th:field="*{img}"/>
                                             <input id="btnThumbnailURL" type="file" class="form-control"/>
                                             <progress id="uploader" value="0" max="100">0%</progress>
@@ -109,16 +109,18 @@
                                         </div>
                                     </div>
 
+
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
-                                            <small style="color: red" th:if="${#fields.hasErrors('imgTrailer')}"
-                                                   th:errors="*{imgTrailer}"></small>
-                                            <input type="text" id="form3Example4cia" class="form-control"
-                                                   th:field="*{imgTrailer}"/>
-                                            <label class="form-label" for="form3Example4cia">Img Trailer</label>
+                                            <b>Choose picture: Image Film</b>
+                                            <input type="hidden" id="thumbnailURL1" th:field="*{imgTrailer}"/>
+                                            <input id="btnThumbnailURL1" type="file" class="form-control"/>
+                                            <progress id="uploader1" value="0" max="100">0%</progress>
+
                                         </div>
                                     </div>
+
 
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-key fa-lg me-3 fa-fw"></i>
@@ -177,18 +179,19 @@
         </div>
     </div>
 </section>
-
+<script src="https://www.gstatic.com/firebasejs/7.7.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-analytics.js"></script>
 
 <script>
     //paste here your copied configuration code
     const firebaseConfig = {
-        apiKey: "AIzaSyDFIFtviHbm8hKCtidU9nVSlcD9fcQSvN4",
-        authDomain: "employeecasestudy.firebaseapp.com",
-        projectId: "employeecasestudy",
-        storageBucket: "employeecasestudy.appspot.com",
-        messagingSenderId: "562015708192",
-        appId: "1:562015708192:web:07cf40d25a6339b95d0845",
-        measurementId: "G-CGWJ0KZSJM"
+        apiKey: "AIzaSyCp05n7nwMvb43hJJZZVQn4ucIPKa2_gkA",
+        authDomain: "retro-cinema-99f73.firebaseapp.com",
+        projectId: "retro-cinema-99f73",
+        storageBucket: "retro-cinema-99f73.appspot.com",
+        messagingSenderId: "408180950215",
+        appId: "1:408180950215:web:4b49fe816a9038473eaae2",
+        measurementId: "G-8MJW1J4QL7"
     };
 
     // Initialize Firebase
@@ -198,7 +201,7 @@
     let fileButton = document.getElementById('btnThumbnailURL');
     fileButton.addEventListener('change', function (e) {
         let file = e.target.files[0];
-        let storageRef = firebase.storage().ref('img/' + file.name);
+        let storageRef = firebase.storage().ref('retro/' + file.name);
         let task = storageRef.put(file);
         task.on('state_changed', function progress(snapshot) {
             let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -217,6 +220,41 @@
         task.then(snapshot => snapshot.ref.getDownloadURL())
             .then(url => {
                 document.getElementById('thumbnailURL').setAttribute("value", url);
+// tải hình ảnh
+                previewImage.style.display = 'none';
+                newImage.src = url;
+                newImage.style.display = 'block';
+            });
+    });
+
+    // firebase thứ 2
+
+    // Initialize Firebase
+    // firebase.initializeApp(firebaseConfig);
+    // const analytics = getAnalytics(app);
+    let uploader1 = document.getElementById('uploader1');
+    let fileButton1 = document.getElementById('btnThumbnailURL1');
+    fileButton1.addEventListener('change', function (e) {
+        let file = e.target.files[0];
+        let storageRef = firebase.storage().ref('retro2/' + file.name);
+        let task = storageRef.put(file);
+        task.on('state_changed', function progress(snapshot) {
+            let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            uploader1.value = percentage;
+//  lúc chưa load xong thì thì ko cho submit
+            if (percentage === 100) {
+                document.getElementById('createButton').removeAttribute('disabled');
+            } else {
+                document.getElementById('createButton').setAttribute('disabled', 'disabled');
+            }
+        });
+//   getDownloadURL() để lấy URL của file đã được lưu trữ trên Firebase Storage.
+//   Sau khi URL được lấy thành công, nó được sử dụng để đặt giá trị cho thuộc tính value của phần tử HTML có id là thumbnailURL.
+//   Điều này có nghĩa là URL được gán cho giá trị của trường input có tên là thumbnailURL.
+//   Sau đó, URL này có thể được sử dụng để hiển thị hình ảnh hoặc thực hiện các thao tác khác liên quan đến hình ảnh trong code JavaScript và HTML.
+        task.then(snapshot => snapshot.ref.getDownloadURL())
+            .then(url => {
+                document.getElementById('thumbnailURL1').setAttribute("value", url);
 // tải hình ảnh
                 previewImage.style.display = 'none';
                 newImage.src = url;
