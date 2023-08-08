@@ -180,17 +180,8 @@
                     >
                 </li>
             </ul>
-            <!-- Pills content -->
-            <div th:if="${#request.getParameter('error') == 'true'}"
-                 style="color:red;margin:10px 0px;">
-                Login Failed!!!<br/>
-                Reason :
-                <span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
-                      th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">
-                Static summary
-         </span>
 
-            </div>
+
             <div class="tab-content">
                 <div
                         class="tab-pane fade show active"
@@ -201,7 +192,7 @@
                     <form th:action="@{/j_spring_security_check}" method="post">
                         <!-- Email input -->
                         <div class="form-outline mb-4">
-                            <label class="form-label" for="form2Example8">Email</label>
+                            <label class="form-label" for="form2Example8">User Name</label>
                             <input
                                     name="username"
                                     type="text"

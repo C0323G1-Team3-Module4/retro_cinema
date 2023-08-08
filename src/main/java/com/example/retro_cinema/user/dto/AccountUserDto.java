@@ -5,6 +5,7 @@ import com.example.retro_cinema.customer.model.Customer;
 import com.example.retro_cinema.user.model.Roles;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -13,6 +14,7 @@ import java.util.Date;
 public class AccountUserDto implements Validator {
 
     private Integer id;
+    @NotBlank(message = "User name cound not be void!")
     private String username;
     @NotBlank(message = "Email could not be void!")
     @Email
