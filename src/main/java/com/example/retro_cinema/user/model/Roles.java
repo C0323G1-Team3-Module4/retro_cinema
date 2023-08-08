@@ -1,5 +1,7 @@
 package com.example.retro_cinema.user.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -14,6 +16,7 @@ public class Roles {
     private boolean flagDelete;
 
     @OneToMany(mappedBy = "roles")
+    @JsonBackReference
     private Set<AccountUser> accountUserSet;
     public Roles() {
     }

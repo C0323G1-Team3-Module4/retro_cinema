@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ISeatDetailsService {
     List<SeatDetails> getAllSeatsDetails();
+    List<SeatDetails> getBySeatDetailsByIdScreenings(int id);
 }
