@@ -1,6 +1,9 @@
 package com.example.retro_cinema.seats.model;
 
+import com.example.retro_cinema.seatDetails.model.SeatDetails;
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "seats")
@@ -14,8 +17,18 @@ public class Seats {
     private boolean flag;
     @Column(columnDefinition = "DECIMAL(10,2)")
     private double fee;
+    @OneToMany(mappedBy = "seats")
+    private Set<SeatDetails> seatDetails;
 
     public Seats() {
+    }
+
+    public Set<SeatDetails> getSeatDetails() {
+        return seatDetails;
+    }
+
+    public void setSeatDetails(Set<SeatDetails> seatDetails) {
+        this.seatDetails = seatDetails;
     }
 
     public Seats(int id, String seatName, boolean flag, double fee) {
