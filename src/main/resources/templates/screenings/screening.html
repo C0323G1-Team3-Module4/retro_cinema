@@ -273,7 +273,7 @@
         </ul>
 
         <!-- List of seats -->
-        <div class="seat-container">
+        <div class="seat-container" th:if="${seatDetail != null}">
             <div class="screen"></div>
             <div class="row">
                 <div class="seat" id="seat1">A1</div>
@@ -348,19 +348,23 @@
                 <div class="seat" id="seat60">F10</div>
             </div>
         </div>
+        <div class="seat-container" th:if="${seatDetail == null}">
+            <div>Please choose date and time and submit</div>
+        </div>
     </div>
     <!-- Right side -->
     <div class="right-side">
         <!-- Pick a time -->
         <div class="movie-container">
             <label>Pick a time:</label>
-            <select id="timeSelector" style="display: none">
+            <select id="timeSelector">
                 <option value="">Please choose date</option>
             </select>
+            <button onclick="sendScreeningId()">Display seats</button>
         </div>
 
         <!-- Your seats -->
-        <section>
+        <section >
             <h1>YOUR SEAT(S)</h1>
             <div class="tbl-header">
                 <table cellpadding="0" cellspacing="0" border="0">
@@ -415,9 +419,23 @@
 
 <!-- Div to store JSON Screening, display none-->
 <div id="screeningsJson" th:text="${screeningsJson}" style="display: none"></div>
+
+<!-- Div to store msg-->
+<div th:if="${param.message}">
+    <span th:text="${param.message}" id="message" style="display: none"></span>
+</div>
+<div th:if="${message}">
+    <span th:text="${message}" id="message" style="display: none"></span>
+</div>
+
+<!--Div to store price-->
+<div id="priceFromScreeningId" style="display: none"></div>
+
+
 <script>
     const timeSelector = document.getElementById("timeSelector");
     const dateSelector = document.getElementById("dateSelector");
+    const priceFromScreeningId = document.getElementById("priceFromScreeningId");
 
     function getArrayFromJson() {
         // Json to Array JS
@@ -458,7 +476,7 @@
 
         timesForSelectedDate.forEach((screening) => {
             let option = document.createElement("option");
-            let text = `${screening.startTime}-${screening.endTime}`;
+            let text = `${screening.showTimes.startTime}-${screening.showTimes.endTime}`;
             let screeningId = `${screening.id}`
             console.log(screeningId)
             option.value = `${screening.id}`;
@@ -466,6 +484,7 @@
             console.log(option)
             timeSelector.appendChild(option);
         });
+
 
         // Show the showTimeSelector element once options are populated
         timeSelector.style.display = "inline-block";
@@ -477,10 +496,40 @@
         populateShowTimeOptions(selectedDate);
     });
 
+    // function getPrice(screeningId) {
+    //     let screeningsArray = getArrayFromJson();
+    //     console.log(screeningsArray)
+    //     const screeningFromId = screeningsArray.filter(
+    //         (screening) => screening.id == screeningId);
+    //     // const timesForSelectedDate = screeningsArray.filter (
+    //     //     (screening) => screening.dateMovie === selectedDate
+    //     // );
+    //     console.log(screeningFromId)
+    //     screeningFromId.forEach((screening) => {
+    //         console.log(screening.movie.price)
+    //         priceFromScreeningId.innerText = screening.movie.price;
+    //     });
+    //     return priceFromScreeningId.innerText;
+    // }
+
+    // timeSelector.addEventListener("change", (event) => {
+    //     const screeningId = event.target.value;
+    //     console.log(screeningId);
+    //     getPrice(screeningId);
+    //     document.getElementById("price").innerText = getPrice(screeningId) + "$";
+    // });
+
+</script>
+
+<script>
+    function sendScreeningId() {
+         let screeningId = timeSelector.value;
+         // alert(screeningId);
+         window.location.href = "/seatDetail/" + screeningId;
+    }
 </script>
 
 <!-- Link to main js -->
 <script src="/static/js/screening.js"></script>
-<script src="/static/js/home.js"></script>
 </body>
 </html>

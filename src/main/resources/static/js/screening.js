@@ -1,10 +1,9 @@
 // test JSON
 
-
 document.addEventListener("DOMContentLoaded", function () {
   // Assuming you have received the list of booked seats as an array
   // Example: const bookedSeats = [1, 2, 3, 7, 8];
-  const bookedSeats = [1, 2];
+  const bookedSeats = [40, 41];
 
   // Loop through each seat in the bookedSeats array and update its status
   bookedSeats.forEach((seatNumber) => {
@@ -19,16 +18,9 @@ const main = document.querySelector(".main");
 const seats = document.querySelectorAll(".row .seat:not(.occupied");
 const count = document.getElementById("count");
 const total = document.getElementById("total");
-const movieSelect = document.getElementById("movie");
+// const movieSelect = document.getElementById("movie");
 
 populateUI();
-let ticketPrice = +movieSelect.value;
-
-// Save selected movie index and price
-function setMovieData(movieIndex, moviePrice) {
-  localStorage.setItem("selectedMovieIndex", movieIndex);
-  localStorage.setItem("selectedMoviePrice", moviePrice);
-}
 
 // update total and count
 function updateSelectedCount() {
@@ -39,7 +31,8 @@ function updateSelectedCount() {
 
   localStorage.setItem("selectedSeats", JSON.stringify(seatsIndex));
   localStorage.setItem("selectedNames", JSON.stringify(seatsList));
-  localStorage.setItem("ticketPrice", ticketPrice);
+  const ticketPrice = priceFromScreeningId.innerText * 1;
+  console.log(ticketPrice)
   document.getElementById("price").innerText = ticketPrice + " $";
   //copy selected seats into arr
   // map through array
@@ -66,19 +59,19 @@ function populateUI() {
     });
   }
 
-  const selectedMovieIndex = localStorage.getItem("selectedMovieIndex");
-
-  if (selectedMovieIndex !== null) {
-    movieSelect.selectedIndex = selectedMovieIndex;
-  }
+  // const selectedMovieIndex = localStorage.getItem("selectedMovieIndex");
+  //
+  // if (selectedMovieIndex !== null) {
+  //   movieSelect.selectedIndex = selectedMovieIndex;
+  // }
 }
 
 // Movie select event
-movieSelect.addEventListener("change", (e) => {
-  ticketPrice = +e.target.value;
-  setMovieData(e.target.selectedIndex, e.target.value);
-  updateSelectedCount();
-});
+// movieSelect.addEventListener("change", (e) => {
+//   ticketPrice = +e.target.value;
+//   setMovieData(e.target.selectedIndex, e.target.value);
+//   updateSelectedCount();
+// });
 
 // Seat click event
 main.addEventListener("click", (e) => {
@@ -94,3 +87,20 @@ main.addEventListener("click", (e) => {
 
 // intial count and total
 updateSelectedCount();
+
+
+// Call swal alert
+document.addEventListener("DOMContentLoaded", function () {
+  let msg = document.getElementById("message").innerText;
+  // Display a SweetAlert when the document is ready
+  Swal.fire({
+    title: msg,
+    icon: 'success',
+    timer: 1500, // Time in milliseconds (2 seconds)
+    timerProgressBar: true,
+    showConfirmButton: false // Hide the "Confirm" button
+  });
+  const currentUrl = window.location.href;
+  const cleanUrl = currentUrl.split('?')[0];
+  history.replaceState(null, null, cleanUrl);
+});
