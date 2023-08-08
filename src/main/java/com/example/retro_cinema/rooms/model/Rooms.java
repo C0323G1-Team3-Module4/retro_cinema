@@ -1,6 +1,7 @@
 package com.example.retro_cinema.rooms.model;
 
 import com.example.retro_cinema.showtimes.model.ShowTimes;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -18,6 +19,7 @@ public class Rooms {
     @Column(columnDefinition = "boolean default true")
     private boolean flag;
     @OneToMany(mappedBy = "rooms")
+    @JsonBackReference
     private Set<ShowTimes> showTimes;
     public Rooms() {
     }

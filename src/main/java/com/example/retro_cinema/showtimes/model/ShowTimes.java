@@ -2,6 +2,7 @@ package com.example.retro_cinema.showtimes.model;
 
 import com.example.retro_cinema.rooms.model.Rooms;
 import com.example.retro_cinema.screenings.model.Screenings;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
@@ -24,6 +25,7 @@ public class ShowTimes {
     @JoinColumn(name = "room_id",referencedColumnName = "id", insertable = false, updatable = false)
     private Rooms rooms;
     @OneToMany(mappedBy = "showTimes")
+    @JsonBackReference
     private Set<Screenings> screeningsSet;
 
     public ShowTimes() {

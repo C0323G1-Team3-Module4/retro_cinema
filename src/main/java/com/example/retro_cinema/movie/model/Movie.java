@@ -2,6 +2,7 @@ package com.example.retro_cinema.movie.model;
 
 import com.example.retro_cinema.movie_types.model.MovieTypes;
 import com.example.retro_cinema.screenings.model.Screenings;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -30,6 +31,7 @@ public class Movie {
     private MovieTypes movieTypes;
 
     @OneToMany(mappedBy = "movie")
+    @JsonBackReference
     private Set<Screenings> screeningsSet;
     public Movie() {
     }
