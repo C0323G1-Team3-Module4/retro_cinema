@@ -95,17 +95,12 @@
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
-                                            <!--                                            <small style="color: red" th:if="${#fields.hasErrors('img')}"-->
-                                            <!--                                                   th:errors="*{img}"></small>-->
-                                            <!--                                            <input type="text" id="form3Example4cf" class="form-control"-->
-                                            <!--                                                   th:field="*{img}"/>-->
-                                            <!--                                            <label class="form-label" for="form3Example4cf">img</label>-->
-
                                             <b>Choose picture: Poster Film</b>
                                              <input type="hidden" id="thumbnailURL" th:field="*{img}"/>
                                             <input id="btnThumbnailURL" type="file" class="form-control"/>
-                                            <progress id="uploader" value="0" max="100">0%</progress>
-
+                                            <progress id="uploader" value="0" max="100">0%</progress><br>
+                                            <small style="color: red" th:if="${#fields.hasErrors('img')}"
+                                                   th:errors="*{img}"></small>
                                         </div>
                                     </div>
 
@@ -116,11 +111,11 @@
                                             <b>Choose picture: Image Film</b>
                                             <input type="hidden" id="thumbnailURL1" th:field="*{imgTrailer}"/>
                                             <input id="btnThumbnailURL1" type="file" class="form-control"/>
-                                            <progress id="uploader1" value="0" max="100">0%</progress>
-
+                                            <progress id="uploader1" value="0" max="100">0%</progress><br>
+                                            <small style="color: red" th:if="${#fields.hasErrors('imgTrailer')}"
+                                                   th:errors="*{imgTrailer}"></small>
                                         </div>
                                     </div>
-
 
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-key fa-lg me-3 fa-fw"></i>
@@ -154,12 +149,11 @@
                                                 <option th:each="m : ${movieTypes}"
                                                         th:value="${m.id}" th:text="${m.movieTypes}"></option>
                                             </select>
-                                            <label class="form-label" for="form3Example4cq">MovieTypes</label>
+<!--                                            <label class="form-label" for="form3Example4cq">Movie Types</label>-->
                                         </div>
                                     </div>
 
                                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-<!--                                        <button class="btn btn-primary btn-lg" type="button" id="toastbtn">Add new</button>-->
                                         <button class="btn btn-primary btn-lg">Add new</button>
                                     </div>
 

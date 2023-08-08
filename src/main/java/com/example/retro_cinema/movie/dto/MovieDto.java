@@ -16,20 +16,21 @@ import java.time.Period;
 public class MovieDto implements Validator {
     private int id;
     private String movieName;
-    @Min(value = 1, message = "Movie show time must be greater than 0")
-    @Max(value = 120, message = "The time cannot be longer than 2 hours")
+    @Min(value = 1, message = "Movie show time must be greater than 0!")
+    @Max(value = 120, message = "The time cannot be longer than 2 hours!")
     private int duration;
-    @NotBlank(message = "Description cannot is empty")
+    @NotBlank(message = "Description cannot is empty!")
     private String description;
     private String releaseDate;
     private String director;
     private String performer;
-//    @NotBlank(message = "Link img cannot is empty")
+    @NotBlank(message = "Link image poster film cannot is empty!")
     private String img;
+    @NotBlank(message = "Link image film cannot is empty!")
     private String imgTrailer;
-    @NotBlank(message = "Link trailer cannot is empty")
+    @NotBlank(message = "Link trailer cannot is empty!")
     private String trailer;
-    @Min(value = 1, message = "Price must be greater than 0")
+    @Min(value = 1, message = "Price must be greater than 0!")
     private double price;
     private boolean flag;
     private MovieTypes movieTypes;
@@ -226,20 +227,20 @@ public class MovieDto implements Validator {
 
         if (movieDto.getDirector().equals("")) {
             errors.rejectValue("director", "", "Director's name cannot is empty!");
-        } else if (!movieDto.getDirector().matches("^[\\p{Lu}][\\p{Ll}]*([\\s][\\p{Lu}][\\p{Ll}]*)*$")) {
+        } else if (!movieDto.getDirector().matches("^[\\p{Lu}][\\p{Ll}\\p{Lu}]*([,\\s]+[\\p{Lu}][\\p{Ll}\\p{Lu}]*)*$")) {
             errors.rejectValue("director", "", "Invalid Director's name!");
         }
         if (movieDto.getPerformer().equals("")) {
             errors.rejectValue("performer", "", "Performer's name cannot is empty!");
-        } else if (!movieDto.getPerformer().matches("^[\\p{Lu}][\\p{Ll}]*([\\s][\\p{Lu}][\\p{Ll}]*)*$")) {
+        } else if (!movieDto.getPerformer().matches("^[\\p{Lu}][\\p{Ll}\\p{Lu}]*([,\\s]+[\\p{Lu}][\\p{Ll}\\p{Lu}]*)*$")) {
             errors.rejectValue("performer", "", "Invalid Performer's name!");
         }
         try{
             if (!movieDto.getMovieTypes().getMovieTypes().matches("^[\\p{Lu}][\\p{Ll}]*([\\s][\\p{Lu}][\\p{Ll}]*)*$")) {
-                errors.rejectValue("movieTypes", "", "Invalid Performer's name!");
+                errors.rejectValue("movieTypes", "", "Invalid movie types name!");
             }
         }catch (NullPointerException e){
-            errors.rejectValue("movieTypes", "", "Performer's name cannot is empty!");
+            errors.rejectValue("movieTypes", "", "Movie Types cannot is empty!");
         }
 
     }

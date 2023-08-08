@@ -2,6 +2,7 @@ package com.example.retro_cinema.movie.service;
 
 import com.example.retro_cinema.movie.model.Movie;
 import com.example.retro_cinema.movie.repository.IMovieRepository;
+import com.example.retro_cinema.movie_types.model.MovieTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,8 +19,8 @@ public class MovieService implements IMovieService {
     IMovieRepository movieRepository;
 
     @Override
-    public Page<Movie> movieList(Pageable pageable, String name) {
-        return movieRepository.findMovieByMovieNameContaining(pageable, name);
+    public Page<Movie> movieList(Pageable pageable, String name, boolean flag) {
+        return movieRepository.findMovieByMovieNameContainingAndFlag(pageable, name, true);
     }
 
 
