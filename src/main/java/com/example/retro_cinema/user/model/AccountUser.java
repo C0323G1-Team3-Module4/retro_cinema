@@ -2,6 +2,7 @@ package com.example.retro_cinema.user.model;
 
 import com.example.retro_cinema.customer.model.Customer;
 import com.example.retro_cinema.seatDetails.model.SeatDetails;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -29,9 +30,11 @@ public class AccountUser {
     private boolean enabled;
 
     @OneToMany(mappedBy = "accountUser")
+    @JsonBackReference
     private Set<Customer> customerSet;
 
     @OneToMany(mappedBy = "accountUser")
+    @JsonBackReference
     private Set<SeatDetails> seatDetails;
 
     public AccountUser() {
