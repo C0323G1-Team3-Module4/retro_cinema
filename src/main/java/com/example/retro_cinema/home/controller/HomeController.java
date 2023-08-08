@@ -6,6 +6,8 @@ import com.example.retro_cinema.screenings.dto.IScreeningsDto;
 import com.example.retro_cinema.screenings.model.Screenings;
 import com.example.retro_cinema.screenings.repository.IScreeningsRepository;
 import com.example.retro_cinema.screenings.service.IScreeningsService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -40,7 +42,16 @@ public class HomeController {
     public String showScreening(@PathVariable("id") int id, Model model) {
         Movie movie = movieService.getById(id);
         List<IScreeningsDto> screeningsList = screeningsService.getAllByNameMovie(movie.getMovieName());
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            String screeningsJson = objectMapper.writeValueAsString(screeningsList);
+            System.out.println(screeningsJson);
+            model.addAttribute("screeningsJson",screeningsJson);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
         model.addAttribute("screeningList",screeningsList);
+
         return "/screenings/screening";
     }
 }

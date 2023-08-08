@@ -1,3 +1,6 @@
+// test JSON
+
+
 document.addEventListener("DOMContentLoaded", function () {
   // Assuming you have received the list of booked seats as an array
   // Example: const bookedSeats = [1, 2, 3, 7, 8];
@@ -33,9 +36,6 @@ function updateSelectedCount() {
 
   const seatsIndex = [...selectedSeats].map((seat) => [...seats].indexOf(seat));
   const seatsList = [...selectedSeats].map((seat) => seat.textContent);
-
-  console.log(seatsIndex);
-  console.log(seatsList);
 
   localStorage.setItem("selectedSeats", JSON.stringify(seatsIndex));
   localStorage.setItem("selectedNames", JSON.stringify(seatsList));
