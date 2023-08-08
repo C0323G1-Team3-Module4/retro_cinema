@@ -1,6 +1,10 @@
 package com.example.retro_cinema.products.model;
 
+import com.example.retro_cinema.product_detail.model.ProductDetail;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Products {
@@ -15,6 +19,26 @@ public class Products {
     private boolean flag;
     @Column(columnDefinition = "VARCHAR(255)")
     private String img;
+    @OneToMany (mappedBy = "products")
+    @JsonBackReference
+    private Set<ProductDetail> productDetails;
+
+    public Products(int id, String productName, double price, boolean flag, String img, Set<ProductDetail> productDetails) {
+        this.id = id;
+        this.productName = productName;
+        this.price = price;
+        this.flag = flag;
+        this.img = img;
+        this.productDetails = productDetails;
+    }
+
+    public Set<ProductDetail> getProductDetails() {
+        return productDetails;
+    }
+
+    public void setProductDetails(Set<ProductDetail> productDetails) {
+        this.productDetails = productDetails;
+    }
 
     public Products() {
     }
