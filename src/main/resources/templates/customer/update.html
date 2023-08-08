@@ -28,7 +28,7 @@
         #image {
             border: 2px solid black;
             width: 300px;
-            height: 200px;
+            height: 300px;
         }
     </style>
 </head>
@@ -42,7 +42,7 @@
     <div class="col-md-12">
         <p>Name</p>
         <input class="form-control" type="text" th:field="*{fullName}"
-               required>
+               >
         <p style="color: red" th:if="${#fields.hasErrors('fullName')}"
            th:errors="*{fullName}"></p>
     </div>
@@ -83,14 +83,6 @@
            th:errors="*{dob}"></p>
     </div>
 
-<!--    <div id="drop-area" class="drop-area">-->
-<!--        &lt;!&ndash;        <p>Drag and Drop an image here .</p>&ndash;&gt;-->
-<!--        &lt;!&ndash;        <img th:src="${customerDto.image}" alt="Preview" id="preview-image" style="display: none">&ndash;&gt;-->
-<!--        <input type="hidden" id="thumbnailURL" th:field="*{image}"/>-->
-<!--        <input type="file" id="btnThumbnailURL" class="form-control">-->
-<!--        <progress id="uploader" value="0" max="100">0%</progress>-->
-<!--        -->
-<!--    </div>-->
 
     <div id="dnd" class="preview form-control" style="margin-top: 5px">
         <input type="hidden" id="thumbnailURL" th:field="*{image}"/>

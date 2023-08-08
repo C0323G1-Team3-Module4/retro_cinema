@@ -189,7 +189,7 @@
                         role="tabpanel"
                         aria-labelledby="tab-login"
                 >
-                    <form th:action="@{/j_spring_security_check}" method="post">
+                    <form th:action="@{/j_spring_security_check}" method="post" th:object="${accountDto}">
                         <!-- Email input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="form2Example8">User Name</label>
@@ -198,9 +198,11 @@
                                     type="text"
                                     id="form2Example8"
                                     class="form-control"
-                                    required
+                                    th:field="*{username}"
                             />
+                            <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
                         </div>
+
 
                         <!-- Password input -->
                         <div class="form-outline mb-4">
@@ -209,10 +211,12 @@
                                     name="password"
                                     type="password"
                                     id="form2Example7"
-                                    required
                                     class="form-control"
+                                    th:field="*{pass}"
                             />
+                            <span th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}"></span>
                         </div>
+
 
                         <div class="forget-pass">
                             <a href="/email">Forget Password?</a>
@@ -242,7 +246,6 @@
                                     type="text"
                                     id="form2Example18"
                                     class="form-control"
-                                    required
                                     name="username"
                                     th:field="*{username}"
                             />

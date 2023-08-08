@@ -6,21 +6,20 @@ import com.example.retro_cinema.user.model.Roles;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Date;
 
-public class AccountUserDto implements Validator {
+public class AccountUserDto {
 
     private Integer id;
     @NotBlank(message = "User name cound not be void!")
     private String username;
-    @NotBlank(message = "Email could not be void!")
+    @NotBlank()
     @Email
     private String email;
     @NotBlank(message = "Password could not be void!")
-    @Size(min = 6, max = 30, message = "Password must be at least 6 character!")
+    @Min(value = 6, message = "Password must be at least 6 characters")
+    @Pattern(regexp = "^[\\\\w]+$", message = "Password does not contain special characters")
     private String pass;
     private Roles roles;
     private Date expiryDate;
@@ -121,13 +120,4 @@ public class AccountUserDto implements Validator {
         this.flag = flag;
     }
 
-    @Override
-    public boolean supports(Class<?> clazz) {
-        return false;
-    }
-
-    @Override
-    public void validate(Object target, Errors errors) {
-
-    }
 }
