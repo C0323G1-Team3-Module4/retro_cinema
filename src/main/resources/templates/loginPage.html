@@ -254,7 +254,7 @@
                         role="tabpanel"
                         aria-labelledby="tab-register"
                 >
-                    <form action="/signup" method="post" th:object="${accountDto}">
+                    <form action="/signup" method="post" th:object="${accountUserDto}">
                         <!-- Username input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="form2Example18"
@@ -267,6 +267,9 @@
                                     name="username"
                                     th:field="*{username}"
                             />
+                            <span style="color: red" th:if="${#fields.hasErrors('username')}"
+                                  th:errors="*{username}">
+                                                        </span>
                         </div>
                         <div>
                             <span style="color: red" th:if="${#fields.hasErrors('username')}"
@@ -284,6 +287,8 @@
                                     name="email"
                                     th:field="*{email}"
                             />
+                            <span style="color: red" th:if="${#fields.hasErrors('email')}"
+                                  th:errors="*{email}"></span>
                         </div>
                         <div>
                             <span style="color: red" th:if="${#fields.hasErrors('email')}"

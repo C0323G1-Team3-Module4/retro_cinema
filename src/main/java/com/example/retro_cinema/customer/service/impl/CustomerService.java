@@ -11,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 @Component
@@ -22,8 +24,8 @@ public class CustomerService implements ICustomerService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public Page<Customer> findAll(String searchByName, Pageable pageable) {
-        return iCustomerRepository.findAll(searchByName, pageable);
+    public Page<Customer> findAll(String searchByName, Pageable pageable, boolean flag) {
+        return iCustomerRepository.findCustomerByFullNameContainingAndFlag(searchByName, pageable, true);
     }
 
     @Override
@@ -38,6 +40,7 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public void update(Customer customer) {
+        customer.setFlag(true);
         Customer oldCustomer = iCustomerRepository.findById(customer.getId()).get();
         oldCustomer.setImage(customer.getImage());
         oldCustomer.setFullName(customer.getFullName());

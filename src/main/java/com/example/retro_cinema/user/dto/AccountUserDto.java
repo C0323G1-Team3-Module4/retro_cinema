@@ -15,11 +15,11 @@ public class AccountUserDto implements Validator {
     @NotBlank(message = "User name cound not be void!")
     private String username;
     @NotBlank(message = "Email cound not be void!")
-//    @Email(regexp = "^[A-Za-z0-9+_.-]+@example\\.com$")
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",message = "In valid email")
     private String email;
     @NotBlank(message = "Password could not be void!")
-//    @Min(value = 6, message = "Password must be at least 6 characters")
-//    @Pattern(regexp = "^[\\\\w]+$", message = "Password does not contain special characters")
+    @Min(value = 6, message = "Password must be at least 6 characters")
+    @Pattern(regexp = "^[\\\\w]+$", message = "Password does not contain special characters")
     private String pass;
     private Roles roles;
     private Date expiryDate;
@@ -126,13 +126,7 @@ public class AccountUserDto implements Validator {
     }
 
     @Override
-    public void validate(@NotNull Object target, @NotNull Errors errors) {
-        AccountUserDto accountUserDto = (AccountUserDto) target;
-        if (accountUserDto.getUsername().trim().equals("")){
-            errors.rejectValue("username",null,"User name can not be void!");
-        }else if (accountUserDto.getUsername().length() > 2){
-            errors.rejectValue("username",null,"Not over 3 characters!");
-        }
+    public void validate(Object target, Errors errors) {
 
     }
 }

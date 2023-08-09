@@ -13,6 +13,8 @@
             rel="stylesheet"
             href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
     />
+    <!-- Using SweetAlert2 from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <style>
         .home-section {
@@ -126,6 +128,27 @@
     </style>
 </head>
 <body>
+<!--Sweet Alert-->
+<div th:if="${param.message}">
+    <span th:text="${param.message}" id="message" style="display: none"></span>
+</div>
+<div th:if="${message}">
+    <span th:text="${message}" id="message" style="display: none"></span>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let msg = document.getElementById("message").innerText;
+        console.log(msg)
+        // Display a SweetAlert when the document is ready
+        Swal.fire({
+            title: msg,
+            icon: 'success',
+            timer: 1500, // Time in milliseconds (2 seconds)
+            timerProgressBar: true,
+            showConfirmButton: false // Hide the "Confirm" button
+        });
+    });
+</script>
 <div class="sidebar">
     <div class="logo-details">
         <i class="bx bxs-registered icon"></i>
@@ -183,6 +206,7 @@
 
 </section>
 <script>
+
     let sidebar = document.querySelector(".sidebar");
     let closeBtn = document.querySelector("#btn");
     let searchBtn = document.querySelector(".bx-search");
