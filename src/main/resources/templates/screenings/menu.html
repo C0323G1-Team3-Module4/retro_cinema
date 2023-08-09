@@ -101,29 +101,39 @@
 <section class="home-section">
     <h1 class="table-header">Table Title</h1>
     <div class="container">
+        <!-- Button Search and Add-->
+        <div class="table-function">
+            <a href="/screenings/showAdd" class="function-btn" id="add">
+                <i class="bx bx-folder-plus"></i>
+            </a>
+            <div class="search-box">
+                <input
+                        type="search"
+                        name=""
+                        id="search-input"
+                        placeholder="Search"
+                />
+                <i class="bx bx-search"></i>
+            </div>
+        </div>
         <table>
             <tr>
-                <th>Id</th>
-                <th>Product name</th>
-                <th>Price</th>
-                <th>Img</th>
+                <th>Ordinal number</th>
+                <th>Movie name</th>
+                <th>Booking date</th>
+                <th>Start time</th>
+                <th>End time</th>
+                <th>Room name</th>
                 <th>Function</th>
             </tr>
-            <tr th:each="p,status:${productsList}">
-                <td th:text="${p.id}"></td>
-                <td th:text="${p.productName}"></td>
-                <td th:text="${p.price +' $'}"></td>
-                <td>
-                    <img
-                            th:src="@{${p.img}}"
-                            alt=""
-                            style="height: 5rem;width: 5rem"
-                    />
-                </td>
+            <tr th:each="s,status:${screenings}">
+                <td th:text="${status.count}"></td>
+                <td th:text="${s.getMovie().getMovieName()}"></td>
+                <td th:text="${s.getDateMovie()}"></td>
+                <td th:text="${s.getShowTimes().getStartTime()}"></td>
+                <td th:text="${s.getShowTimes().getEndTime()}"></td>
+                <td th:text="${s.getShowTimes().getRooms().getRoomName()}"></td>
                 <td id="function">
-                    <a href="#" class="function-btn" id="detail">
-                        <i class="bx bx-info-circle"></i>
-                    </a>
                     <a href="#" class="function-btn" id="delete">
                         <i class="bx bx-trash"></i>
                     </a>
@@ -134,10 +144,10 @@
 
     <!-- Pagination Start -->
     <div class="pagination">
-        <a href="#" class="pagination-button" id="previous">
+        <a th:if="${screenings.hasPrevious()}" th:href="@{/screenings/list(page=${screenings.number-1})}" class="pagination-button" id="previous">
             <i class="bx bx-left-arrow-circle"></i>
         </a>
-        <a href="#" class="pagination-button" id="next">
+        <a th:if="${screenings.hasNext()}" th:href="@{/screenings/list(page=${screenings.number+1})}" class="pagination-button" id="next">
             <i class="bx bx-right-arrow-circle"></i>
         </a>
     </div>
