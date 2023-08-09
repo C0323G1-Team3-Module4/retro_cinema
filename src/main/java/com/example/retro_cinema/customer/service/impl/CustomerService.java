@@ -22,7 +22,7 @@ public class CustomerService implements ICustomerService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public Page<Customer> findAll(String searchByName, Pageable pageable, boolean flag) {
+    public Page<Customer> findAll(String searchByName, Pageable pageable) {
         return iCustomerRepository.findAll(searchByName, pageable);
     }
 
