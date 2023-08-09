@@ -17,8 +17,21 @@
     <!-- Using SweetAlert2 from CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        .swal2{
+            font-size: 20px;
+        }
+    </style>
 </head>
 <body>
+<!--Toast-->
+<div th:if="${param.message}">
+    <span th:text="${param.message}" id="message" style="display: none"></span>
+</div>
+<div th:if="${message}">
+    <span th:text="${message}" id="message" style="display: none"></span>
+</div>
+
 <div class="sidebar">
     <div class="logo-details">
         <i class="bx bxs-registered icon"></i>
@@ -99,7 +112,7 @@
     </ul>
 </div>
 <section class="home-section">
-    <h1 class="table-header">Table Title</h1>
+    <h1 class="table-header">Movie</h1>
     <div class="container">
         <table>
             <tr>
@@ -119,8 +132,8 @@
                 <td th:text="${m.duration+' min'}"></td>
                 <td th:text="${m.movieTypes.movieTypes}"></td>
                 <td id="function">
-                    <a href="#" class="function-btn" id="detail">
-                        <i class="bx bx-info-circle"></i>
+                    <a th:href="@{/movie/detail/__${m.id}__}" class="function-btn" id="detail">
+                      <i class="bx bx-info-circle"></i>
                     </a>
                     <a href="#" class="function-btn" id="delete" th:attr="onclick=|deleteBySwal('${m.movieName}','${m.id}')|">
                         <i class="bx bx-trash" ></i>
@@ -128,14 +141,32 @@
                 </td>
             </tr>
         </table>
-        <a th:if="${moviePage.hasPrevious()}" th:href="@{/movie(page=${moviePage.number-1},name=${name})}"
-           style="color: black">Prev</a>
-        <span th:text="${moviePage.number+1}"></span>/<span th:text="${moviePage.totalPages}"></span>
-        <a th:if="${moviePage.hasNext()}" th:href="@{/movie(page=${moviePage.number+1},name=${name})}"
-           style="color: black">Next</a>
     </div>
+    <!-- Pagination Start -->
+    <div class="pagination">
+        <a th:if="${moviePage.hasPrevious()}" th:href="@{/movie(page=${moviePage.number-1},name=${name})}" class="pagination-button" id="previous">
+            <i class="bx bx-left-arrow-circle"></i>
+        </a>
+        <a th:if="${moviePage.hasNext()}" th:href="@{/movie(page=${moviePage.number+1},name=${name})}" class="pagination-button" id="next">
+            <i class="bx bx-right-arrow-circle"></i>
+        </a>
+    </div>
+    <!-- Pagination End -->
 </section>
 <script>
+    // Call swal alert
+    document.addEventListener("DOMContentLoaded", function () {
+        let msg = document.getElementById("message").innerText;
+        // Display a SweetAlert when the document is ready
+        Swal.fire({
+            title: msg,
+            icon: 'success',
+            timer: 2000, // Time in milliseconds (2 seconds)
+            timerProgressBar: true,
+            showConfirmButton: false // Hide the "Confirm" button
+        });
+    });
+
     let sidebar = document.querySelector(".sidebar");
     let closeBtn = document.querySelector("#btn");
     let searchBtn = document.querySelector(".bx-search");

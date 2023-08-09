@@ -1,63 +1,266 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang=“en” xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Retro Cinema</title>
+    <meta charset=“UTF-8" />
+    <meta name=“viewport” content=“width=device-width, initial-scale=1.0" />
+    <title>Document</title>
 </head>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+    body {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        background-color: black;
+    }
+    .form {
+        width: 100%;
+        max-width: 50rem;
+        height: 105%;
+        background-color: beige;
+        border-radius: 10px;
+    }
+    .create__form {
+        height: 100%;
+    }
+    .form__input-content {
+        padding: 1rem;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    input {
+        padding: 0.6rem;
+        border-radius: 10px;
+        width: 100%;
+    }
+    label {
+        display: inline-block;
+        padding: 10px 10px 5px 10px;
+    }
+    select {
+        width: 100%;
+        padding: 0.6rem;
+        border-radius: 10px;
+        margin-top: 2rem;
+        border: 2px solid black;
+    }
+    select option {
+        width: 100%;
+        height: 3rem;
+        padding: 1rem;
+        border-radius: 10px;
+    }
+    .my-button {
+        background-color: black; /* Màu nền */
+        border: none; /* Loại bỏ viền */
+        color: white; /* Màu chữ */
+        padding: 10px 20px; /* Kích thước nút */
+        text-align: center; /* Căn giữa chữ trong nút */
+        text-decoration: none; /* Loại bỏ gạch chân khi hover */
+        display: inline-block; /* Hiển thị như một khối inline */
+        font-size: 16px; /* Kích thước chữ */
+        margin: 4px 2px; /* Khoảng cách với các phần tử khác */
+        cursor: pointer; /* Con trỏ chuột thành hình bàn tay khi hover */
+        border-radius: 4px; /* Bo tròn góc nút */
+    }
+
+    .my-button:hover {
+        background-color: #e600bc; /* Màu nền khi hover */
+    }
+</style>
 <body>
-<form th:action="@{/movie/edit}" th:object="${movieDto}" method="post">
-    <input type="hidden" th:field="*{id}">
-    <label for="1">Name movie</label><br>
-    <input th:field="*{movieName}" id="1"><br>
-    <small style="color: red" th:if="${#fields.hasErrors('movieName')}"
-           th:errors="*{movieName}"></small><br>
-    <label for="2">Duration</label><br>
-    <input th:field="*{duration}" id="2" type="number"><br>
-    <small style="color: red" th:if="${#fields.hasErrors('duration')}"
-           th:errors="*{duration}"></small><br>
-    <label for="3">Description</label><br>
-    <input th:field="*{description}" id="3"><br>
-    <small style="color: red" th:if="${#fields.hasErrors('description')}"
-           th:errors="*{description}"></small><br>
-    <label for="4">Release Date</label><br>
-    <input th:field="*{releaseDate}" id="4" type="date"><br>
-    <small style="color: red" th:if="${#fields.hasErrors('releaseDate')}"
-           th:errors="*{releaseDate}"></small><br>
-    <label for="5">Director</label><br>
-    <input th:field="*{director}" id="5"><br>
-    <small style="color: red" th:if="${#fields.hasErrors('director')}"
-           th:errors="*{director}"></small><br>
-    <label for="6">Performer</label><br>
-    <input th:field="*{performer}" id="6"><br>
-    <small style="color: red" th:if="${#fields.hasErrors('performer')}"
-           th:errors="*{performer}"></small><br>
-    <label for="7">img</label><br>
-    <input th:field="*{img}" id="7"><br>
-    <small style="color: red" th:if="${#fields.hasErrors('img')}"
-           th:errors="*{img}"></small><br>
-    <label for="77">Img Trailer</label><br>
-    <input th:field="*{imgTrailer}" id="77"><br>
-    <small style="color: red" th:if="${#fields.hasErrors('imgTrailer')}"
-           th:errors="*{imgTrailer}"></small><br>
-    <label for="8">Trailer</label><br>
-    <input th:field="*{trailer}" id="8"><br>
-    <small style="color: red" th:if="${#fields.hasErrors('trailer')}"
-           th:errors="*{trailer}"></small><br>
-    <label for="9">Price</label><br>
-    <input th:field="*{price}" id="9" type="number"><br>
-    <small style="color: red" th:if="${#fields.hasErrors('price')}"
-           th:errors="*{price}"></small><br>
-    <label for="ca">Movie Types</label><br>
-    <select th:field="*{movieTypes}" id="ca">
-        <option value="">--Movie Types--</option>
-        <option th:each="cate : ${movieTypesList}"
-                th:value="${cate.id}" th:text="${cate.movieTypes}">
-        </option>
-    </select><br>
-    <small style="color: red" th:if="${#fields.hasErrors('movieTypes')}"
-           th:errors="*{movieTypes}"></small><br>
-    <button>Edit</button>
-<p th:if="${msg}" th:text="${msg}"></p>
-</form>
+<div class="form">
+    <form th:action="@{/movie/edit}" th:object="${movieDto}" method="post" class="create__form">
+        <div class="form__input-content">
+            <div class="div">
+                <input type="hidden" th:field="*{id}">
+                <label for="name">Movie Name</label>
+                <input type="text" class="form__input" id="name" th:field="*{movieName}" />
+                <small style="color: red" th:if="${#fields.hasErrors('movieName')}"
+                       th:errors="*{movieName}"></small>
+            </div>
+            <div class="div">
+                <label for="time">Duration</label>
+                <input type="number" class="form__input" id="time" th:field="*{duration}" />
+                <small style="color: red" th:if="${#fields.hasErrors('duration')}"
+                       th:errors="*{duration}"></small>
+            </div>
+        </div>
+
+        <div class="form__input-content">
+            <div class="div">
+                <label for="di">Director</label>
+                <input type="text" class="form__input" id="di" th:field="*{director}" />
+                <small style="color: red" th:if="${#fields.hasErrors('director')}"
+                       th:errors="*{director}"></small>
+            </div>
+            <div class="div">
+                <label for="date">Duration</label>
+                <input type="date" class="form__input" id="date" th:field="*{releaseDate}" />
+                <small style="color: red" th:if="${#fields.hasErrors('releaseDate')}"
+                       th:errors="*{releaseDate}"></small>
+            </div>
+        </div>
+
+        <div class="form__input-content">
+            <div class="div">
+                <label for="cast">Cast</label>
+                <input type="text" class="form__input" id="cast" th:field="*{performer}" />
+                <small style="color: red" th:if="${#fields.hasErrors('performer')}"
+                       th:errors="*{performer}"></small>
+            </div>
+            <div class="div">
+                <label for="price">Price</label>
+                <input type="number" class="form__input" id="price" th:field="*{price}" />
+                <small style="color: red" th:if="${#fields.hasErrors('price')}"
+                       th:errors="*{price}"></small>
+            </div>
+        </div>
+
+        <div class="form__input-content">
+            <div class="div">
+                <label for="video">Trailer</label>
+                <input type="text" class="form__input" id="video" th:field="*{trailer}" />
+                <small style="color: red" th:if="${#fields.hasErrors('trailer')}"
+                       th:errors="*{trailer}"></small>
+            </div>
+            <div class="div">
+                <select  th:field="*{movieTypes}">
+                    <option class="option" value="">--Movie Types--</option>
+                    <option class="option" th:each="m:${movieTypesList}"
+                            th:value="${m.id}" th:text="${m.movieTypes}"></option>
+                </select>
+                <small style="color: red" th:if="${#fields.hasErrors('movieTypes')}"
+                       th:errors="*{movieTypes}"></small>
+            </div>
+        </div>
+
+        <div class="form__input-conten" style="padding: 1rem">
+            <div class="div">
+                <label for="des">Description</label>
+                <textarea
+                        style="display: block; width: 100%; border-radius: 10px"
+                        id="des"
+                        cols="30"
+                        class="form__in"
+                        rows="7"
+                        th:field="*{description}"
+                ></textarea>
+                <small style="color: red" th:if="${#fields.hasErrors('description')}"
+                       th:errors="*{description}"></small>
+            </div>
+        </div>
+        <div class="form__input-content">
+            <div class="div">
+                <b>Choose picture: Poster Film</b>
+                <input type="hidden" id="thumbnailURL" th:field="*{img}"/>
+                <input id="btnThumbnailURL" type="file" class="form__input"/>
+                <progress id="uploader" value="0" max="100">0%</progress><br/>
+                <small style="color: red" th:if="${#fields.hasErrors('img')}"
+                       th:errors="*{img}"></small>
+            </div>
+
+            <div class="div">
+                <b>Choose picture: Image Film</b>
+                <input type="hidden" id="thumbnailURL1" th:field="*{imgTrailer}"/>
+                <input id="btnThumbnailURL1" type="file" class="form__input" />
+                <progress id="uploader1" value="0" max="100">0%</progress><br />
+                <small style="color: red" th:if="${#fields.hasErrors('imgTrailer')}"
+                       th:errors="*{imgTrailer}"></small>
+            </div>
+        </div>
+        <div style="text-align: center">
+            <button class="my-button">Edit Movie</button>
+        </div>
+    </form>
+</div>
+<script src="https://www.gstatic.com/firebasejs/7.7.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-analytics.js"></script>
+<script>
+    //paste here your copied configuration code
+    const firebaseConfig = {
+        apiKey: "AIzaSyCp05n7nwMvb43hJJZZVQn4ucIPKa2_gkA",
+        authDomain: "retro-cinema-99f73.firebaseapp.com",
+        projectId: "retro-cinema-99f73",
+        storageBucket: "retro-cinema-99f73.appspot.com",
+        messagingSenderId: "408180950215",
+        appId: "1:408180950215:web:4b49fe816a9038473eaae2",
+        measurementId: "G-8MJW1J4QL7"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    // const analytics = getAnalytics(app);
+    let uploader = document.getElementById('uploader');
+    let fileButton = document.getElementById('btnThumbnailURL');
+    fileButton.addEventListener('change', function (e) {
+        let file = e.target.files[0];
+        let storageRef = firebase.storage().ref('retro/' + file.name);
+        let task = storageRef.put(file);
+        task.on('state_changed', function progress(snapshot) {
+            let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            uploader.value = percentage;
+//  lúc chưa load xong thì thì ko cho submit
+            if (percentage === 100) {
+                document.getElementById('createButton').removeAttribute('disabled');
+            } else {
+                document.getElementById('createButton').setAttribute('disabled', 'disabled');
+            }
+        });
+//   getDownloadURL() để lấy URL của file đã được lưu trữ trên Firebase Storage.
+//   Sau khi URL được lấy thành công, nó được sử dụng để đặt giá trị cho thuộc tính value của phần tử HTML có id là thumbnailURL.
+//   Điều này có nghĩa là URL được gán cho giá trị của trường input có tên là thumbnailURL.
+//   Sau đó, URL này có thể được sử dụng để hiển thị hình ảnh hoặc thực hiện các thao tác khác liên quan đến hình ảnh trong code JavaScript và HTML.
+        task.then(snapshot => snapshot.ref.getDownloadURL())
+            .then(url => {
+                document.getElementById('thumbnailURL').setAttribute("value", url);
+// tải hình ảnh
+                previewImage.style.display = 'none';
+                newImage.src = url;
+                newImage.style.display = 'block';
+            });
+    });
+
+    // firebase thứ 2
+
+    // Initialize Firebase
+    // firebase.initializeApp(firebaseConfig);
+    // const analytics = getAnalytics(app);
+    let uploader1 = document.getElementById('uploader1');
+    let fileButton1 = document.getElementById('btnThumbnailURL1');
+    fileButton1.addEventListener('change', function (e) {
+        let file = e.target.files[0];
+        let storageRef = firebase.storage().ref('retro2/' + file.name);
+        let task = storageRef.put(file);
+        task.on('state_changed', function progress(snapshot) {
+            let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            uploader1.value = percentage;
+//  lúc chưa load xong thì thì ko cho submit
+            if (percentage === 100) {
+                document.getElementById('createButton').removeAttribute('disabled');
+            } else {
+                document.getElementById('createButton').setAttribute('disabled', 'disabled');
+            }
+        });
+//   getDownloadURL() để lấy URL của file đã được lưu trữ trên Firebase Storage.
+//   Sau khi URL được lấy thành công, nó được sử dụng để đặt giá trị cho thuộc tính value của phần tử HTML có id là thumbnailURL.
+//   Điều này có nghĩa là URL được gán cho giá trị của trường input có tên là thumbnailURL.
+//   Sau đó, URL này có thể được sử dụng để hiển thị hình ảnh hoặc thực hiện các thao tác khác liên quan đến hình ảnh trong code JavaScript và HTML.
+        task.then(snapshot => snapshot.ref.getDownloadURL())
+            .then(url => {
+                document.getElementById('thumbnailURL1').setAttribute("value", url);
+// tải hình ảnh
+                previewImage.style.display = 'none';
+                newImage.src = url;
+                newImage.style.display = 'block';
+            });
+    });
+
+</script>
 </body>
 </html>
