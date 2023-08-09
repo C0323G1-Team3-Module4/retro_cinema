@@ -267,6 +267,8 @@
                                     name="username"
                                     th:field="*{username}"
                             />
+                        </div>
+                        <div>
                             <span style="color: red" th:if="${#fields.hasErrors('username')}"
                                   th:errors="*{username}">
                                                         </span>
@@ -282,6 +284,8 @@
                                     name="email"
                                     th:field="*{email}"
                             />
+                        </div>
+                        <div>
                             <span style="color: red" th:if="${#fields.hasErrors('email')}"
                                   th:errors="*{email}"></span>
                         </div>
@@ -298,9 +302,8 @@
                                         class="form-control"
                                         name="password"
                                         th:field="*{pass}"/>
-                                <span style="color: red" th:if="${#fields.hasErrors('pass')}"
-                                      th:errors="*{pass}"></span>
                             </div>
+
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="form2Example6"
                                 >Re-enter password</label
@@ -314,6 +317,10 @@
                                 />
                                 <span style="color: red" id="message"></span>
                             </div>
+                        </div>
+                        <div>
+                                <span style="color: red" th:if="${#fields.hasErrors('pass')}"
+                                      th:errors="*{pass}"></span>
                         </div>
                         <!-- Submit button -->
                         <div class="btn-sign-in">

@@ -3,6 +3,7 @@ package com.example.retro_cinema.user.dto;
 
 import com.example.retro_cinema.customer.model.Customer;
 import com.example.retro_cinema.user.model.Roles;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import javax.validation.constraints.*;
@@ -125,11 +126,11 @@ public class AccountUserDto implements Validator {
     }
 
     @Override
-    public void validate(Object target, Errors errors) {
+    public void validate(@NotNull Object target, @NotNull Errors errors) {
         AccountUserDto accountUserDto = (AccountUserDto) target;
-        if (accountUserDto.username.trim().equals("")){
+        if (accountUserDto.getUsername().trim().equals("")){
             errors.rejectValue("username",null,"User name can not be void!");
-        }else if (accountUserDto.username.length() > 2){
+        }else if (accountUserDto.getUsername().length() > 2){
             errors.rejectValue("username",null,"Not over 3 characters!");
         }
 
