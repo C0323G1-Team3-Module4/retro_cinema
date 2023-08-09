@@ -8,7 +8,7 @@ import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
 
 public interface ICustomerService {
-    Page<Customer> findAll(String searchByName, Pageable pageable, boolean flag);
+    Page<Customer> findAll(String searchByName, Pageable pageable);
     Customer findByIdCustomer(Integer id);
     void create(Customer customer);
     void update(Customer customer);

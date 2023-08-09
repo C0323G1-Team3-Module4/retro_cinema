@@ -116,7 +116,7 @@
                 <th>Function</th>
             </tr>
             <tr th:each="customer, status:${customerList}">
-                <td th:text="${customerList.number*5 + status.count}">Cell 1</td>
+                <td th:text="${customerList.number*2 + status.count}">Cell 1</td>
                 <td th:text="${customer.fullName}">Cell 2</td>
                 <td th:text="${customer.gender}">Cell 3</td>
                 <td th:text="${customer.dob}">Cell 4</td>
