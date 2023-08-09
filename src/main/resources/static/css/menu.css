@@ -300,7 +300,7 @@ th {
 tr:hover {
   background-color: rgba(255, 255, 255, 0.7);
 }
-
+/* Function button */
 #function {
   display: flex;
   justify-content: space-around;
@@ -325,6 +325,37 @@ tr:hover {
 .function-btn .bx {
   font-size: 1.5rem;
   color: #11101d;
+}
+
+/* Pagination */
+.pagination {
+  position: absolute;
+  width: 10rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  bottom: 3rem;
+  right: 10%;
+}
+
+.pagination-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5rem;
+  height: 2rem;
+  border: #11101d solid 0.5px;
+  border-radius: 5px;
+  margin: 0.5rem;
+}
+.pagination-button .bx {
+  font-size: 1.5rem;
+  color: #2e2f31;
+  padding: 0.2rem;
+}
+
+.pagination-button:hover {
+  background-color: var(--text-color);
 }
 
 @media (max-width: 420px) {
