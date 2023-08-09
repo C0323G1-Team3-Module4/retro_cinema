@@ -1,158 +1,184 @@
 <!DOCTYPE html>
 <!-- Created by CodingLab |www.youtube.com/CodingLabYT-->
 <html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8"/>
     <title>Responsive Sidebar Menu | CodingLab</title>
-    <link rel="stylesheet" href="/static/css/menu.css" />
+    <link rel="stylesheet" href="/static/css/menu.css"/>
     <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
     />
     <!-- or -->
     <link
-      rel="stylesheet"
-      href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
+            rel="stylesheet"
+            href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
     />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  </head>
-  <body>
-    <div class="sidebar">
-      <div class="logo-details">
+    <!-- Using SweetAlert2 from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+<div class="sidebar">
+    <div class="logo-details">
         <i class="bx bxs-registered icon"></i>
         <div class="logo_name">Retro<span id="cinema">Cinema</span></div>
         <i class="bx bx-menu" id="btn"></i>
-      </div>
-      <ul class="nav-list">
+    </div>
+    <ul class="nav-list">
         <li>
-          <i class="bx bx-search"></i>
-          <input type="text" placeholder="Search..." />
-          <span class="tooltip">Search</span>
+            <i class="bx bx-search"></i>
+            <input type="text" placeholder="Search..."/>
+            <span class="tooltip">Search</span>
         </li>
         <li>
-          <a href="#">
-            <i class="bx bx-grid-alt"></i>
-            <span class="links_name">Dashboard</span>
-          </a>
-          <span class="tooltip">Dashboard</span>
+            <a href="#">
+                <i class="bx bx-grid-alt"></i>
+                <span class="links_name">Dashboard</span>
+            </a>
+            <span class="tooltip">Dashboard</span>
         </li>
         <li>
-          <a href="#">
-            <i class="bx bx-user"></i>
-            <span class="links_name">User</span>
-          </a>
-          <span class="tooltip">User</span>
+            <a href="#">
+                <i class="bx bx-user"></i>
+                <span class="links_name">User</span>
+            </a>
+            <span class="tooltip">User</span>
         </li>
         <li>
-          <a href="#">
-            <i class="bx bx-movie"></i>
-            <span class="links_name">Movies</span>
-          </a>
-          <span class="tooltip">Movies</span>
+            <a href="#">
+                <i class="bx bx-movie"></i>
+                <span class="links_name">Movies</span>
+            </a>
+            <span class="tooltip">Movies</span>
         </li>
         <li>
-          <a href="#">
-            <i class="bx bx-beer"></i>
-            <span class="links_name">Products</span>
-          </a>
-          <span class="tooltip">Products</span>
+            <a href="#">
+                <i class="bx bx-beer"></i>
+                <span class="links_name">Products</span>
+            </a>
+            <span class="tooltip">Products</span>
         </li>
         <li>
-          <a href="#">
-            <i class="bx bx-chair"></i>
-            <span class="links_name">Rooms</span>
-          </a>
-          <span class="tooltip">Rooms</span>
+            <a href="#">
+                <i class="bx bx-chair"></i>
+                <span class="links_name">Rooms</span>
+            </a>
+            <span class="tooltip">Rooms</span>
         </li>
         <li>
-          <a href="#">
-            <i class="bx bx-tv"></i>
-            <span class="links_name">Screenings</span>
-          </a>
-          <span class="tooltip">Screenings</span>
+            <a href="#">
+                <i class="bx bx-tv"></i>
+                <span class="links_name">Screenings</span>
+            </a>
+            <span class="tooltip">Screenings</span>
         </li>
         <li>
-          <a href="#">
-            <i class="bx bx-cart-alt"></i>
-            <span class="links_name">Bookings</span>
-          </a>
-          <span class="tooltip">Bookings</span>
+            <a href="#">
+                <i class="bx bx-cart-alt"></i>
+                <span class="links_name">Bookings</span>
+            </a>
+            <span class="tooltip">Bookings</span>
         </li>
         <li>
-          <a href="#">
-            <i class="bx bx-cog"></i>
-            <span class="links_name">Setting</span>
-          </a>
-          <span class="tooltip">Setting</span>
+            <a href="#">
+                <i class="bx bx-cog"></i>
+                <span class="links_name">Setting</span>
+            </a>
+            <span class="tooltip">Setting</span>
         </li>
         <li class="profile">
-          <div class="profile-details">
-            <img src="profile.jpg" alt="profileImg" />
-            <div class="name_job">
-              <div class="name">Username</div>
+            <div class="profile-details">
+                <img src="profile.jpg" alt="profileImg"/>
+                <div class="name_job">
+                    <div class="name">Username</div>
+                </div>
             </div>
-          </div>
-          <i class="bx bx-log-out" id="log_out"></i>
+            <i class="bx bx-log-out" id="log_out"></i>
         </li>
-      </ul>
-    </div>
-    <section class="home-section">
-      <h1 class="table-header">Table Title</h1>
-      <div class="container">
+    </ul>
+</div>
+<section class="home-section">
+    <h1 class="table-header">Table Title</h1>
+    <div class="container">
         <table>
-          <tr>
-            <th>#</th>
-            <th>Movie Name</th>
-            <th>Release Date</th>
-            <th>Director</th>
-            <th>Duration</th>
-            <th>Movie Types</th>
-            <th>Function</th>
-          </tr>
-          <tr th:each="m, status:${moviePage}">
-            <td th:text="${moviePage.number*5+status.count}"></td>
-            <td th:text="${m.movieName}"></td>
-            <td th:text="${m.releaseDate}"></td>
-            <td th:text="${m.director}"></td>
-            <td th:text="${m.duration+' min'}"></td>
-            <td th:text="${m.movieTypes.movieTypes}"></td>
-            <td id="function">
-              <a href="#" class="function-btn" id="detail">
-                <i class="bx bx-info-circle"></i>
-              </a>
-              <a href="#" class="function-btn" id="delete">
-                <i class="bx bx-trash"></i>
-              </a>
-            </td>
-          </tr>
+            <tr>
+                <th>#</th>
+                <th>Movie Name</th>
+                <th>Release Date</th>
+                <th>Director</th>
+                <th>Duration</th>
+                <th>Movie Types</th>
+                <th>Function</th>
+            </tr>
+            <tr th:each="m, status:${moviePage}">
+                <td th:text="${moviePage.number*5+status.count}"></td>
+                <td th:text="${m.movieName}"></td>
+                <td th:text="${m.releaseDate}"></td>
+                <td th:text="${m.director}"></td>
+                <td th:text="${m.duration+' min'}"></td>
+                <td th:text="${m.movieTypes.movieTypes}"></td>
+                <td id="function">
+                    <a href="#" class="function-btn" id="detail">
+                        <i class="bx bx-info-circle"></i>
+                    </a>
+                    <a href="#" class="function-btn" id="delete" th:attr="onclick=|deleteBySwal('${m.movieName}','${m.id}')|">
+                        <i class="bx bx-trash" ></i>
+                    </a>
+                </td>
+            </tr>
         </table>
         <a th:if="${moviePage.hasPrevious()}" th:href="@{/movie(page=${moviePage.number-1},name=${name})}"
            style="color: black">Prev</a>
         <span th:text="${moviePage.number+1}"></span>/<span th:text="${moviePage.totalPages}"></span>
-        <a th:if="${moviePage.hasNext()}" th:href="@{/movie(page=${moviePage.number+1},name=${name})}" style="color: black">Next</a>
-      </div>
-    </section>
-    <script>
-      let sidebar = document.querySelector(".sidebar");
-      let closeBtn = document.querySelector("#btn");
-      let searchBtn = document.querySelector(".bx-search");
-      closeBtn.addEventListener("click", () => {
+        <a th:if="${moviePage.hasNext()}" th:href="@{/movie(page=${moviePage.number+1},name=${name})}"
+           style="color: black">Next</a>
+    </div>
+</section>
+<script>
+    let sidebar = document.querySelector(".sidebar");
+    let closeBtn = document.querySelector("#btn");
+    let searchBtn = document.querySelector(".bx-search");
+    closeBtn.addEventListener("click", () => {
         sidebar.classList.toggle("open");
         menuBtnChange(); //calling the function(optional)
-      });
-      searchBtn.addEventListener("click", () => {
+    });
+    searchBtn.addEventListener("click", () => {
         // Sidebar open when you click on the search iocn
         sidebar.classList.toggle("open");
         menuBtnChange(); //calling the function(optional)
-      });
-      // following are the code to change sidebar button(optional)
-      function menuBtnChange() {
+    });
+
+    // following are the code to change sidebar button(optional)
+    function menuBtnChange() {
         if (sidebar.classList.contains("open")) {
-          closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
+            closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
         } else {
-          closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
+            closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
         }
-      }
-    </script>
-  </body>
+    }
+</script>
+<!--Delete-->
+<form action="/movie/delete" id="deleteFormMethodPost" method="post">
+    <input type="hidden" id="deleteIdInForm" name="id">
+</form>
+<script>
+    function deleteBySwal(name, id) {
+        document.getElementById("deleteIdInForm").value = id;
+        Swal.fire({
+            title: "Are you want to delete " + name + "?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById("deleteFormMethodPost").submit();
+                Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            }
+        });
+    }
+</script>
+</body>
 </html>
