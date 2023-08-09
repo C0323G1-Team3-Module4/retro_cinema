@@ -13,41 +13,46 @@
         width: 100%;
         height: 100vh;
         display: flex;
-        align-items: stretch;
+        align-items: center;
+        flex-direction: column;
         justify-content: center;
-        background-color: black;
+        background-color: #e4e9f7;
     }
     .form {
         width: 100%;
         max-width: 50rem;
-        height: 105%;
-        background-color: beige;
+        height: auto;
+        background-color: #b4b7c2;
         border-radius: 10px;
+        box-shadow: 5px 5px 5px grey;
+        margin: 1rem;
     }
     .create__form {
         height: 100%;
     }
     .form__input-content {
-        padding: 1rem;
+        padding: 0.1rem 2rem 0.1rem;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
     }
     input {
         padding: 0.6rem;
-        border-radius: 10px;
         width: 100%;
+        border: 1px solid black;
+        border-radius: 10px;
     }
     label {
         display: inline-block;
         padding: 10px 10px 5px 10px;
+        font-weight: 600;
     }
     select {
         width: 100%;
         padding: 0.6rem;
-        border-radius: 10px;
         margin-top: 2rem;
-        border: 2px solid black;
+        border: 1px solid black;
+        border-radius: 10px;
     }
     select option {
         width: 100%;
@@ -56,25 +61,57 @@
         border-radius: 10px;
     }
     .my-button {
-        background-color: black; /* Màu nền */
-        border: none; /* Loại bỏ viền */
-        color: white; /* Màu chữ */
+        width: 6rem;
+        background-color: #e4e9f7; /* Màu nền */
+        border: 1px solid black; /* Loại bỏ viền */
+        color: black; /* Màu chữ */
         padding: 10px 20px; /* Kích thước nút */
         text-align: center; /* Căn giữa chữ trong nút */
         text-decoration: none; /* Loại bỏ gạch chân khi hover */
         display: inline-block; /* Hiển thị như một khối inline */
         font-size: 16px; /* Kích thước chữ */
-        margin: 4px 2px; /* Khoảng cách với các phần tử khác */
+        margin: 4px 1rem; /* Khoảng cách với các phần tử khác */
         cursor: pointer; /* Con trỏ chuột thành hình bàn tay khi hover */
         border-radius: 4px; /* Bo tròn góc nút */
     }
-
     .my-button:hover {
-        background-color: #e600bc; /* Màu nền khi hover */
+        background-color: rgb(134, 134, 247);
+    }
+    .description {
+        padding: 0.5rem 2rem 0.5rem;
+    }
+    .form-header {
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 600;
+        margin-top: 1rem;
+    }
+    .choose {
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 0.5rem;
+        background-color: white;
+    }
+    #uploader, #uploader1 {
+        width: 100%;
+        color: red;
+    }
+
+    #btnThumbnailURL, #btnThumbnailURL1 {
+        border: none;
+    }
+    small {
+        font-size: 14px;
+    }
+    .end-buttons {
+        text-align: center;
+        margin-top: 1rem;
+        margin-bottom: 1rem !important;
     }
 </style>
 <body>
 <div class="form">
+    <div class="form-header">Add movie</div>
     <form th:action="@{/movie/create}" th:object="${movieDto}" method="post" class="create__form">
         <div class="form__input-content">
             <div class="div">
@@ -139,7 +176,7 @@
             </div>
         </div>
 
-        <div class="form__input-conten" style="padding: 1rem">
+        <div class="description">
             <div class="div">
                 <label for="des">Description</label>
                 <textarea
@@ -155,7 +192,7 @@
             </div>
         </div>
         <div class="form__input-content">
-            <div class="div">
+            <div class="choose">
                 <b>Choose picture: Poster Film</b>
                 <input type="hidden" id="thumbnailURL" th:field="*{img}"/>
                 <input id="btnThumbnailURL" type="file" class="form__input"/>
@@ -164,7 +201,7 @@
                        th:errors="*{img}"></small>
             </div>
 
-            <div class="div">
+            <div class="choose">
                 <b>Choose picture: Image Film</b>
                 <input type="hidden" id="thumbnailURL1" th:field="*{imgTrailer}"/>
                 <input id="btnThumbnailURL1" type="file" class="form__input" />
@@ -173,8 +210,9 @@
                        th:errors="*{imgTrailer}"></small>
             </div>
         </div>
-        <div style="text-align: center">
-            <button class="my-button">Add New</button>
+        <div class="end-buttons">
+            <button class="my-button">Add</button>
+            <button class="my-button">Cancel</button>
         </div>
     </form>
 </div>

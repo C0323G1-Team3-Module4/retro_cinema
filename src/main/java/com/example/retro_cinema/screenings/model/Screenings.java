@@ -7,6 +7,7 @@ import com.example.retro_cinema.showtimes.model.ShowTimes;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -102,5 +103,18 @@ public class Screenings {
 
     public void setSeatDetails(Set<SeatDetails> seatDetails) {
         this.seatDetails = seatDetails;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Screenings that = (Screenings) o;
+        return flag == that.flag && Objects.equals(showTimes, that.showTimes) && Objects.equals(movie, that.movie) && Objects.equals(dateMovie, that.dateMovie);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(flag, showTimes, movie, dateMovie);
     }
 }

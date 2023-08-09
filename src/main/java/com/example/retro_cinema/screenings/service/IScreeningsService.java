@@ -14,6 +14,7 @@ public interface IScreeningsService {
     List<Screenings> getAllByNameMovie(String nameMovie);
     List<Screenings> getAllByDateTime(String dateTime);
     Set<String> dateList(String name);
-    Page<Screenings> getAllPage(Pageable pageable);
+    Page<Screenings> getAllPage(Pageable pageable,Boolean flag);
+    void deleteScreenings(int id);
 
 }
