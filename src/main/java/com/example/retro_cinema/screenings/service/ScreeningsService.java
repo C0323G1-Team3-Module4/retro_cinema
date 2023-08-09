@@ -3,6 +3,8 @@ package com.example.retro_cinema.screenings.service;
 import com.example.retro_cinema.screenings.model.Screenings;
 import com.example.retro_cinema.screenings.repository.IScreeningsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -58,5 +60,10 @@ public class ScreeningsService implements IScreeningsService {
             stringList.add(s.getDateMovie());
         }
         return stringList;
+    }
+
+    @Override
+    public Page<Screenings> getAllPage(Pageable pageable) {
+        return screeningsRepository.findAll(pageable);
     }
 }
