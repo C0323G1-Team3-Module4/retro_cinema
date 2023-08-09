@@ -32,7 +32,7 @@ public class MovieController {
                                  @RequestParam(defaultValue = "") String name) {
         Pageable pageable = PageRequest.of(page, 5, Sort.by("releaseDate").descending());
         Page<Movie> moviePage = movieService.movieList(pageable, name, true);
-        ModelAndView modelAndView = new ModelAndView("movie/list");
+        ModelAndView modelAndView = new ModelAndView("movie/menu");
         modelAndView.addObject("moviePage", moviePage);
         modelAndView.addObject("name", name);
         return modelAndView;
