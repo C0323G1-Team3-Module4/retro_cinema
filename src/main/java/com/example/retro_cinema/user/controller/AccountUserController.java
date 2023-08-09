@@ -9,4 +9,5 @@ public class AccountUserController {
     public String toPreference() {
         return "admin_preferences";
     }
+
 }

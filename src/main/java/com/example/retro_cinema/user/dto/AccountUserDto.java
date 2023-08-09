@@ -3,12 +3,10 @@ package com.example.retro_cinema.user.dto;
 
 import com.example.retro_cinema.customer.model.Customer;
 import com.example.retro_cinema.user.model.Roles;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Date;
 
 public class AccountUserDto implements Validator {
@@ -16,11 +14,12 @@ public class AccountUserDto implements Validator {
     private Integer id;
     @NotBlank(message = "User name cound not be void!")
     private String username;
-    @NotBlank(message = "Email could not be void!")
-    @Email
+    @NotBlank(message = "Email cound not be void!")
+//    @Email(regexp = "^[A-Za-z0-9+_.-]+@example\\.com$")
     private String email;
     @NotBlank(message = "Password could not be void!")
-    @Size(min = 6, max = 30, message = "Password must be at least 6 character!")
+//    @Min(value = 6, message = "Password must be at least 6 characters")
+//    @Pattern(regexp = "^[\\\\w]+$", message = "Password does not contain special characters")
     private String pass;
     private Roles roles;
     private Date expiryDate;
@@ -127,7 +126,13 @@ public class AccountUserDto implements Validator {
     }
 
     @Override
-    public void validate(Object target, Errors errors) {
+    public void validate(@NotNull Object target, @NotNull Errors errors) {
+        AccountUserDto accountUserDto = (AccountUserDto) target;
+        if (accountUserDto.getUsername().trim().equals("")){
+            errors.rejectValue("username",null,"User name can not be void!");
+        }else if (accountUserDto.getUsername().length() > 2){
+            errors.rejectValue("username",null,"Not over 3 characters!");
+        }
 
     }
 }

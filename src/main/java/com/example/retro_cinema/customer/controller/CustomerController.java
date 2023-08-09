@@ -30,7 +30,7 @@ public class CustomerController {
     @GetMapping("")
     public String CustomerList(@PageableDefault(value = 2, sort = "id", direction = Sort.Direction.DESC)
                                Pageable pageable, @RequestParam(value = "searchByName", defaultValue = "") String searchByName, Model model) {
-        model.addAttribute("customerList", iCustomerService.findAll(searchByName, pageable));
+        model.addAttribute("customerList", iCustomerService.findAll(searchByName, pageable,true));
         model.addAttribute("accountUser",iAccountService.findAll());
         model.addAttribute("searchByName", searchByName);
         return "/customer/list";
@@ -65,11 +65,11 @@ public class CustomerController {
         return "redirect:/";
     }
 
-    @GetMapping("/delete")
+    @PostMapping("/delete")
     public String delete(@RequestParam("idDelete") Integer id, RedirectAttributes redirectAttributes) {
         iCustomerService.delete(id);
         redirectAttributes.addFlashAttribute("msg","Delete Customer Success!");
-        return "redirect:/customer";
+        return "redirect:/customers";
     }
 
     @PostMapping("/toPreference")

@@ -19,6 +19,10 @@
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
     />
+    <!-- Link Swiper CSS -->
+    <link rel="stylesheet" href="/static/css/swiper-bundle.min.css"/>
+    <!-- Using SweetAlert2 from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
     <style>
         body {
             background-color: #333333;
@@ -120,9 +124,9 @@
 </head>
 <body>
 <!-- Display error message if login failed -->
-<div th:if="${param.error}" class="error-message">
+<div th:if="${param.error}" class="error-message" style="display: none">
     <p th:switch="${session['SPRING_SECURITY_LAST_EXCEPTION'].class.simpleName}">
-        <span th:case="BadCredentialsException">Invalid username or password.</span>
+        <span th:case="BadCredentialsException" id="error-msg">Invalid username or password.</span>
         <span th:case="LockedException">Your account has been locked due to too many failed attempts.</span>
         <span th:case="AccountExpiredException">Your account has expired.</span>
         <span th:case="DisabledException">Your account has been disabled.</span>
@@ -131,10 +135,14 @@
     </p>
 </div>
 
+<!--<div th:if="${param.error}" >-->
+<!--    -->
+<!--</div>-->
+
 <div class="showToast" style="display:flex;justify-content: center;text-align: center">
     <div aria-atomic="true" aria-live="assertive" class="toast show" role="alert" th:if="${success != null}"
          style="
-    position: fixed;top: 90px; animation: slideInRight ease 1s, fadeOut linear 1s 4s forwards;;  // thời gian msg trượt
+    position: fixed;top: 90px; animation: slideInRight ease 1s, fadeOut linear 1s 4s forwards;;  //thờigianmsgtrượt
             transition: all linear 0.3s;z-index: 1">
         <div class="toast-header" style="background-color:#56b906 ;color: #0d060e">
             <strong class="me-auto">Notification</strong>
@@ -212,6 +220,9 @@
                                     class="form-control"
                             />
                         </div>
+                        <div th:if="${param.error}">
+                            <span ></span>
+                        </div>
 
                         <!-- Password input -->
                         <div class="form-outline mb-4">
@@ -223,6 +234,7 @@
                                     class="form-control"
                             />
                         </div>
+
 
                         <div class="forget-pass">
                             <a href="/email">Forget Password?</a>
@@ -252,10 +264,11 @@
                                     type="text"
                                     id="form2Example18"
                                     class="form-control"
-                                    required
                                     name="username"
                                     th:field="*{username}"
                             />
+                        </div>
+                        <div>
                             <span style="color: red" th:if="${#fields.hasErrors('username')}"
                                   th:errors="*{username}">
                                                         </span>
@@ -271,6 +284,8 @@
                                     name="email"
                                     th:field="*{email}"
                             />
+                        </div>
+                        <div>
                             <span style="color: red" th:if="${#fields.hasErrors('email')}"
                                   th:errors="*{email}"></span>
                         </div>
@@ -287,9 +302,8 @@
                                         class="form-control"
                                         name="password"
                                         th:field="*{pass}"/>
-                                <span style="color: red" th:if="${#fields.hasErrors('pass')}"
-                                      th:errors="*{pass}"></span>
                             </div>
+
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="form2Example6"
                                 >Re-enter password</label
@@ -303,6 +317,10 @@
                                 />
                                 <span style="color: red" id="message"></span>
                             </div>
+                        </div>
+                        <div>
+                                <span style="color: red" th:if="${#fields.hasErrors('pass')}"
+                                      th:errors="*{pass}"></span>
                         </div>
                         <!-- Submit button -->
                         <div class="btn-sign-in">
@@ -363,6 +381,23 @@
             tabRegister.click();
         }
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        let msg = document.getElementById("error-msg").innerText;
+        // Display a SweetAlert when the document is ready
+        Swal.fire({
+            title: msg,
+            icon: 'error',
+            timer: 1500, // Time in milliseconds (2 seconds)
+            timerProgressBar: true,
+            showConfirmButton: false // Hide the "Confirm" button
+        });
+        //Change URL:
+        // const currentUrl = window.location.href;
+        // const cleanUrl = currentUrl.split('?')[0];
+        // history.replaceState(null, null, cleanUrl);
+    });
+
 </script>
 
 </html>
