@@ -2,9 +2,9 @@
 <!-- Created by CodingLab |www.youtube.com/CodingLabYT-->
 <html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Responsive Sidebar Menu | CodingLab</title>
-    <link rel="stylesheet" href="/static/css/menu.css" />
+    <link rel="stylesheet" href="/static/css/menu.css"/>
     <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
@@ -14,7 +14,14 @@
             rel="stylesheet"
             href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
     />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Using SweetAlert2 from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        .swal2-title{
+            font-size: 20px;
+        }
+    </style>
 </head>
 <body>
 <div class="sidebar">
@@ -26,7 +33,7 @@
     <ul class="nav-list">
         <li>
             <i class="bx bx-search"></i>
-            <input type="text" placeholder="Search..." />
+            <input type="text" placeholder="Search..."/>
             <span class="tooltip">Search</span>
         </li>
         <li>
@@ -87,7 +94,7 @@
         </li>
         <li class="profile">
             <div class="profile-details">
-                <img src="profile.jpg" alt="profileImg" />
+                <img src="profile.jpg" alt="profileImg"/>
                 <div class="name_job">
                     <div class="name">Username</div>
                 </div>
@@ -118,7 +125,7 @@
                     <a th:href="@{/customers/info/__${customer.id}__}" class="function-btn" id="detail">
                         <i class="bx bx-info-circle"></i>
                     </a>
-                    <a href="/customers/delete" class="function-btn" id="delete">
+                    <a href="#" class="function-btn" id="delete" th:attr="onclick=|deleteCustomers('${customer.id}','${customer.fullName}')|">
                         <i class="bx bx-trash"></i>
                     </a>
                 </td>
@@ -128,10 +135,12 @@
 
     <!-- Pagination Start -->
     <div class="pagination">
-        <a th:if="${customerList.hasPrevious()}" th:href="@{'/customers'(page=${customerList.number-1})}" class="pagination-button" id="previous">
+        <a th:if="${customerList.hasPrevious()}" th:href="@{'/customers'(page=${customerList.number-1})}"
+           class="pagination-button" id="previous">
             <i class="bx bx-left-arrow-circle"></i>
         </a>
-        <a th:if="${customerList.hasNext()}" th:href="@{'/customers'(page=${customerList.number+1})}" class="pagination-button" id="next">
+        <a th:if="${customerList.hasNext()}" th:href="@{'/customers'(page=${customerList.number+1})}"
+           class="pagination-button" id="next">
             <i class="bx bx-right-arrow-circle"></i>
         </a>
     </div>
@@ -152,6 +161,7 @@
         sidebar.classList.toggle("open");
         menuBtnChange(); //calling the function(optional)
     });
+
     // following are the code to change sidebar button(optional)
     function menuBtnChange() {
         if (sidebar.classList.contains("open")) {
@@ -159,6 +169,28 @@
         } else {
             closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
         }
+    }
+</script>
+<form action="/customers/delete" id="deleteCustomer" method="post">
+    <input type="hidden" id="idDelete" name="idDelete"/>
+</form>
+<script>
+    function deleteCustomers(id, name) {
+        document.getElementById("idDelete").value = id;
+        Swal.fire({
+            title: "Are you want to delete " + name + " ?\n" +
+                "You can not undo this action!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById("deleteCustomer").submit();
+                Swal.fire("Delete!", "You file has been delete.", "success");
+            }
+        });
     }
 </script>
 </body>

@@ -22,7 +22,7 @@ public class CustomerService implements ICustomerService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public Page<Customer> findAll(String searchByName, Pageable pageable) {
+    public Page<Customer> findAll(String searchByName, Pageable pageable, boolean flag) {
         return iCustomerRepository.findAll(searchByName, pageable);
     }
 
@@ -51,7 +51,9 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public void delete(Integer id) {
-        iCustomerRepository.deleteById(id);
+        Customer customer = findById(id);
+        customer.setFlag(false);
+        iCustomerRepository.save(customer);
     }
 
     @Override
