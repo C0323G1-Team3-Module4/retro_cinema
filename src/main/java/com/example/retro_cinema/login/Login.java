@@ -41,7 +41,7 @@ public class Login {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(Model model) {
-        model.addAttribute("accountDto", new AccountUserDto());
+        model.addAttribute("accountUserDto", new AccountUserDto());
         return "loginPage";
     }
 
@@ -95,8 +95,9 @@ public class Login {
     @PostMapping("/signup")
     public String signup(@Valid @ModelAttribute AccountUserDto accountUserDto, BindingResult bindingResult
             , RedirectAttributes redirectAttributes, HttpServletRequest request, Model model) throws UnsupportedEncodingException, MessagingException {
+        new AccountUserDto().validate(accountUserDto, bindingResult);
         if (bindingResult.hasErrors()) {
-            model.addAttribute("accountDto", new AccountUserDto());
+            model.addAttribute("accountUserDto", accountUserDto);
             return "loginPage";
         }
         if (iAccountService.findByEmail(accountUserDto.getEmail()) != null) {

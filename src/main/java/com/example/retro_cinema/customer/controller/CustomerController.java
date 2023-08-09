@@ -30,7 +30,7 @@ public class CustomerController {
     @GetMapping("")
     public String CustomerList(@PageableDefault(value = 2, sort = "id", direction = Sort.Direction.DESC)
                                Pageable pageable, @RequestParam(value = "searchByName", defaultValue = "") String searchByName, Model model) {
-        model.addAttribute("customerList", iCustomerService.findAll(searchByName, pageable));
+        model.addAttribute("customerList", iCustomerService.findAll(searchByName, pageable,true));
         model.addAttribute("accountUser",iAccountService.findAll());
         model.addAttribute("searchByName", searchByName);
         return "/customer/list";
@@ -61,8 +61,9 @@ public class CustomerController {
         }
         BeanUtils.copyProperties(customerDto, customer);
         iCustomerService.update(customer);
-        redirectAttributes.addFlashAttribute("msg", "Update Customer Success!");
-        return "redirect:/";
+        redirectAttributes.addFlashAttribute("message", "Update Customer Success!");
+        String url = "redirect:/customers/info/" + customer.getId();
+        return url;
     }
 
     @PostMapping("/delete")
