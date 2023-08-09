@@ -4,6 +4,7 @@ import com.example.retro_cinema.screenings.model.Screenings;
 import com.example.retro_cinema.screenings.repository.IScreeningsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,7 @@ public class ScreeningsService implements IScreeningsService {
 
     @Override
     public void addScreenings(Screenings screenings) {
+        screenings.setFlag(true);
         screeningsRepository.save(screenings);
     }
 
@@ -63,7 +65,14 @@ public class ScreeningsService implements IScreeningsService {
     }
 
     @Override
-    public Page<Screenings> getAllPage(Pageable pageable) {
-        return screeningsRepository.findAll(pageable);
+    public Page<Screenings> getAllPage(Pageable pageable,Boolean flag) {
+        return screeningsRepository.findAllByFlag(pageable,true);
+    }
+
+    @Override
+    public void deleteScreenings(int id) {
+        Screenings screenings = screeningsRepository.findById(id).get();
+        screenings.setFlag(false);
+        screeningsRepository.save(screenings);
     }
 }
