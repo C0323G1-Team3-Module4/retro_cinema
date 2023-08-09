@@ -338,6 +338,16 @@
         </div>
     </div>
 </div>
+<!--Change URL if have error when login-->
+<script th:inline="javascript">
+    // Check if the URL contains the error parameter
+    if (window.location.search.includes('error=true')) {
+        // Remove the error parameter from the URL
+        const newUrl = window.location.href.replace('?error=true', '');
+        // Modify the URL without reloading the page
+        window.history.replaceState({}, document.title, newUrl);
+    }
+</script>
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
