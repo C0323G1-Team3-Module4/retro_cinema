@@ -115,7 +115,7 @@ public class ScreeningsDto implements Validator {
         ScreeningsDto screeningsDto = (ScreeningsDto) target;
         if (screeningsDto.dateMovie.equals("")) {
             errors.rejectValue("dateMovie", null, "Date can not empty");
-        } else if (Period.between(LocalDate.parse(screeningsDto.dateMovie), LocalDate.now()).getDays() < 0) {
+        } else if (Period.between(LocalDate.parse(screeningsDto.dateMovie), LocalDate.now()).getDays() > 0) {
             errors.rejectValue("dateMovie",null,"Show date must not be less than current date!");
         }
     }

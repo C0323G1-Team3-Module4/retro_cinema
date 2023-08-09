@@ -274,7 +274,7 @@ a {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 4rem;
+  top: 5rem;
   font-size: 2rem;
 }
 
@@ -300,7 +300,7 @@ th {
 tr:hover {
   background-color: rgba(255, 255, 255, 0.7);
 }
-/* Function button */
+
 #function {
   display: flex;
   justify-content: space-around;
@@ -356,6 +356,48 @@ tr:hover {
 
 .pagination-button:hover {
   background-color: var(--text-color);
+}
+
+/* Table function */
+.table-function {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.table-function .function-btn {
+  width: 5rem;
+}
+
+.table-function .function-btn:hover {
+  background-color: rgb(134, 134, 247);
+}
+
+/* Search box */
+.search-box {
+  max-width: 200px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  column-gap: 0.7rem;
+  padding: 8px 15px;
+  border: #2d2e37 solid 0.5px;
+  border-radius: 4rem;
+  margin-right: 1rem;
+}
+.search-box .bx {
+  font-size: 1.1rem;
+}
+.search-box .bx:hover {
+  color: var(--main-color);
+}
+#search-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  color: black;
+  background: transparent;
+  font-size: 0.938rem;
 }
 
 @media (max-width: 420px) {
