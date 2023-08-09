@@ -13,7 +13,6 @@ public class Products {
     private int id;
     @Column(name = "product_name")
     private String productName;
-    @Column(columnDefinition = "DECIMAL(10,2)")
     private double price;
     @Column(columnDefinition = "Bit default 1")
     private boolean flag;

@@ -21,8 +21,10 @@ public class ProductsController {
     @GetMapping("/products/list")
     public String showListProducts(Model model) {
         model.addAttribute("productsList", productsService.getAllProducts());
-        return "products/list";
+        return "products/menu";
     }
+
+
 
     @GetMapping("/products/addProduct")
     public String showAddProducts(Model model) {
