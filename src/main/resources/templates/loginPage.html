@@ -119,6 +119,18 @@
     </style>
 </head>
 <body>
+<!-- Display error message if login failed -->
+<div th:if="${param.error}" class="error-message">
+    <p th:switch="${session['SPRING_SECURITY_LAST_EXCEPTION'].class.simpleName}">
+        <span th:case="BadCredentialsException">Invalid username or password.</span>
+        <span th:case="LockedException">Your account has been locked due to too many failed attempts.</span>
+        <span th:case="AccountExpiredException">Your account has expired.</span>
+        <span th:case="DisabledException">Your account has been disabled.</span>
+        <span th:case="CredentialsExpiredException">Your credentials have expired.</span>
+        <span th:case="default">An error occurred during login.</span>
+    </p>
+</div>
+
 <div class="showToast" style="display:flex;justify-content: center;text-align: center">
     <div aria-atomic="true" aria-live="assertive" class="toast show" role="alert" th:if="${success != null}"
          style="
@@ -198,7 +210,6 @@
                                     type="text"
                                     id="form2Example8"
                                     class="form-control"
-                                    required
                             />
                         </div>
 
@@ -209,7 +220,6 @@
                                     name="password"
                                     type="password"
                                     id="form2Example7"
-                                    required
                                     class="form-control"
                             />
                         </div>
@@ -307,6 +317,7 @@
         </div>
     </div>
 </div>
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
@@ -353,5 +364,6 @@
         }
     });
 </script>
+
 </html>
 
