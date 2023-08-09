@@ -21,14 +21,68 @@
     <small style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></small>
     <br>
     <label>Product Img</label>
-    <input th:field="*{img}">
-    <img th:src="@{${productsDto.img}}" alt="" style="width: 120px; height: 145px">
-    <small style="color: red" th:if="${#fields.hasErrors('img')}" th:errors="*{img}"></small>
+    <label>Product Img</label>
+    <div class="d-flex flex-row align-items-center">
+        <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+        <div class="form-outline flex-fill mb-0">
+            <b>Choose picture:</b>
+            <input type="hidden" id="thumbnailURL" th:field="*{img}"/>
+            <input id="btnThumbnailURL" type="file" class="form-control" style="width: 25%"/>
+            <progress id="uploader" value="0" max="100">0%</progress><br>
+            <small style="color: red" th:if="${#fields.hasErrors('img')}"
+                   th:errors="*{img}"></small>
+        </div>
+    </div>
     <br>
     <input type="submit">
 </form>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
+
+<script src="https://www.gstatic.com/firebasejs/7.7.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-analytics.js"></script>
+<script>
+    //paste here your copied configuration code
+    const firebaseConfig = {
+        apiKey: "AIzaSyCp05n7nwMvb43hJJZZVQn4ucIPKa2_gkA",
+        authDomain: "retro-cinema-99f73.firebaseapp.com",
+        projectId: "retro-cinema-99f73",
+        storageBucket: "retro-cinema-99f73.appspot.com",
+        messagingSenderId: "408180950215",
+        appId: "1:408180950215:web:4b49fe816a9038473eaae2",
+        measurementId: "G-8MJW1J4QL7"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    // const analytics = getAnalytics(app);
+    let uploader = document.getElementById('uploader');
+    let fileButton = document.getElementById('btnThumbnailURL');
+    fileButton.addEventListener('change', function (e) {
+        let file = e.target.files[0];
+        let storageRef = firebase.storage().ref('retro/' + file.name);
+        let task = storageRef.put(file);
+        task.on('state_changed', function progress(snapshot) {
+            let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            uploader.value = percentage;
+//  lúc chưa load xong thì thì ko cho submit
+            if (percentage === 100) {
+                document.getElementById('createButton').removeAttribute('disabled');
+            } else {
+                document.getElementById('createButton').setAttribute('disabled', 'disabled');
+            }
+        });
+        task.then(snapshot => snapshot.ref.getDownloadURL())
+            .then(url => {
+                document.getElementById('thumbnailURL').setAttribute("value", url);
+// tải hình ảnh
+                previewImage.style.display = 'none';
+                newImage.src = url;
+                newImage.style.display = 'block';
+            });
+    });
+
+</script>
 </body>
 </html>
