@@ -23,5 +23,9 @@
         <td th:text="${s.getShowTimes().getRooms().getRoomName()}"></td>
     </tr>
 </table>
+<a th:if="${screenings.hasPrevious()}" th:href="@{/screenings/list(page=${screenings.number-1})}"
+   style="color: black">Prev</a>
+<span th:text="${screenings.number+1}"></span>/<span th:text="${screenings.totalPages}"></span>
+<a th:if="${screenings.hasNext()}" th:href="@{/screenings/list(page=${screenings.number+1})}" style="color: black">Next</a>
 </body>
 </html>
