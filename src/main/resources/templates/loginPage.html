@@ -138,34 +138,70 @@
     </p>
 </div>
 
-<!--<div th:if="${param.error}" >-->
-<!--    -->
+
+
+<!--<div class="showToast" style="display:flex;justify-content: center;text-align: center">-->
+<!--    <div aria-atomic="true" aria-live="assertive" class="toast show" role="alert" th:if="${success != null}"-->
+<!--         style="-->
+<!--    position: fixed;top: 90px; animation: slideInRight ease 1s, fadeOut linear 1s 4s forwards;;  //thờigianmsgtrượt-->
+<!--            transition: all linear 0.3s;z-index: 1">-->
+<!--        <div class="toast-header" style="background-color:#56b906 ;color: #0d060e">-->
+<!--            <strong class="me-auto">Notification</strong>-->
+<!--            <small>1 second ago</small>-->
+<!--        </div>-->
+<!--        <div class="toast-body" style="color: #0d060e" th:text="${success}"></div>-->
+<!--    </div>-->
+
+<!--    <div class="fail-msg">-->
+<!--        <div aria-atomic="true" aria-live="assertive" class="toast show" role="alert" th:if="${fail!=null}">-->
+<!--            <div class="toast-header" style="background-color: #e32f38">-->
+<!--                <strong class="me-auto" style="color: white">Notification</strong>-->
+<!--                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>-->
+<!--            </div>-->
+<!--            <div class="toast-body text-danger" th:text="${fail}"></div>-->
+<!--        </div>-->
+<!--    </div>-->
 <!--</div>-->
 
-<div class="showToast" style="display:flex;justify-content: center;text-align: center">
-    <div aria-atomic="true" aria-live="assertive" class="toast show" role="alert" th:if="${success != null}"
-         style="
-    position: fixed;top: 90px; animation: slideInRight ease 1s, fadeOut linear 1s 4s forwards;;  //thờigianmsgtrượt
-            transition: all linear 0.3s;z-index: 1">
-        <div class="toast-header" style="background-color:#56b906 ;color: #0d060e">
-            <strong class="me-auto">Notification</strong>
-            <small>1 second ago</small>
-        </div>
-        <div class="toast-body" style="color: #0d060e" th:text="${success}"></div>
-    </div>
-
-    <div class="fail-msg">
-        <div aria-atomic="true" aria-live="assertive" class="toast show" role="alert" th:if="${fail!=null}">
-            <div class="toast-header" style="background-color: #e32f38">
-                <strong class="me-auto" style="color: white">Notification</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body text-danger" th:text="${fail}"></div>
-        </div>
-    </div>
+<div th:if="${param.success}">
+    <span th:text="${param.success}" id="success" style="display: none"></span>
+</div>
+<div th:if="${success}">
+    <span th:text="${success}" id="success" style="display: none"></span>
 </div>
 
-
+<div th:if="${param.success2}">
+    <span th:text="${param.success2}" id="success2" style="display: none"></span>
+</div>
+<div th:if="${success2}">
+    <span th:text="${success2}" id="success2" style="display: none"></span>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function (){
+        let suc = document.getElementById("success").innerText;
+        console.log(suc)
+        Swal.fire({
+            title: suc,
+            icon: 'success',
+            time:1500,
+            timerProgressBar: true,
+            showConfirmButton: false
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function (){
+        let suc2 = document.getElementById("success2").innerText;
+        console.log(suc2)
+        Swal.fire({
+            title: suc2,
+            icon: 'success',
+            time:1500,
+            timerProgressBar: true,
+            showConfirmButton: false
+        });
+    });
+</script>
 <div class="background-img">
     <img
             class="background-sign-in"
