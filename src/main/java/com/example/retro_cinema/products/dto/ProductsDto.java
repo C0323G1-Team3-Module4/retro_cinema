@@ -11,10 +11,8 @@ public class ProductsDto implements Validator {
     private int id;
     private String productName;
     @NotNull(message = "Price is required")
-    @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than 0")
     private double price;
     private boolean flag;
-    @NotBlank(message = "Img cannot is empty")
     private String img;
 
     public ProductsDto() {

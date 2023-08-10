@@ -3,6 +3,8 @@ package com.example.retro_cinema.products.service;
 import com.example.retro_cinema.products.model.Products;
 import com.example.retro_cinema.products.repository.IProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -47,5 +49,10 @@ public class ProductsService implements IProductsService {
     @Override
     public Products findProduct(int id) {
         return productsRepository.findById(id).get();
+    }
+
+    @Override
+    public Page<Products> pageProducts(Pageable pageable,boolean flag) {
+        return productsRepository.findAllByFlag(pageable,true);
     }
 }

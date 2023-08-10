@@ -8,9 +8,88 @@
     <title>Title</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
+        /* Tùy chỉnh các phần tử trong form */
+        form {
+            margin: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #b4b7c2;
+            padding: 1rem 5rem;
+            box-shadow: 5px 5px 5px grey;
+        }
+
+        select,
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid black;
+            border-radius: 10px;
+            background-color: #fff;
+            font-size: 16px;
+            color: #495057;
+        }
+
+        body {
+            padding: 10rem 35rem;
+            background-color: #e4e9f7;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        p {
+            margin-top: 10px;
+            font-style: italic;
+            color: #6c757d;
+        }
+
+        h3 {
+            text-align: center;
+        }
+
+        label {
+            font-weight: 500;
+        }
+
+        .button {
+            width: 5rem;
+            height: 2.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 0 1rem;
+        }
+
+        .button:hover {
+            background-color: rgb(134, 134, 247);
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        a:hover {
+            color: black;
+        }
+        #button{
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+    </style>
 </head>
 <body>
 <form th:action="@{/screenings/addScreenings}" method="post" th:object="${screeningsDto}">
+    <h3>Add Screenings</h3>
+    <label>Movie</label>
     <select th:field="*{movie}">
         <option value="">Choose movie</option>
         <th:block th:each="m:${movieList}">
@@ -18,16 +97,22 @@
         </th:block>
     </select>
     <small th:if="${#fields.hasErrors('movie')}" th:errors="*{movie}"></small>
+    <label>Screenings</label>
     <select th:field="*{showTimes}">
         <option value="">Choose screenings</option>
         <th:block th:each="m:${showTimesList}">
-            <option th:value="${m.id}" th:text="${m.getStartTime()}+'-'+${m.getEndTime()}+'-'+${m.getRoomName()}"></option>
+            <option th:value="${m.id}"
+                    th:text="${m.getStartTime()}+'-'+${m.getEndTime()}+'-'+${m.getRoomName()}"></option>
         </th:block>
     </select>
     <small th:if="${#fields.hasErrors('showTimes')}" th:errors="*{showTimes}"></small>
+    <label>Show date</label>
     <input type="date" th:field="*{dateMovie}">
     <small th:if="${#fields.hasErrors('dateMovie')}" th:errors="*{dateMovie}"></small>
-    <input type="submit">
+    <div id="button">
+        <button class="button">Add</button>
+        <button class="button" type="button"><a href="/products/list">Cancel</a></button>
+    </div>
     <p th:if="${mess}" th:text="${mess}"></p>
 </form>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
