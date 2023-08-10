@@ -120,7 +120,7 @@ public class Login {
     @GetMapping("/verify")
     public String verifyUser(@RequestParam("code") String code, RedirectAttributes redirectAttributes) {
         if (iAccountService.verify(code)) {
-            redirectAttributes.addFlashAttribute("success", "Congratulations, your account has been verified.");
+            redirectAttributes.addFlashAttribute("success1", "Congratulations, your account has been verified.");
         } else {
             redirectAttributes.addFlashAttribute("fail", "Sorry, we could not verify account. It maybe already verified, or verification code is incorrect.");
         }
@@ -153,7 +153,7 @@ public class Login {
                          @ModelAttribute AccountUser accountUser,
                          RedirectAttributes redirectAttributes) {
         iAccountService.reset_pw(accountUser, new_pw);
-        redirectAttributes.addFlashAttribute("success", "Password change successful.");
+        redirectAttributes.addFlashAttribute("success2", "Password change successful.");
         return "redirect:/login";
     }
 

@@ -3,23 +3,18 @@ package com.example.retro_cinema.user.dto;
 
 import com.example.retro_cinema.customer.model.Customer;
 import com.example.retro_cinema.user.model.Roles;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+
 import javax.validation.constraints.*;
 import java.util.Date;
+
 
 public class AccountUserDto implements Validator {
 
     private Integer id;
-    @NotBlank(message = "User name cound not be void!")
     private String username;
-    @NotBlank(message = "Email cound not be void!")
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",message = "In valid email")
     private String email;
-    @NotBlank(message = "Password could not be void!")
-    @Min(value = 6, message = "Password must be at least 6 characters")
-    @Pattern(regexp = "^[\\\\w]+$", message = "Password does not contain special characters")
     private String pass;
     private Roles roles;
     private Date expiryDate;
@@ -122,11 +117,39 @@ public class AccountUserDto implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return false;
+        return AccountUserDto.class.equals(clazz);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
+        AccountUserDto accountUserDto = (AccountUserDto) target;
+        if (accountUserDto.getUsername().trim().isEmpty()) {
+            errors.rejectValue("username", "", "User name cound not be void!");
+        } else if (accountUserDto.getUsername().length() > 5) {
+            errors.rejectValue("username", "", "Your UserName must be at least 6 characters or more!");
+        }
+        String email = accountUserDto.getEmail();
+        if (email == null || email.trim().isEmpty()) {
+            errors.rejectValue("email", "", "Email cound not be void!");
+        } else if (!isValidEmail(email)) {
+            errors.rejectValue("email", "", "Invalid email format!");
+        }
+        String pass = accountUserDto.getPass();
+        if (pass == null || pass.trim().isEmpty()) {
+            errors.rejectValue("pass", "", "Password cound not be void!");
+        } else if (!isValidPass(pass)) {
+            errors.rejectValue("pass", "", "Password is malformed or less than 6 characters!");
+        }
+    }
 
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        return email.matches(emailRegex);
+    }
+
+    private boolean isValidPass(String pass) {
+        String passRegex = "^(?=.*[0-9])(?=.*[a-zA-Z]).{6,}$";
+        return pass.matches(passRegex);
     }
 }
+
