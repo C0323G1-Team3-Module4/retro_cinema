@@ -10,47 +10,83 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <style>
-    *{
-       box-sizing: border-box;
+    * {
+        box-sizing: border-box;
     }
-    body{
+
+    body {
         width: 100%;
         display: flex;
         justify-content: center;
 
     }
-    .form{
-      width: 100%;
+
+    .form {
+        width: 100%;
         max-width: 600px;
         height: 100%;
-        background-color: beige;
+        background-color: #b4b7c2;
         border-radius: 10px;
         padding: 2rem;
         margin-top: 10rem;
+        box-shadow: 5px 5px 5px grey;
     }
-    input{
-        padding: 1rem;
+
+    .input {
+        padding: 0.5rem;
         border-radius: 10px;
         width: 100%;
+        border: 1px solid black;
     }
-    .name{
+
+    .name {
         margin-top: 1rem;
     }
-    .form-control{
+
+    .form-control {
         width: 100%;
+    }
+    label{
+        font-weight: 600;
+    }
+    #btnThumbnailURL{
+        border-radius: 10px;
+        border: 1px solid black;
+    }
+    .button {
+        width: 5rem;
+        height: 2.5rem;
+        border-radius: 5px;
+        text-decoration: none;
+        margin: 0 1rem;
+    }
+
+    .button:hover {
+        background-color: rgb(134, 134, 247);
+    }
+    #button{
+        text-align: center;
+    }
+    a{
+        text-decoration: none;
+        color: black;
+    }
+    a:hover{
+        color: black;
     }
 </style>
 <body>
 <div class="form">
+    <h1 style="display: flex; justify-content: center">Add New Product</h1>
     <form th:action="@{/products/add}" method="post" th:object="${productsDto}">
         <div class="name">
             <label>Product name</label>
-            <input th:field="*{productName}">
+            <input class="input" th:field="*{productName}">
             <small style="color: red" th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}"></small>
         </div>
         <div class="name">
             <label>Product price</label>
-            <input th:field="*{price}">
+            <input class="input" th:field="*{price}">
             <small style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></small>
 
         </div>
@@ -61,14 +97,17 @@
                     <b>Choose picture:</b>
                     <input type="hidden" id="thumbnailURL" th:field="*{img}"/>
                     <input id="btnThumbnailURL" type="file" class="form-control" style="width: 100%"/>
-                    <progress id="uploader" value="0" max="100" style="width: 100%">0%</progress><br>
+                    <progress id="uploader" value="0" max="100" style="width: 100%">0%</progress>
+                    <br>
                     <small style="color: red" th:if="${#fields.hasErrors('img')}"
                            th:errors="*{img}"></small>
                 </div>
             </div>
         </div>
-
-        <input type="submit">
+        <div id="button">
+            <button class="button">Add</button>
+            <button class="button" type="button"><a href="/products/list">Cancel</a></button>
+        </div>
     </form>
 </div>
 

@@ -107,7 +107,7 @@
     </ul>
 </div>
 <section class="home-section">
-    <h1 class="table-header">Table Title</h1>
+    <h1 class="table-header">SCREENINGS</h1>
     <div class="container">
         <!-- Button Search and Add-->
         <div class="table-function">
@@ -126,7 +126,7 @@
         </div>
         <table>
             <tr>
-                <th>Ordinal number</th>
+                <th>#r</th>
                 <th>Movie name</th>
                 <th>Booking date</th>
                 <th>Start time</th>
@@ -142,7 +142,7 @@
                 <td th:text="${s.getShowTimes().getEndTime()}"></td>
                 <td th:text="${s.getShowTimes().getRooms().getRoomName()}"></td>
                 <td id="function">
-                    <a href="#" class="function-btn" id="delete">
+                    <a href="#" class="function-btn" id="delete" th:attr="onclick=|deleteBySwal('${s.getMovie().getMovieName()}','${s.id}')|">
                         <i class="bx bx-trash"></i>
                     </a>
                 </td>
@@ -162,6 +162,18 @@
     <!-- Pagination End -->
 </section>
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let msg = document.getElementById("message").innerText;
+        // Display a SweetAlert when the document is ready
+        Swal.fire({
+            title: msg,
+            icon: 'success',
+            timer: 2000, // Time in milliseconds (2 seconds)
+            timerProgressBar: true,
+            showConfirmButton: false // Hide the "Confirm" button
+        });
+    });
+
     document.addEventListener("DOMContentLoaded", function () {
         let msg = document.getElementById("message").innerText;
         // Display a SweetAlert when the document is ready
@@ -197,11 +209,15 @@
 </script>
 
 
+<form action="/screenings/delete" id="deleteFormMethodPost" method="post">
+    <input type="hidden" id="deleteIdInForm" name="id">
+</form>
 <!-- Delete with sweet alert -->
 <script>
-    function deleteBySwal(name) {
+    function deleteBySwal(name, id) {
+        document.getElementById("deleteIdInForm").value = id;
         Swal.fire({
-            title: "Are you want to delete" + name + "?",
+            title: "Are you want to delete " + name + "?",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -209,8 +225,8 @@
             confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.isConfirmed) {
-                // Href
-                Swal.fire("Deleted!", "Your file has been deleted.", "success");
+                document.getElementById("deleteFormMethodPost").submit();
+                // Swal.fire("Deleted!", "Your file has been deleted.", "success");
             }
         });
     }

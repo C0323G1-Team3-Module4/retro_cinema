@@ -90,5 +90,10 @@ public class ScreeningsController {
         return "/screenings/listScreeningsByDate";
     }
 
-
+    @PostMapping("/screenings/delete")
+    public String remove(@RequestParam int id,RedirectAttributes redirectAttributes){
+        screeningsService.deleteScreenings(id);
+        redirectAttributes.addFlashAttribute("message","successful delete");
+        return "redirect:/screenings/list";
+    }
 }
