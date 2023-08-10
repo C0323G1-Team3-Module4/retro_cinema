@@ -66,11 +66,12 @@ public class ScreeningsController {
                 model.addAttribute("movieList", movieService.getAllMovie());
                 model.addAttribute("showTimesList", showTimesService.getAllShowTime());
                 model.addAttribute("screeningsDto", screeningsDto);
-                redirectAttributes.addFlashAttribute("mess", "There were screenings during that time");
+                redirectAttributes.addFlashAttribute("message", "There were screenings during that time");
                 return "/screenings/add";
             }
         }
         screeningsService.addScreenings(screenings);
+        redirectAttributes.addFlashAttribute("message","successfully add new");
         return "redirect:/screenings/list";
     }
 
