@@ -120,13 +120,15 @@
                 <i class="bx bx-folder-plus"></i>
             </a>
             <div class="search-box">
-                <input
-                        type="search"
-                        th:name="name"
-                        id="search-input"
-                        placeholder="Search"
-                />
-                <i class="bx bx-search" onclick="search()"></i>
+                <form id="search-form" th:action="@{/movie}" style="display:flex;">
+                    <input
+                            type="search"
+                            th:name="name"
+                            id="search-input"
+                            placeholder="Search"
+                    />
+                    <i class="bx bx-search" id="search-icon" style="margin-top: auto"></i>
+                </form>
             </div>
         </div>
         <table>
@@ -226,10 +228,9 @@
         });
     }
     // search
-    function search() {
-        // window.location.href = "/movie";
-        window.location.action = "@{/movie}";
-    }
+    document.getElementById("search-icon").addEventListener("click", function() {
+        document.getElementById("search-form").submit();
+    });
 </script>
 </body>
 </html>
