@@ -120,13 +120,15 @@
                 <i class="bx bx-folder-plus"></i>
             </a>
             <div class="search-box">
-                <input
-                        type="search"
-                        th:name="name"
-                        id="search-input"
-                        placeholder="Search"
-                />
-                <i class="bx bx-search" onclick="search()"></i>
+                <form id="search-form" th:action="@{/movie}" style="display:flex;">
+                    <input
+                            type="search"
+                            th:name="name"
+                            id="search-input"
+                            placeholder="Search"
+                    />
+                    <i class="bx bx-search" id="search-icon" style="margin-top: auto"></i>
+                </form>
             </div>
         </div>
         <table>
@@ -141,7 +143,7 @@
             </tr>
             <tr th:each="m, status:${moviePage}">
                 <td th:text="${moviePage.number*5+status.count}"></td>
-                <td th:text="${m.movieName}"></td>
+                <td th:text="${#strings.abbreviate(m.movieName,32)}"></td>
                 <td th:text="${m.releaseDate}"></td>
                 <td th:text="${m.director}"></td>
                 <td th:text="${m.duration+' min'}"></td>
@@ -221,14 +223,14 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 document.getElementById("deleteFormMethodPost").submit();
-                Swal.fire("Deleted!", "Your file has been deleted.", "success");
+                // Swal.fire("Deleted!", "Your file has been deleted.", "success");
             }
         });
     }
     // search
-    function search() {
-        window.location.href = "/movie";
-    }
+    document.getElementById("search-icon").addEventListener("click", function() {
+        document.getElementById("search-form").submit();
+    });
 </script>
 </body>
 </html>

@@ -19,6 +19,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
+<div th:if="${param.message}">
+    <span th:text="${param.message}" id="message" style="display: none"></span>
+</div>
+<div th:if="${message}">
+    <span th:text="${message}" id="message" style="display: none"></span>
+</div>
 <div class="sidebar">
     <div class="logo-details">
         <i class="bx bxs-registered icon"></i>
@@ -118,16 +124,16 @@
         </div>
         <table>
             <tr>
-                <th>Id</th>
+                <th>#</th>
                 <th>Product name</th>
                 <th>Price</th>
                 <th>Img</th>
                 <th>Function</th>
             </tr>
             <tr th:each="p,status:${productsList}">
-                <td th:text="${p.id}"></td>
+                <td th:text="${status.count}"></td>
                 <td th:text="${p.productName}"></td>
-                <td th:text="${p.price +' $'}"></td>
+                <td th:text="${#numbers.formatDecimal(p.price, 0, 'COMMA', 0, 'POINT') + ' $'}"></td>
                 <td>
                     <img
                             th:src="@{${p.img}}"
@@ -136,10 +142,11 @@
                     />
                 </td>
                 <td id="function">
-                    <a href="#" class="function-btn" id="detail">
+                    <a th:href="@{/products/editProduct(id=${p.id})}" class="function-btn" id="detail">
+                        <input type="hidden">
                         <i class="bx bx-info-circle"></i>
                     </a>
-                    <a href="#" class="function-btn" id="delete">
+                    <a href="#" class="function-btn" id="delete" th:attr="onclick=|deleteBySwal('${p.productName}','${p.id}')|">
                         <i class="bx bx-trash"></i>
                     </a>
                 </td>
@@ -149,16 +156,30 @@
 
     <!-- Pagination Start -->
     <div class="pagination">
-        <a href="#" class="pagination-button" id="previous">
+        <a th:if="${productsList.hasPrevious()}" th:href="@{/products/list(page=${productsList.number-1})}" class="pagination-button" id="previous">
             <i class="bx bx-left-arrow-circle"></i>
         </a>
-        <a href="#" class="pagination-button" id="next">
+        <a th:if="${productsList.hasNext()}" th:href="@{/products/list(page=${productsList.number+1})}" class="pagination-button" id="next">
             <i class="bx bx-right-arrow-circle"></i>
         </a>
     </div>
     <!-- Pagination End -->
 </section>
+<form action="/products/delete" id="deleteFormMethodPost" method="post">
+    <input type="hidden" id="deleteIdInForm" name="id">
+</form>
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let msg = document.getElementById("message").innerText;
+        // Display a SweetAlert when the document is ready
+        Swal.fire({
+            title: msg,
+            icon: 'success',
+            timer: 2000, // Time in milliseconds (2 seconds)
+            timerProgressBar: true,
+            showConfirmButton: false // Hide the "Confirm" button
+        });
+    });
     let sidebar = document.querySelector(".sidebar");
     let closeBtn = document.querySelector("#btn");
     let searchBtn = document.querySelector(".bx-search");
@@ -185,9 +206,10 @@
 
 <!-- Delete with sweet alert -->
 <script>
-    function deleteBySwal(name) {
+    function deleteBySwal(name, id) {
+        document.getElementById("deleteIdInForm").value = id;
         Swal.fire({
-            title: "Are you want to delete" + name + "?",
+            title: "Are you want to delete " + name + "?",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -195,11 +217,12 @@
             confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.isConfirmed) {
-                // Href
-                Swal.fire("Deleted!", "Your file has been deleted.", "success");
+                document.getElementById("deleteFormMethodPost").submit();
+                // Swal.fire("Deleted!", "Your file has been deleted.", "success");
             }
         });
     }
+
 </script>
 </body>
 </html>
