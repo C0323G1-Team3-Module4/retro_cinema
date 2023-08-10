@@ -19,6 +19,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
+<!--Sweet Alert-->
+<div th:if="${param.message}">
+    <span th:text="${param.message}" id="message" style="display: none"></span>
+</div>
+<div th:if="${message}">
+    <span th:text="${message}" id="message" style="display: none"></span>
+</div>
+
 <div class="sidebar">
     <div class="logo-details">
         <i class="bx bxs-registered icon"></i>
@@ -128,7 +136,7 @@
             </tr>
             <tr th:each="s,status:${screenings}">
                 <td th:text="${status.count}"></td>
-                <td th:text="${s.getMovie().getMovieName()}"></td>
+                <td th:text="${#strings.abbreviate(s.getMovie().getMovieName(),30)}"></td>
                 <td th:text="${s.getDateMovie()}"></td>
                 <td th:text="${s.getShowTimes().getStartTime()}"></td>
                 <td th:text="${s.getShowTimes().getEndTime()}"></td>
@@ -154,6 +162,17 @@
     <!-- Pagination End -->
 </section>
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let msg = document.getElementById("message").innerText;
+        // Display a SweetAlert when the document is ready
+        Swal.fire({
+            title: msg,
+            icon: 'success',
+            timer: 2000, // Time in milliseconds (2 seconds)
+            timerProgressBar: true,
+            showConfirmButton: false // Hide the "Confirm" button
+        });
+    });
     let sidebar = document.querySelector(".sidebar");
     let closeBtn = document.querySelector("#btn");
     let searchBtn = document.querySelector(".bx-search");
