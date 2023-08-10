@@ -11,9 +11,10 @@ import java.util.Optional;
 
 public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
 //    @Query(value = "select * from Customers where full_name like CONCAT('%', :searchByName,'%') ",nativeQuery = true)
-//    Page<Customer> findAll(@Param("searchByName") String name, Pageable pageable,boolean flag);
+//   Page<Customer> findAll(@Param("searchByName") String name, Pageable pageable,boolean flag);
+//
+    @Query(value = "select * from customers where id = :id and flag = true ",nativeQuery = true)
     Optional<Customer> findById(Integer id);
     Customer findCustomerByAccountUser_Id(Integer id);
-    Customer findByAccountUser_Email(String email);
     Page<Customer> findCustomerByFullNameContainingAndFlag(String name, Pageable pageable, boolean flag);
 }

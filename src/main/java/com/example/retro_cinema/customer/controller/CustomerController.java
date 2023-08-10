@@ -38,6 +38,10 @@ public class CustomerController {
 
     @GetMapping("/info/{id}")
     public String detailCustomer(@PathVariable Integer id, Model model) {
+        Customer customer = iCustomerService.findByIdCustomer(id);
+        if(customer==null){
+            return "/400Page";
+        }
         model.addAttribute("customer", iCustomerService.findByIdCustomer(id));
         return "/customer/detail";
     }
