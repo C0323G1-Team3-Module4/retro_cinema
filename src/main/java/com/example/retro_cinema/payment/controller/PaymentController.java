@@ -2,6 +2,7 @@ package com.example.retro_cinema.payment.controller;
 
 import com.example.retro_cinema.customer.service.ICustomerService;
 import com.example.retro_cinema.screenings.service.IScreeningsService;
+import com.example.retro_cinema.seatDetails.service.ISeatDetailsService;
 import com.example.retro_cinema.seats.model.Seats;
 import com.example.retro_cinema.seats.service.ISeatsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class PaymentController {
     private ISeatsService iSeatsService;
     @Autowired
     private IScreeningsService iScreeningsService;
+    @Autowired
+    private ISeatDetailsService iSeatDetailsService;
 
     @PostMapping("/create")
     public String paymentCreate(@RequestParam int quantity, @RequestParam int total, @RequestParam Integer idCustomer,

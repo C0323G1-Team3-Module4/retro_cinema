@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
 @Service
@@ -30,6 +31,9 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public Customer findByIdCustomer(Integer id) {
+        if (!iCustomerRepository.findById(id).isPresent()){
+            return null;
+        }
         return iCustomerRepository.findById(id).get();
     }
 

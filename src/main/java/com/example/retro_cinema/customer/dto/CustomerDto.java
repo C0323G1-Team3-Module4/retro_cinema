@@ -1,28 +1,27 @@
 package com.example.retro_cinema.customer.dto;
 
 import com.example.retro_cinema.user.dto.AccountUserDto;
+
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import javax.persistence.Column;
-import javax.validation.constraints.NotBlank;
+
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 public class CustomerDto implements Validator {
 
     private Integer id;
-    @NotBlank(message = "Name could not be void!")
-    @Size(min = 2, max = 50)
     private String fullName;
-    @NotBlank(message = "Phone could not be void!")
-    @Size(min = 10, max = 12)
     private String phone;
-    @NotBlank(message = "Address could not be void!")
     private String address;
     private String gender;
-    @NotNull(message = "Date of birth could not be void!")
     private String dob;
     private String image;
     private boolean enabled;
@@ -174,6 +173,32 @@ public class CustomerDto implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-
+        CustomerDto customerDto = (CustomerDto) target;
+        if (customerDto.getFullName().equals("")) {
+            errors.rejectValue("fullName", "", "Name could not be void!");
+        } else if (customerDto.getFullName().length() > 50) {
+            errors.rejectValue("fullName", "", "Full name should not exceed 50 characters");
+        } else if (customerDto.getFullName().length() < 2) {
+            errors.rejectValue("fullName", "", "Full name must be more than 2 characters");
+        }
+        if (customerDto.getPhone().equals("")) {
+            errors.rejectValue("phone", "", "Phone could not be void!");
+        } else if (!customerDto.getPhone().matches("^0\\d{9}$")) {
+            errors.rejectValue("phone", "", "Phone number is not in the correct format or the number is not enough");
+        }
+        if (customerDto.getAddress().equals("")) {
+            errors.rejectValue("address", "", "Address could not be void!");
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            LocalDate age = LocalDate.parse(customerDto.getDob(), formatter);
+            LocalDate now = LocalDate.now();
+            int yearOld = Period.between(age, now).getYears();
+            if (yearOld < 1 || yearOld > 100) {
+                errors.rejectValue("dob", "", "Wrong date!");
+            }
+        } catch (DateTimeParseException e) {
+            errors.rejectValue("dob", "", "Age is not in the correct format!");
+        }
     }
 }
