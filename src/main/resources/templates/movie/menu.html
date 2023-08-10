@@ -221,13 +221,14 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 document.getElementById("deleteFormMethodPost").submit();
-                Swal.fire("Deleted!", "Your file has been deleted.", "success");
+                // Swal.fire("Deleted!", "Your file has been deleted.", "success");
             }
         });
     }
     // search
     function search() {
-        window.location.href = "/movie";
+        // window.location.href = "/movie";
+        window.location.action = "@{/movie}";
     }
 </script>
 </body>
