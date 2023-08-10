@@ -6,7 +6,6 @@ import com.example.retro_cinema.user.model.Roles;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import javax.validation.constraints.*;
 import java.util.Date;
 
 
@@ -125,31 +124,19 @@ public class AccountUserDto implements Validator {
         AccountUserDto accountUserDto = (AccountUserDto) target;
         if (accountUserDto.getUsername().trim().isEmpty()) {
             errors.rejectValue("username", "", "User name cound not be void!");
-        } else if (accountUserDto.getUsername().length() > 5) {
+        } else if (accountUserDto.getUsername().length() < 5) {
             errors.rejectValue("username", "", "Your UserName must be at least 6 characters or more!");
         }
-        String email = accountUserDto.getEmail();
-        if (email == null || email.trim().isEmpty()) {
-            errors.rejectValue("email", "", "Email cound not be void!");
-        } else if (!isValidEmail(email)) {
+        if (accountUserDto.getEmail().equals("")) {
+            errors.rejectValue("email", "", "Email cannot is empty!");
+        } else if (!accountUserDto.getEmail().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{2,}$")) {
             errors.rejectValue("email", "", "Invalid email format!");
         }
-        String pass = accountUserDto.getPass();
-        if (pass == null || pass.trim().isEmpty()) {
-            errors.rejectValue("pass", "", "Password cound not be void!");
-        } else if (!isValidPass(pass)) {
-            errors.rejectValue("pass", "", "Password is malformed or less than 6 characters!");
+        if (accountUserDto.getPass().equals("")) {
+            errors.rejectValue("pass", "", "Password cannot is empty!");
+        } else if (!accountUserDto.getPass().matches("^(?=.*[0-9])(?=.*[a-zA-Z]).{6,}$")) {
+            errors.rejectValue("pass", "", "Invalid password format!");
         }
-    }
-
-    private boolean isValidEmail(String email) {
-        String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-        return email.matches(emailRegex);
-    }
-
-    private boolean isValidPass(String pass) {
-        String passRegex = "^(?=.*[0-9])(?=.*[a-zA-Z]).{6,}$";
-        return pass.matches(passRegex);
     }
 }
 
