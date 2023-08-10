@@ -28,7 +28,7 @@ public class CustomerController {
     @Autowired
     private IAccountService iAccountService;
     @GetMapping("")
-    public String CustomerList(@PageableDefault(value = 2, sort = "id", direction = Sort.Direction.DESC)
+    public String CustomerList(@PageableDefault(value = 5, sort = "id", direction = Sort.Direction.DESC)
                                Pageable pageable, @RequestParam(value = "searchByName", defaultValue = "") String searchByName, Model model) {
         model.addAttribute("customerList", iCustomerService.findAll(searchByName, pageable,true));
         model.addAttribute("accountUser",iAccountService.findAll());

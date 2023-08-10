@@ -42,6 +42,7 @@ public class AccountUserDto implements Validator {
         this.flag = flag;
     }
 
+
     public Integer getId() {
         return id;
     }
@@ -89,6 +90,7 @@ public class AccountUserDto implements Validator {
     public void setExpiryDate(Date expiryDate) {
         this.expiryDate = expiryDate;
     }
+
 
     public String getVerificationCode() {
         return verificationCode;
