@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Responsive Sidebar Menu | CodingLab</title>
+  <link rel="stylesheet" href="/static/css/admin_preferences.css" />
+  <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
+  />
+  <!-- or -->
+  <link
+          rel="stylesheet"
+          href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+<div class="sidebar">
+  <div class="logo-details">
+    <i class="bx bxs-registered icon"></i>
+    <div class="logo_name" onclick="toHome()">Retro<span id="cinema">Cinema</span></div>
+    <i class="bx bx-menu" id="btn"></i>
+  </div>
+  <ul class="nav-list">
+    <li>
+      <i class="bx bx-search"></i>
+      <input type="text" placeholder="Search..." />
+      <span class="tooltip">Search</span>
+    </li>
+    <li>
+      <a href="#">
+        <i class="bx bx-grid-alt"></i>
+        <span class="links_name">Dashboard</span>
+      </a>
+      <span class="tooltip">Dashboard</span>
+    </li>
+    <li>
+      <a href="/customers">
+        <i class="bx bx-user"></i>
+        <span class="links_name">User</span>
+      </a>
+      <span class="tooltip">User</span>
+    </li>
+    <li>
+      <a href="/movie">
+        <i class="bx bx-movie"></i>
+        <span class="links_name">Movies</span>
+      </a>
+      <span class="tooltip">Movies</span>
+    </li>
+    <li>
+      <a href="/products/list">
+        <i class="bx bx-beer"></i>
+        <span class="links_name">Products</span>
+      </a>
+      <span class="tooltip">Products</span>
+    </li>
+    <li>
+      <a href="/rooms">
+        <i class="bx bx-chair"></i>
+        <span class="links_name">Rooms</span>
+      </a>
+      <span class="tooltip">Rooms</span>
+    </li>
+    <li>
+      <a href="/screenings/list">
+        <i class="bx bx-tv"></i>
+        <span class="links_name">Screenings</span>
+      </a>
+      <span class="tooltip">Screenings</span>
+    </li>
+    <li>
+      <a href="#">
+        <i class="bx bx-cart-alt"></i>
+        <span class="links_name">Bookings</span>
+      </a>
+      <span class="tooltip">Bookings</span>
+    </li>
+    <li>
+      <a href="#">
+        <i class="bx bx-cog"></i>
+        <span class="links_name">Setting</span>
+      </a>
+      <span class="tooltip">Setting</span>
+    </li>
+    <li class="profile">
+      <div class="profile-details">
+        <img src="https://cdn.landesa.org/wp-content/uploads/default-user-image.png" alt="profileImg" />
+        <div class="name_job">
+          <div class="name" th:text="${#request.userPrincipal.getName()}">Username</div>
+        </div>
+      </div>
+      <i class="bx bx-log-out" id="log_out" onclick="toHome()"></i>
+    </li>
+  </ul>
+</div>
+<script>
+  let sidebar = document.querySelector(".sidebar");
+  let closeBtn = document.querySelector("#btn");
+  let searchBtn = document.querySelector(".bx-search");
+  closeBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("open");
+    menuBtnChange(); //calling the function(optional)
+  });
+  searchBtn.addEventListener("click", () => {
+    // Sidebar open when you click on the search iocn
+    sidebar.classList.toggle("open");
+    menuBtnChange(); //calling the function(optional)
+  });
+  // following are the code to change sidebar button(optional)
+  function menuBtnChange() {
+    if (sidebar.classList.contains("open")) {
+      closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
+    } else {
+      closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
+    }
+  }
+  function toHome() {
+    window.location.href = "/";
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    let msg = document.getElementById("message").innerText;
+    // Display a SweetAlert when the document is ready
+    Swal.fire({
+      title: msg,
+      icon: 'success',
+      timer: 1500, // Time in milliseconds (2 seconds)
+      timerProgressBar: true,
+      showConfirmButton: false // Hide the "Confirm" button
+    });
+  });
+</script>
+</body>
+</html>

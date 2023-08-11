@@ -16,6 +16,8 @@
             rel="stylesheet"
             href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
     />
+    <!-- Using SweetAlert2 from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
 
     <style>
         .main {
@@ -128,6 +130,10 @@
             width: 40%;
         }
 
+        .right-side .movie-container {
+            text-align: end;
+        }
+
         /* Table */
         h1 {
             font-size: 2rem;
@@ -179,6 +185,7 @@
             font-size: 1.2rem;
             padding: 0.2rem;
             float: right;
+            border-radius: 5px;
         }
 
         .seat.selected-btn {
@@ -195,6 +202,16 @@
             text-align: center;
             color: black;
         }
+
+        #display-seat-btn {
+            margin-left: 1rem;
+            border-radius: 5px;
+            padding: 0.3rem;
+        }
+
+        #display-seat-btn:hover, #submit-btn:hover {
+            background-color: var(--main-color);
+        }
     </style>
 </head>
 <body>
@@ -203,26 +220,54 @@
     <!-- Navigation Bar -->
     <div class="nav container">
         <!-- Logo -->
-        <a href="index.html" class="logo"> Retro<span>Cinema</span> </a>
+        <a href="/" class="logo"> Retro<span>Cinema</span> </a>
         <!-- Search Box -->
         <div class="search-box">
             <input
                     type="search"
-                    name=""
+                    th:name="name"
                     id="search-input"
                     placeholder="Search Movie"
             />
-            <i class="bx bx-search"></i>
+            <i class="bx bx-search" onclick="toSearch()"></i>
+        </div>
+        <!-- User -->
+        <div>
+
         </div>
         <a href="#" class="user">
-            <img
-                    src="https://cdn.landesa.org/wp-content/uploads/default-user-image.png"
-                    alt="user-img"
-                    class="user-img"
+            <img th:if="${#request.userPrincipal == null}"
+                 src="https://cdn.landesa.org/wp-content/uploads/default-user-image.png"
+                 alt="user-img"
+                 class="user-img"
             />
+            <img th:if="${#request.userPrincipal !=null}"
+                 src="https://cdn2.iconfinder.com/data/icons/audio-16/96/user_avatar_profile_login_button_account_member-512.png"
+                 alt="user-img"
+                 class="user-img">
+            <span th:if="${#request.userPrincipal == null}" class="user-info" onclick="toLogin()">Login</span>
+            <span th:if="${#request.userPrincipal !=null}" th:text="${#request.userPrincipal.getName()}"
+                  class="user-info" id="user-info"></span>
+            <!-- Dropdown list Start -->
+            <div th:if="${#request.userPrincipal!=null}" class="dropdown-list">
+                <div class="dropdown-item" th:if="${#request.isUserInRole('ROLE_ADMIN')}">
+                    <i class="bx bx-cog"></i>
+                    <div class="dropdown-text" onclick="toPreference()">Preferences</div>
+                </div>
+                <div class="dropdown-item" th:if="${#request.isUserInRole('ROLE_USER')}">
+                    <i class="bx bx-cog"></i>
+                    <div class="dropdown-text" onclick="toCustomerDetails()">Preferences</div>
+                </div>
+                <div class="dropdown-item">
+                    <i class="bx bx-log-out-circle"></i>
+                    <div class="dropdown-text" onclick="toLogout()">Log out</div>
+                </div>
+            </div>
+            <!-- Dropdown list end -->
         </a>
+        <!-- Nav bar column -->
         <div class="navbar">
-            <a href="index.html" class="nav-link nav-active">
+            <a href="/" class="nav-link nav-active">
                 <i class="bx bx-home"></i>
                 <span class="nav-link-title">Home</span>
             </a>
@@ -253,7 +298,7 @@
                 <!--                <option th:each="screening:${screeningList}" th:text="${screening.getDateMovie()}"></option>-->
             </select>
         </div>
-<!--        <button onclick="test()">SeatDetail</button>-->
+        <!--        <button onclick="test()">SeatDetail</button>-->
 
         <!-- Show-case -->
         <ul class="showcase">
@@ -361,11 +406,11 @@
             <select id="timeSelector">
                 <option value="">Please choose date</option>
             </select>
-            <button onclick="sendScreeningId()">Display seats</button>
+            <button id="display-seat-btn" onclick="sendScreeningId()">Display seats</button>
         </div>
 
         <!-- Your seats -->
-        <section >
+        <section>
             <h1>YOUR SEAT(S)</h1>
             <div class="tbl-header">
                 <table cellpadding="0" cellspacing="0" border="0">
@@ -393,7 +438,7 @@
             </div>
         </section>
 
-        <button type="button" id="submit-btn">Submit</button>
+        <button type="button" id="submit-btn" onclick="sendSeatsInfo()">Submit</button>
     </div>
 </div>
 
@@ -418,11 +463,14 @@
     </div>
 </footer>
 
+<!--Div to stored user info-->
+<div id="userId" th:if="${#request.userPrincipal != null}" th:text="${userId}"></div>
+
 <!-- Div to store JSON Screening, display none-->
-<div id="screeningsJson" th:text="${screeningsJson}" style="display: none"></div>
+<div id="screeningsJson" th:if="${screeningsJson}" th:text="${screeningsJson}" style="display: none"></div>
 
 <!--Didv to store JSON SeatDetail, display none-->
-<div id="seatDetailJson" th:text="${seatDetailJson}" style="display: none"></div>
+<div id="seatDetailJson" th:if="${seatDetailJson}" th:text="${seatDetailJson}" style="display: none"></div>
 <!-- Div to store msg-->
 <div th:if="${param.message}">
     <span th:text="${param.message}" id="message" style="display: none"></span>
@@ -434,125 +482,11 @@
 <!--Div to store price-->
 <input id="priceFromScreeningId" type="hidden">
 
-
-<script>
-    const timeSelector = document.getElementById("timeSelector");
-    const dateSelector = document.getElementById("dateSelector");
-
-    function getArrayFromJson() {
-        // Json to Array JS
-        const screeningsJson = document.getElementById("screeningsJson").innerText;
-        let screeningsArray = JSON.parse(screeningsJson);
-        return screeningsArray;
-    }
-
-    // Function to populate date options dynamically
-    function populateDateOptions(screeningsArray) {
-        const dateSet = new Set();
-
-        screeningsArray.forEach((screening) => {
-            dateSet.add(screening.dateMovie);
-        });
-
-        const sortedDates = Array.from(dateSet).sort();
-
-        sortedDates.forEach((date) => {
-            let option = document.createElement("option");
-            option.value = date;
-            option.textContent = date;
-            dateSelector.appendChild(option);
-        });
-    }
-
-    populateDateOptions(getArrayFromJson());
-
-    // Function to populate show time options based on the selected date
-    function populateShowTimeOptions(selectedDate) {
-        timeSelector.innerHTML = "";
-        let screeningsArray = getArrayFromJson();
-        console.log(screeningsArray)
-        const timesForSelectedDate = screeningsArray.filter(
-            (screening) => screening.dateMovie === selectedDate
-        );
-        console.log(timesForSelectedDate);
-
-        timesForSelectedDate.forEach((screening) => {
-            let option = document.createElement("option");
-            let text = `${screening.showTimes.startTime}-${screening.showTimes.endTime}`;
-            let screeningId = `${screening.id}`
-            console.log(screeningId)
-            option.value = `${screening.id}`;
-            option.textContent = text;
-            console.log(option)
-            timeSelector.appendChild(option);
-        });
-
-
-        // Show the showTimeSelector element once options are populated
-        timeSelector.style.display = "inline-block";
-    }
-
-    dateSelector.addEventListener("change", (event) => {
-        const selectedDate = event.target.value;
-        console.log(selectedDate)
-        populateShowTimeOptions(selectedDate);
-    });
-
-    // function getPrice(screeningId) {
-    //     let screeningsArray = getArrayFromJson();
-    //     console.log(screeningsArray)
-    //     const screeningFromId = screeningsArray.filter(
-    //         (screening) => screening.id == screeningId);
-    //     // const timesForSelectedDate = screeningsArray.filter (
-    //     //     (screening) => screening.dateMovie === selectedDate
-    //     // );
-    //     console.log(screeningFromId)
-    //     screeningFromId.forEach((screening) => {
-    //         console.log(screening.movie.price)
-    //         priceFromScreeningId.innerText = screening.movie.price;
-    //     });
-    //     return priceFromScreeningId.innerText;
-    // }
-
-    // timeSelector.addEventListener("change", (event) => {
-    //     const screeningId = event.target.value;
-    //     console.log(screeningId);
-    //     getPrice(screeningId);
-    //     document.getElementById("price").innerText = getPrice(screeningId) + "$";
-    // });
-
-</script>
-
-<script>
-    function sendScreeningId() {
-         let screeningId = timeSelector.value;
-         // alert(screeningId);
-         window.location.href = "/seatDetail/" + screeningId;
-    }
-    function test() {
-        console.log(ticketPrice);
-    }
-</script>
-
-<!--Script for seat detail-->
-<script>
-
-    function seatDetail() {
-        let seatsArray = [];
-        const seatDetailJson = document.getElementById("seatDetailJson").innerText;
-        const seatDetailArray = JSON.parse(seatDetailJson);
-        console.log(seatDetailArray)
-        seatDetailArray.forEach((seatDetail) => {
-            seatsArray.push(seatDetail.seats.id);
-            let seatPrice = seatDetail.screenings.movie.price;
-            // let seatFee = seatDetail.seats.fee;
-            document.getElementById("priceFromScreeningId").value = seatPrice;
-            console.log(seatPrice);
-        });
-        console.log(seatsArray)
-        return seatsArray;
-    }
-</script>
+<!--Form of Display Seat Button-->
+<form action="/seatDetail" method="get" id="formOfDisplaySeat">
+    <input type="hidden" name="screeningId" id="screeningIdInForm">
+    <input type="hidden" name="username" id="usernameInForm">
+</form>
 
 <!-- Link to main js -->
 <script src="/static/js/screening.js"></script>

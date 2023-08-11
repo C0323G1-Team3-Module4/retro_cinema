@@ -25,85 +25,88 @@
 <div th:if="${message}">
     <span th:text="${message}" id="message" style="display: none"></span>
 </div>
-<div class="sidebar">
-    <div class="logo-details">
-        <i class="bx bxs-registered icon"></i>
-        <div class="logo_name">Retro<span id="cinema">Cinema</span></div>
-        <i class="bx bx-menu" id="btn"></i>
-    </div>
-    <ul class="nav-list">
-        <li>
-            <i class="bx bx-search"></i>
-            <input type="text" placeholder="Search..."/>
-            <span class="tooltip">Search</span>
-        </li>
-        <li>
-            <a href="#">
-                <i class="bx bx-grid-alt"></i>
-                <span class="links_name">Dashboard</span>
-            </a>
-            <span class="tooltip">Dashboard</span>
-        </li>
-        <li>
-            <a href="#">
-                <i class="bx bx-user"></i>
-                <span class="links_name">User</span>
-            </a>
-            <span class="tooltip">User</span>
-        </li>
-        <li>
-            <a href="#">
-                <i class="bx bx-movie"></i>
-                <span class="links_name">Movies</span>
-            </a>
-            <span class="tooltip">Movies</span>
-        </li>
-        <li>
-            <a href="#">
-                <i class="bx bx-beer"></i>
-                <span class="links_name">Products</span>
-            </a>
-            <span class="tooltip">Products</span>
-        </li>
-        <li>
-            <a href="#">
-                <i class="bx bx-chair"></i>
-                <span class="links_name">Rooms</span>
-            </a>
-            <span class="tooltip">Rooms</span>
-        </li>
-        <li>
-            <a href="#">
-                <i class="bx bx-tv"></i>
-                <span class="links_name">Screenings</span>
-            </a>
-            <span class="tooltip">Screenings</span>
-        </li>
-        <li>
-            <a href="#">
-                <i class="bx bx-cart-alt"></i>
-                <span class="links_name">Bookings</span>
-            </a>
-            <span class="tooltip">Bookings</span>
-        </li>
-        <li>
-            <a href="#">
-                <i class="bx bx-cog"></i>
-                <span class="links_name">Setting</span>
-            </a>
-            <span class="tooltip">Setting</span>
-        </li>
-        <li class="profile">
-            <div class="profile-details">
-                <img src="profile.jpg" alt="profileImg"/>
-                <div class="name_job">
-                    <div class="name">Username</div>
-                </div>
-            </div>
-            <i class="bx bx-log-out" id="log_out"></i>
-        </li>
-    </ul>
-</div>
+<!--<div class="sidebar">-->
+<!--    <div class="logo-details">-->
+<!--        <i class="bx bxs-registered icon"></i>-->
+<!--        <div class="logo_name">Retro<span id="cinema">Cinema</span></div>-->
+<!--        <i class="bx bx-menu" id="btn"></i>-->
+<!--    </div>-->
+<!--    <ul class="nav-list">-->
+<!--        <li>-->
+<!--            <i class="bx bx-search"></i>-->
+<!--            <input type="text" placeholder="Search..."/>-->
+<!--            <span class="tooltip">Search</span>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a href="#">-->
+<!--                <i class="bx bx-grid-alt"></i>-->
+<!--                <span class="links_name">Dashboard</span>-->
+<!--            </a>-->
+<!--            <span class="tooltip">Dashboard</span>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a href="#">-->
+<!--                <i class="bx bx-user"></i>-->
+<!--                <span class="links_name">User</span>-->
+<!--            </a>-->
+<!--            <span class="tooltip">User</span>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a href="#">-->
+<!--                <i class="bx bx-movie"></i>-->
+<!--                <span class="links_name">Movies</span>-->
+<!--            </a>-->
+<!--            <span class="tooltip">Movies</span>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a href="#">-->
+<!--                <i class="bx bx-beer"></i>-->
+<!--                <span class="links_name">Products</span>-->
+<!--            </a>-->
+<!--            <span class="tooltip">Products</span>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a href="#">-->
+<!--                <i class="bx bx-chair"></i>-->
+<!--                <span class="links_name">Rooms</span>-->
+<!--            </a>-->
+<!--            <span class="tooltip">Rooms</span>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a href="#">-->
+<!--                <i class="bx bx-tv"></i>-->
+<!--                <span class="links_name">Screenings</span>-->
+<!--            </a>-->
+<!--            <span class="tooltip">Screenings</span>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a href="#">-->
+<!--                <i class="bx bx-cart-alt"></i>-->
+<!--                <span class="links_name">Bookings</span>-->
+<!--            </a>-->
+<!--            <span class="tooltip">Bookings</span>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a href="#">-->
+<!--                <i class="bx bx-cog"></i>-->
+<!--                <span class="links_name">Setting</span>-->
+<!--            </a>-->
+<!--            <span class="tooltip">Setting</span>-->
+<!--        </li>-->
+<!--        <li class="profile">-->
+<!--            <div class="profile-details">-->
+<!--                <img src="profile.jpg" alt="profileImg"/>-->
+<!--                <div class="name_job">-->
+<!--                    <div class="name">Username</div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <i class="bx bx-log-out" id="log_out"></i>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--</div>-->
+
+<section th:replace="/dashboard"></section>
+
 <section class="home-section">
     <h1 class="table-header">PRODUCTS</h1>
     <div class="container">
@@ -113,13 +116,15 @@
                 <i class="bx bx-folder-plus"></i>
             </a>
             <div class="search-box">
-                <input
-                        type="search"
-                        name=""
-                        id="search-input"
-                        placeholder="Search"
-                />
-                <i class="bx bx-search"></i>
+                <form id="search-form" th:action="@{/products/list}" style="display:flex;">
+                    <input
+                            type="search"
+                            th:name="name"
+                            id="search-input"
+                            placeholder="Search"
+                    />
+                    <i class="bx bx-search" id="search-icon" style="margin-top: auto"></i>
+                </form>
             </div>
         </div>
         <table>
@@ -144,7 +149,7 @@
                 <td id="function">
                     <a th:href="@{/products/editProduct(id=${p.id})}" class="function-btn" id="detail">
                         <input type="hidden">
-                        <i class="bx bx-info-circle"></i>
+                        <i class="bx bx-cut"></i>
                     </a>
                     <a href="#" class="function-btn" id="delete" th:attr="onclick=|deleteBySwal('${p.productName}','${p.id}')|">
                         <i class="bx bx-trash"></i>
@@ -175,7 +180,7 @@
         Swal.fire({
             title: msg,
             icon: 'success',
-            timer: 2000, // Time in milliseconds (2 seconds)
+            timer: 1500, // Time in milliseconds (2 seconds)
             timerProgressBar: true,
             showConfirmButton: false // Hide the "Confirm" button
         });
@@ -222,7 +227,10 @@
             }
         });
     }
-
+    // search
+    document.getElementById("search-icon").addEventListener("click", function() {
+        document.getElementById("search-form").submit();
+    });
 </script>
 </body>
 </html>

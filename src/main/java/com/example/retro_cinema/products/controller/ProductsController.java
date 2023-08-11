@@ -24,9 +24,10 @@ public class ProductsController {
 
 
     @GetMapping("/products/list")
-    public String getAllProducts(@RequestParam(defaultValue = "0") int page, Model model) {
+    public String getAllProducts(@RequestParam(defaultValue = "0") int page,
+                                 @RequestParam(defaultValue = "")String name, Model model) {
         Pageable pageable = PageRequest.of(page, 5);
-        Page<Products> productsList = productsService.pageProducts(pageable,true);
+        Page<Products> productsList = productsService.pageProducts(pageable,name,true);
         model.addAttribute("productsList", productsList);
         return "products/list";
     }
