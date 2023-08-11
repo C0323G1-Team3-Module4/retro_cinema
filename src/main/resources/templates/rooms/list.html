@@ -19,85 +19,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
-<div class="sidebar">
-    <div class="logo-details">
-        <i class="bx bxs-registered icon"></i>
-        <div class="logo_name">Retro<span id="cinema">Cinema</span></div>
-        <i class="bx bx-menu" id="btn"></i>
-    </div>
-    <ul class="nav-list">
-        <li>
-            <i class="bx bx-search"></i>
-            <input type="text" placeholder="Search..."/>
-            <span class="tooltip">Search</span>
-        </li>
-        <li>
-            <a href="#">
-                <i class="bx bx-grid-alt"></i>
-                <span class="links_name">Dashboard</span>
-            </a>
-            <span class="tooltip">Dashboard</span>
-        </li>
-        <li>
-            <a href="#">
-                <i class="bx bx-user"></i>
-                <span class="links_name">User</span>
-            </a>
-            <span class="tooltip">User</span>
-        </li>
-        <li>
-            <a href="#">
-                <i class="bx bx-movie"></i>
-                <span class="links_name">Movies</span>
-            </a>
-            <span class="tooltip">Movies</span>
-        </li>
-        <li>
-            <a href="#">
-                <i class="bx bx-beer"></i>
-                <span class="links_name">Products</span>
-            </a>
-            <span class="tooltip">Products</span>
-        </li>
-        <li>
-            <a href="#">
-                <i class="bx bx-chair"></i>
-                <span class="links_name">Rooms</span>
-            </a>
-            <span class="tooltip">Rooms</span>
-        </li>
-        <li>
-            <a href="#">
-                <i class="bx bx-tv"></i>
-                <span class="links_name">Screenings</span>
-            </a>
-            <span class="tooltip">Screenings</span>
-        </li>
-        <li>
-            <a href="#">
-                <i class="bx bx-cart-alt"></i>
-                <span class="links_name">Bookings</span>
-            </a>
-            <span class="tooltip">Bookings</span>
-        </li>
-        <li>
-            <a href="#">
-                <i class="bx bx-cog"></i>
-                <span class="links_name">Setting</span>
-            </a>
-            <span class="tooltip">Setting</span>
-        </li>
-        <li class="profile">
-            <div class="profile-details">
-                <img src="profile.jpg" alt="profileImg"/>
-                <div class="name_job">
-                    <div class="name">Username</div>
-                </div>
-            </div>
-            <i class="bx bx-log-out" id="log_out"></i>
-        </li>
-    </ul>
-</div>
+<!--<div class="sidebar">-->
+<!--    <div class="logo-details">-->
+<!--        <i class="bx bxs-registered icon"></i>-->
+<!--        <div class="logo_name">Retro<span id="cinema">Cinema</span></div>-->
+<!--        <i class="bx bx-menu" id="btn"></i>-->
+<!--    </div>-->
+<!--    <ul class="nav-list">-->
+<!--        <li>-->
+<!--            <i class="bx bx-search"></i>-->
+<!--            <input type="text" placeholder="Search..."/>-->
+<!--            <span class="tooltip">Search</span>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a href="#">-->
+<!--                <i class="bx bx-grid-alt"></i>-->
+<!--                <span class="links_name">Dashboard</span>-->
+<!--            </a>-->
+<!--            <span class="tooltip">Dashboard</span>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a href="#">-->
+<!--                <i class="bx bx-user"></i>-->
+<!--                <span class="links_name">User</span>-->
+<!--            </a>-->
+<!--            <span class="tooltip">User</span>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a href="#">-->
+<!--                <i class="bx bx-movie"></i>-->
+<!--                <span class="links_name">Movies</span>-->
+<!--            </a>-->
+<!--            <span class="tooltip">Movies</span>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a href="#">-->
+<!--                <i class="bx bx-beer"></i>-->
+<!--                <span class="links_name">Products</span>-->
+<!--            </a>-->
+<!--            <span class="tooltip">Products</span>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a href="#">-->
+<!--                <i class="bx bx-chair"></i>-->
+<!--                <span class="links_name">Rooms</span>-->
+<!--            </a>-->
+<!--            <span class="tooltip">Rooms</span>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a href="#">-->
+<!--                <i class="bx bx-tv"></i>-->
+<!--                <span class="links_name">Screenings</span>-->
+<!--            </a>-->
+<!--            <span class="tooltip">Screenings</span>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a href="#">-->
+<!--                <i class="bx bx-cart-alt"></i>-->
+<!--                <span class="links_name">Bookings</span>-->
+<!--            </a>-->
+<!--            <span class="tooltip">Bookings</span>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a href="#">-->
+<!--                <i class="bx bx-cog"></i>-->
+<!--                <span class="links_name">Setting</span>-->
+<!--            </a>-->
+<!--            <span class="tooltip">Setting</span>-->
+<!--        </li>-->
+<!--        <li class="profile">-->
+<!--            <div class="profile-details">-->
+<!--                <img src="profile.jpg" alt="profileImg"/>-->
+<!--                <div class="name_job">-->
+<!--                    <div class="name">Username</div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <i class="bx bx-log-out" id="log_out"></i>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--</div>-->
+
+<section th:replace="/dashboard"></section>
+
 <section class="home-section" th:object="${roomList}">
     <h1 class="table-header">Rooms List</h1>
     <div class="container">
