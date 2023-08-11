@@ -130,9 +130,10 @@
                                placeholder="Enter Your New Password">
                     </div>
                     <div class="form-outline mb-4">
-                    <input id="form2Example6" type="password" class="form-control" placeholder="Confirm Password">
+                    <input id="form2Example6" type="password" class="form-control" placeholder="Confirm Password" onkeyup="checkRPW()">
+                        <span style="color: red" id="message"></span>
                     </div>
-                    <span style="color: red" id="message"></span>
+
 
                     <div class="btn-sign-in">
                         <button type="submit" id="signUp" class="btn btn-primary btn-block mb-3">

@@ -103,8 +103,8 @@ public class Login {
         if (iAccountService.findByEmail(accountUserDto.getEmail()) != null) {
             model.addAttribute("fail", "This email already exists!");
             return "loginPage";
-        } else if (iAccountService.findByUsername(accountUserDto.getUsername()) != null){
-            model.addAttribute("fail","This user name already exists!");
+        } else if (iAccountService.findByUsername(accountUserDto.getUsername()) != null) {
+            model.addAttribute("fail", "This user name already exists!");
             System.out.println(accountUserDto.getUsername());
             return "loginPage";
         } else {
@@ -134,14 +134,14 @@ public class Login {
 
     @GetMapping("/email")
     public String email(Model model) {
-        model.addAttribute("accountUserDto",new AccountUserDto());
+        model.addAttribute("accountUserDto", new AccountUserDto());
         return "email_reset_pw";
     }
 
     @PostMapping("/confirm_email")
-    public String confirm_email(@Valid @ModelAttribute AccountUserDto accountUserDto,@RequestParam("email") String email, HttpServletRequest request, RedirectAttributes redirectAttributes,Model model) throws UnsupportedEncodingException, MessagingException {
-        if (iAccountService.findByEmail(accountUserDto.getEmail()) == null){
-            model.addAttribute("fail","This email don't exists or invalid email format!");
+    public String confirm_email(@Valid @ModelAttribute AccountUserDto accountUserDto, @RequestParam("email") String email, HttpServletRequest request, RedirectAttributes redirectAttributes, Model model) throws UnsupportedEncodingException, MessagingException {
+        if (iAccountService.findByEmail(accountUserDto.getEmail()) == null) {
+            model.addAttribute("fail", "This email don't exists or invalid email format!");
             System.out.println(accountUserDto.getEmail());
             return "email_reset_pw";
         }
@@ -155,13 +155,13 @@ public class Login {
     }
 
     @GetMapping("/reset_pw")
-    public String reset_pw(@ModelAttribute Customer customer, Model model) {
+    public String reset_pw(@ModelAttribute AccountUserDto accountUserDto, Model model) {
+        model.addAttribute("accountUserDto", new AccountUserDto());
         return "reset_pw";
     }
 
     @PostMapping("/new_pw")
-    public String new_pw(@RequestParam("new_pw") String new_pw,
-                         @ModelAttribute AccountUser accountUser,
+    public String new_pw(@ModelAttribute AccountUser accountUser, @RequestParam("new_pw") String new_pw,
                          RedirectAttributes redirectAttributes) {
         iAccountService.reset_pw(accountUser, new_pw);
         redirectAttributes.addFlashAttribute("success", "Password change successful.");
