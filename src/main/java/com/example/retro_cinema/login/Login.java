@@ -97,6 +97,7 @@ public class Login {
             , RedirectAttributes redirectAttributes, HttpServletRequest request, Model model) throws UnsupportedEncodingException, MessagingException {
         new AccountUserDto().validate(accountUserDto, bindingResult);
         if (bindingResult.hasErrors()) {
+            model.addAttribute("fail", "Wrong input, please check");
             model.addAttribute("accountUserDto", accountUserDto);
             return "loginPage";
         }
