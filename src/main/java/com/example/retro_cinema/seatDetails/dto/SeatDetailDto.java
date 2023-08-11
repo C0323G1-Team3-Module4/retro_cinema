@@ -1,8 +1,10 @@
 package com.example.retro_cinema.seatDetails.dto;
 
+import com.example.retro_cinema.seats.model.Seats;
+
 public class SeatDetailDto {
     private int idAccount;
-    private int id                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Seats;
+    private int idSeats;
     private int idScreenings;
     private boolean flag;
 
