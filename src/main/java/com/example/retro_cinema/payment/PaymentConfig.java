@@ -1,12 +1,14 @@
 package com.example.retro_cinema.payment;
-
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.util.Random;
-
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.*;
 public class PaymentConfig {
-    public String vnp_payUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+    public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
     public static String vnp_Returnurl = "http://localhost:8080/payment/return";
     public static String vnp_TmnCode = "GH5LJFLR";
     public static String vnp_HashSecret = "FLTDDGNTBDWWJVPGYZKMAWBEFKDVVQJR";
@@ -14,6 +16,7 @@ public class PaymentConfig {
 
     public static String vnp_Version = "2.1.0";
     public static String vnp_Command = "pay";
+
 
     public static String hmacSHA512(final String key, final String data) {
         try {
@@ -47,5 +50,4 @@ public class PaymentConfig {
         }
         return sb.toString();
     }
-
 }

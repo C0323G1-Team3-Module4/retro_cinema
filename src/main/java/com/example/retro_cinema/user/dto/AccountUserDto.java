@@ -42,6 +42,7 @@ public class AccountUserDto implements Validator {
         this.flag = flag;
     }
 
+
     public Integer getId() {
         return id;
     }
@@ -90,6 +91,7 @@ public class AccountUserDto implements Validator {
         this.expiryDate = expiryDate;
     }
 
+
     public String getVerificationCode() {
         return verificationCode;
     }
@@ -127,12 +129,12 @@ public class AccountUserDto implements Validator {
         } else if (accountUserDto.getUsername().length() < 5) {
             errors.rejectValue("username", "", "Your UserName must be at least 6 characters or more!");
         }
-        if (accountUserDto.getEmail().equals("")) {
+        if (accountUserDto.getEmail().trim().equals("")) {
             errors.rejectValue("email", "", "Email cannot is empty!");
-        } else if (!accountUserDto.getEmail().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{2,}$")) {
+        } else if (!accountUserDto.getEmail().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
             errors.rejectValue("email", "", "Invalid email format!");
         }
-        if (accountUserDto.getPass().equals("")) {
+        if (accountUserDto.getPass().trim().equals("")) {
             errors.rejectValue("pass", "", "Password cannot is empty!");
         } else if (!accountUserDto.getPass().matches("^(?=.*[0-9])(?=.*[a-zA-Z]).{6,}$")) {
             errors.rejectValue("pass", "", "Invalid password format!");

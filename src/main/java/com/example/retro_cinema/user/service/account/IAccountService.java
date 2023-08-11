@@ -16,8 +16,8 @@ public interface IAccountService {
     void createAccount(AccountUser accountUser);
     List<AccountUser> findAll();
     void reset(AccountUser accountUser);
-    void sendVerificationReset(AccountUser accountUser, String siteURL) throws MessagingException, UnsupportedEncodingException, MessagingException;
-    void sendVerificationEmail(AccountUser accountUser, String siteURL) throws MessagingException, UnsupportedEncodingException, MessagingException;
+    void sendVerificationReset(AccountUser accountUser, String siteURL) throws UnsupportedEncodingException, MessagingException;
+    void sendVerificationEmail(AccountUser accountUser, String siteURL) throws UnsupportedEncodingException, MessagingException;
     boolean verify(String verificationCode);
     AccountUser findByCode(String code);
     boolean verifyReset(String verificationCode);

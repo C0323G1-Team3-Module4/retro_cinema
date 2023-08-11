@@ -42,21 +42,6 @@ public class AccountUser {
     @JsonBackReference
     private Set<ProductDetail> productDetails;
 
-    public AccountUser(Integer id, String username, String email, String pass, boolean flag, Roles roles, Date expiryDate, String verificationCode, boolean enabled, Set<Customer> customerSet, Set<SeatDetails> seatDetails, Set<ProductDetail> productDetails) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.pass = pass;
-        this.flag = flag;
-        this.roles = roles;
-        this.expiryDate = expiryDate;
-        this.verificationCode = verificationCode;
-        this.enabled = enabled;
-        this.customerSet = customerSet;
-        this.seatDetails = seatDetails;
-        this.productDetails = productDetails;
-    }
-
     public Set<ProductDetail> getProductDetails() {
         return productDetails;
     }
