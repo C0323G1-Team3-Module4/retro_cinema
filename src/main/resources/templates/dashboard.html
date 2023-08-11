@@ -119,6 +119,17 @@
   function toHome() {
     window.location.href = "/";
   }
+  document.addEventListener("DOMContentLoaded", function () {
+    let msg = document.getElementById("message").innerText;
+    // Display a SweetAlert when the document is ready
+    Swal.fire({
+      title: msg,
+      icon: 'success',
+      timer: 1500, // Time in milliseconds (2 seconds)
+      timerProgressBar: true,
+      showConfirmButton: false // Hide the "Confirm" button
+    });
+  });
 </script>
 </body>
 </html>
