@@ -143,7 +143,7 @@
             </tr>
             <tr th:each="m, status:${moviePage}">
                 <td th:text="${moviePage.number*5+status.count}"></td>
-                <td th:text="${#strings.abbreviate(m.movieName,32)}"></td>
+                <td th:text="${#strings.abbreviate(m.movieName,25)}"></td>
                 <td th:text="${m.releaseDate}"></td>
                 <td th:text="${m.director}"></td>
                 <td th:text="${m.duration+' min'}"></td>
