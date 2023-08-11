@@ -101,7 +101,12 @@ public class Login {
             return "loginPage";
         }
         if (iAccountService.findByEmail(accountUserDto.getEmail()) != null) {
-            redirectAttributes.addFlashAttribute("fail", "This email already exists!");
+            model.addAttribute("fail", "This email already exists!");
+            return "loginPage";
+        } else if (iAccountService.findByUsername(accountUserDto.getUsername()) != null){
+            model.addAttribute("fail","This user name already exists!");
+            System.out.println(accountUserDto.getUsername());
+            return "loginPage";
         } else {
             AccountUser accountUser = new AccountUser();
             BeanUtils.copyProperties(accountUserDto, accountUser);
@@ -120,7 +125,7 @@ public class Login {
     @GetMapping("/verify")
     public String verifyUser(@RequestParam("code") String code, RedirectAttributes redirectAttributes) {
         if (iAccountService.verify(code)) {
-            redirectAttributes.addFlashAttribute("success1", "Congratulations, your account has been verified.");
+            redirectAttributes.addFlashAttribute("success", "Congratulations, your account has been verified.");
         } else {
             redirectAttributes.addFlashAttribute("fail", "Sorry, we could not verify account. It maybe already verified, or verification code is incorrect.");
         }
@@ -153,7 +158,7 @@ public class Login {
                          @ModelAttribute AccountUser accountUser,
                          RedirectAttributes redirectAttributes) {
         iAccountService.reset_pw(accountUser, new_pw);
-        redirectAttributes.addFlashAttribute("success2", "Password change successful.");
+        redirectAttributes.addFlashAttribute("success", "Password change successful.");
         return "redirect:/login";
     }
 

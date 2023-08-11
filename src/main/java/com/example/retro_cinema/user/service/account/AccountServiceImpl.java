@@ -228,6 +228,9 @@ public class AccountServiceImpl implements IAccountService {
 
     @Override
     public AccountUser findByUsername(String username) {
+        if (iAccountRepository.findAccountByUsername(username) == null){
+            return null;
+        }
         return iAccountRepository.findAccountByUsername(username);
     }
     @Override

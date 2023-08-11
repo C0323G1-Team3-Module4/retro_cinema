@@ -131,7 +131,7 @@ public class AccountUserDto implements Validator {
         }
         if (accountUserDto.getEmail().equals("")) {
             errors.rejectValue("email", "", "Email cannot is empty!");
-        } else if (!accountUserDto.getEmail().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{2,}$")) {
+        } else if (!accountUserDto.getEmail().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
             errors.rejectValue("email", "", "Invalid email format!");
         }
         if (accountUserDto.getPass().equals("")) {

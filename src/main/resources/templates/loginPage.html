@@ -120,6 +120,7 @@
         input[type="email"] {
             color: #0d060e;
         }
+
         .swal2-title {
             font-size: 20px; /* Adjust the font size as needed */
         }
@@ -145,33 +146,35 @@
     <span th:text="${success}" id="success" style="display: none"></span>
 </div>
 
-<div th:if="${param.success2}">
-    <span th:text="${param.success2}" id="success2" style="display: none"></span>
+<div th:if="${param.fail}">
+    <span th:text="${param.fail}" id="fail" style="display: none"></span>
 </div>
-<div th:if="${success2}">
-    <span th:text="${success2}" id="success2" style="display: none"></span>
+<div th:if="${fail}">
+    <span th:text="${fail}" id="fail" style="display: none"></span>
 </div>
+
 <script>
-    document.addEventListener("DOMContentLoaded", function (){
-        let suc = document.getElementById("success").innerText;
-        console.log(suc)
+    document.addEventListener("DOMContentLoaded", function () {
+        let success = document.getElementById("success").innerText;
+        console.log(success)
         Swal.fire({
-            title: suc,
+            title: success,
             icon: 'success',
-            time:1500,
+            timer: 1500,
             timerProgressBar: true,
             showConfirmButton: false
         });
     });
 </script>
+
 <script>
-    document.addEventListener("DOMContentLoaded", function (){
-        let suc2 = document.getElementById("success2").innerText;
-        console.log(suc2)
+    document.addEventListener("DOMContentLoaded", function () {
+        let fail = document.getElementById("fail").innerText;
+        console.log(fail)
         Swal.fire({
-            title: suc2,
-            icon: 'success',
-            time:1500,
+            title: fail,
+            icon: 'error',
+            timer: 1500,
             timerProgressBar: true,
             showConfirmButton: false
         });
@@ -235,7 +238,7 @@
                             />
                         </div>
                         <div th:if="${param.error}">
-                            <span ></span>
+                            <span></span>
                         </div>
 
                         <!-- Password input -->
@@ -312,6 +315,8 @@
                                         class="form-control"
                                         name="password"
                                         th:field="*{pass}"/>
+                                <span style="color: red" th:if="${#fields.hasErrors('pass')}"
+                                      th:errors="*{pass}"></span>
                             </div>
 
                             <div class="form-outline mb-4">
@@ -328,10 +333,7 @@
                                 <span style="color: red" id="message"></span>
                             </div>
                         </div>
-                        <div>
-                                <span style="color: red" th:if="${#fields.hasErrors('pass')}"
-                                      th:errors="*{pass}"></span>
-                        </div>
+
                         <!-- Submit button -->
                         <div class="btn-sign-in">
                             <button type="submit" id="signUp" class="btn btn-primary btn-block mb-3">
@@ -388,15 +390,14 @@
             message.textContent = "Password must be at least 6 characters";
             message.style.color = "#C71010FF";
             document.getElementById('button').style.display = 'none';
-
         }
     }
 
+    // back to register tab
     document.addEventListener('DOMContentLoaded', function () {
-        // Check if the "fail" message is "This email already exists!"
-        const failMsg = document.querySelector('.toast-body').textContent;
-        const checkMsg = "This email already exists!";
-        if (failMsg == checkMsg) {
+        let fail = document.getElementById("fail").innerText;
+        let success = document.getElementById("success").innerText;
+        if (fail != null || success != null) {
             const tabRegister = document.getElementById("tab-register");
             tabRegister.click();
         }
