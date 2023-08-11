@@ -5,6 +5,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1">
     <title>Add Screening</title>
+    <!-- Using SweetAlert2 from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <style>
         /* Tùy chỉnh các phần tử trong form */
         form {
@@ -36,6 +39,16 @@
         }
         input {
             width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid black;
+            border-radius: 10px;
+            background-color: #fff;
+            font-size: 16px;
+            color: #495057;
+        }
+        .input {
+            width: 97%;
             padding: 10px;
             margin-bottom: 15px;
             border: 1px solid black;
@@ -99,6 +112,17 @@
     </style>
 </head>
 <body>
+<!--Sweet Alert-->
+<div>
+    <div th:if="${param.message}">
+        <span th:text="${param.message}" id="message" style="display: none"></span>
+    </div>
+    <div th:if="${message}">
+        <span th:text="${message}" id="message" style="display: none"></span>
+    </div>
+</div>
+
+
 <form th:action="@{/screenings/addScreenings}" method="post" th:object="${screeningsDto}">
     <h3>Add Screenings</h3>
     <div class="content">
@@ -124,15 +148,27 @@
     </div>
     <div class="content">
         <label>Show date</label>
-        <input type="date" th:field="*{dateMovie}">
+        <input class="input" type="date" th:field="*{dateMovie}">
         <small th:if="${#fields.hasErrors('dateMovie')}" th:errors="*{dateMovie}"></small>
     </div>
 
     <div id="button">
         <button class="button">Add</button>
-        <button class="button" type="button"><a href="/products/list">Cancel</a></button>
+        <a href="/screenings/list"><button class="button" type="button">Cancel</button></a>
     </div>
-    <p th:if="${mess}" th:text="${mess}"></p>
 </form>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let msg = document.getElementById("message").innerText;
+        // Display a SweetAlert when the document is ready
+        Swal.fire({
+            title: msg,
+            icon: 'warning',
+            timer: 2000, // Time in milliseconds (2 seconds)
+            timerProgressBar: true,
+            showConfirmButton: false // Hide the "Confirm" button
+        });
+    });
+</script>
 </body>
 </html>

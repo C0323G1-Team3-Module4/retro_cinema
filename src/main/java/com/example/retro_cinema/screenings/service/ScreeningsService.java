@@ -77,4 +77,15 @@ public class ScreeningsService implements IScreeningsService {
     public Screenings getScreeningById(int id) {
         return screeningsRepository.findById(id).get();
     }
+
+    @Override
+    public List<Screenings> searchByDate(String date) {
+        List<Screenings> screeningsList = new ArrayList<>();
+        for (Screenings s: screeningsRepository.findAll()) {
+            if(s.getDateMovie().equals(date)){
+                screeningsList.add(s);
+            }
+        }
+        return screeningsList;
+    }
 }
