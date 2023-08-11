@@ -16,5 +16,5 @@ public interface IScreeningsService {
     Set<String> dateList(String name);
     Page<Screenings> getAllPage(Pageable pageable,Boolean flag);
     void deleteScreenings(int id);
-
+    Screenings getScreeningById(int id);
 }
