@@ -92,7 +92,7 @@ public class MovieService implements IMovieService {
             movies = getUpcomingMovie();
         } else {
             for (Movie m : movieList) {
-                if (m.getMovieName().contains(name)) {
+                if (m.getMovieName().toLowerCase().contains(name.toLowerCase())) {
                     movies.add(m);
                 }
             }
@@ -108,7 +108,7 @@ public class MovieService implements IMovieService {
             movies = getCurrentlyShowingMovies();
         } else {
             for (Movie m : movieList) {
-                if (m.getMovieName().contains(name)) {
+                if (m.getMovieName().toLowerCase().contains(name.toLowerCase())) {
                     movies.add(m);
                 }
             }

@@ -52,7 +52,7 @@ public class ProductsService implements IProductsService {
     }
 
     @Override
-    public Page<Products> pageProducts(Pageable pageable,boolean flag) {
-        return productsRepository.findAllByFlag(pageable,true);
+    public Page<Products> pageProducts(Pageable pageable,String name,boolean flag) {
+        return productsRepository.findProductsByProductNameContainingAndFlag(pageable,name,true);
     }
 }

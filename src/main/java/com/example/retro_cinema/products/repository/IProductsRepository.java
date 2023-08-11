@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IProductsRepository extends JpaRepository<Products,Integer> {
     Page<Products> findAllByFlag(Pageable pageable,boolean flag);
+    Page<Products> findProductsByProductNameContainingAndFlag(Pageable pageable, String name, boolean flag);
 }

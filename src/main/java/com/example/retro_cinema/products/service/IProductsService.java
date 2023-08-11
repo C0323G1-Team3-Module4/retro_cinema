@@ -12,5 +12,5 @@ public interface IProductsService {
     void deleteProducts(int id);
     void editProducts(Products products);
     Products findProduct(int id);
-    Page<Products> pageProducts(Pageable pageable,boolean flag);
+    Page<Products> pageProducts(Pageable pageable,String name,boolean flag);
 }
