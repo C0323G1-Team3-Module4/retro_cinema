@@ -119,8 +119,10 @@
 
 
                 <form class="login" action="/new_pw" method="post" th:object="${account}">
-                    <h1>Enter New Password</h1>
-                    <h3 th:text="${account.getEmail()}"></h3>
+                    <h1 style="text-align: center">Enter New Password</h1>
+                    <div>
+                   from: <h5 th:text="${account.getEmail()}"></h5>
+                    </div>
                     <input type="hidden" th:field="*{email}">
                     <input type="hidden" th:field="*{id}">
                     <div class="form-outline mb-4">

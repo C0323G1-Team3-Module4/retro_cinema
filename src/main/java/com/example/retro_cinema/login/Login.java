@@ -133,12 +133,18 @@ public class Login {
     }
 
     @GetMapping("/email")
-    public String email() {
+    public String email(Model model) {
+        model.addAttribute("accountUserDto",new AccountUserDto());
         return "email_reset_pw";
     }
 
     @PostMapping("/confirm_email")
-    public String confirm_email(@RequestParam("email") String email, HttpServletRequest request, RedirectAttributes redirectAttributes) throws UnsupportedEncodingException, MessagingException {
+    public String confirm_email(@Valid @ModelAttribute AccountUserDto accountUserDto,@RequestParam("email") String email, HttpServletRequest request, RedirectAttributes redirectAttributes,Model model) throws UnsupportedEncodingException, MessagingException {
+        if (iAccountService.findByEmail(accountUserDto.getEmail()) == null){
+            model.addAttribute("fail","This email don't exists or invalid email format!");
+            System.out.println(accountUserDto.getEmail());
+            return "email_reset_pw";
+        }
         AccountUser accountUser = iAccountService.findByEmail(email);
         accountUser.setExpiryDate(calculateExpiryDate());
         iAccountService.reset(accountUser);
