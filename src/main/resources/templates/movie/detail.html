@@ -29,46 +29,7 @@
 <body>
 <!-- Header -->
 <header>
-    <!-- Navigation Bar -->
-    <div class="nav container">
-        <!-- Logo -->
-        <a href="/" class="logo"> Retro<span>Cinema</span> </a>
-        <!-- Search Box -->
-        <div class="search-box">
-            <input
-                    type="search"
-                    name=""
-                    id="search-input"
-                    placeholder="Search Movie"
-            />
-            <i class="bx bx-search"></i>
-        </div>
-        <a href="#" class="user">
-            <img
-                    src="https://cdn.landesa.org/wp-content/uploads/default-user-image.png"
-                    alt="user-img"
-                    class="user-img"
-            />
-        </a>
-        <div class="navbar">
-            <a href="index.html" class="nav-link nav-active">
-                <i class="bx bx-home"></i>
-                <span class="nav-link-title">Home</span>
-            </a>
-            <a href="#home" class="nav-link">
-                <i class="bx bxs-hot"></i>
-                <span class="nav-link-title">Upcoming</span>
-            </a>
-            <a href="#home" class="nav-link">
-                <i class="bx bx-camera-movie"></i>
-                <span class="nav-link-title">Onscreen</span>
-            </a>
-            <a href="#home" class="nav-link">
-                <i class="bx bx-heart"></i>
-                <span class="nav-link-title">Favorite</span>
-            </a>
-        </div>
-    </div>
+   <section th:replace="/nav_bar"></section>
 </header>
 
 <!-- Play Movie Container -->
