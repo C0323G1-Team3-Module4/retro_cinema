@@ -115,7 +115,9 @@
     <div class="row">
         <div class="input-form" style="padding-top: 2rem">
 
-            <div class="tab-content">
+            <div class="tab-content"
+                 aria-labelledby="tab-content"
+            >
 
 
                 <form class="login" action="/new_pw" method="post" th:object="${account}">
@@ -152,19 +154,25 @@
         let pw = document.getElementById("form2Example5").value;
         let rpw = document.getElementById("form2Example6").value;
         let message = document.getElementById("message");
+        let singUpButton = document.getElementById("signUp");
         if (pw.length >= 6) {
             if (pw === rpw) {
                 message.textContent = "";
-                document.getElementById('button').style.display = 'block';
+                singUpButton.disabled = false;
+                // document.getElementById('button').style.display = 'block';
             } else {
                 message.textContent = "Password not match.";
                 message.style.color = "#C71010FF"
-                document.getElementById('button').style.display = 'none';
+                singUpButton.disabled = true;
+                // document.getElementById('button').style.display = 'none';
+                let tabRegister = document.getElementById("tab-content");
+                tabRegister.click();
             }
         } else {
             message.textContent = "Password must be at least 6 characters";
             message.style.color = "#C71010FF";
-            document.getElementById('button').style.display = 'none';
+            singUpButton.disabled = true;
+            // document.getElementById('button').style.display = 'none';
 
         }
     }

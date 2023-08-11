@@ -237,9 +237,6 @@
                                     class="form-control"
                             />
                         </div>
-                        <div th:if="${param.error}">
-                            <span></span>
-                        </div>
 
                         <!-- Password input -->
                         <div class="form-outline mb-4">
@@ -377,27 +374,32 @@
         let pw = document.getElementById("form2Example5").value;
         let rpw = document.getElementById("form2Example6").value;
         let message = document.getElementById("message");
+        let singUpButton = document.getElementById("signUp");
         if (pw.length >= 6) {
             if (pw === rpw) {
                 message.textContent = "";
-                document.getElementById('button').style.display = 'block';
+                // document.getElementById('button').style.display = 'block';
+                singUpButton.disabled = false;
             } else {
                 message.textContent = "Password not match.";
                 message.style.color = "#C71010FF"
-                document.getElementById('button').style.display = 'none';
+                singUpButton.disabled = true;
+                // document.getElementById('button').style.display = 'none';
+                let tabRegister = document.getElementById("tab-register");
+                tabRegister.click();
             }
         } else {
             message.textContent = "Password must be at least 6 characters";
             message.style.color = "#C71010FF";
-            document.getElementById('button').style.display = 'none';
+            singUpButton.disabled = true;
+            // document.getElementById('button').style.display = 'none';
         }
     }
 
     // back to register tab
     document.addEventListener('DOMContentLoaded', function () {
         let fail = document.getElementById("fail").innerText;
-        let success = document.getElementById("success").innerText;
-        if (fail != null || success != null) {
+        if (fail != null) {
             const tabRegister = document.getElementById("tab-register");
             tabRegister.click();
         }
