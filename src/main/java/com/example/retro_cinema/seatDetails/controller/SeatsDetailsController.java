@@ -32,4 +32,6 @@ public class SeatsDetailsController {
         }
         return "/screenings/screening";
     }
+
+
 }

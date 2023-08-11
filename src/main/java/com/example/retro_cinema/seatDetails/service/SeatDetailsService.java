@@ -1,5 +1,6 @@
 package com.example.retro_cinema.seatDetails.service;
 
+import com.example.retro_cinema.seatDetails.dto.SeatDetailInformation;
 import com.example.retro_cinema.seatDetails.model.SeatDetails;
 import com.example.retro_cinema.seatDetails.repository.ISeatDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +26,10 @@ public class SeatDetailsService implements ISeatDetailsService{
                 seatDetailsList.add(s);
             }
         }return seatDetailsList;
+    }
+
+    @Override
+    public List<SeatDetailInformation> getAllInformation() {
+        return seatDetailsRepository.getListInformation();
     }
 }

@@ -18,7 +18,7 @@ public class SeatDetails {
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     private AccountUser accountUser;
     @ManyToOne
-    @JoinColumn(name = "screening_id",referencedColumnName = "id")
+    @JoinColumn(name = "screening_id", referencedColumnName = "id")
     private Screenings screenings;
     @ManyToOne
     @JoinColumn(name = "seat_id", referencedColumnName = "id")
