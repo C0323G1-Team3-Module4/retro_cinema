@@ -350,6 +350,8 @@
 <!--Change URL if have error when login-->
 <script th:inline="javascript">
     // Check if the URL contains the error parameter
+    console.log(window.location.search);
+    console.log(document.title);
     if (window.location.search.includes('error=true')) {
         // Remove the error parameter from the URL
         const newUrl = window.location.href.replace('?error=true', '');
