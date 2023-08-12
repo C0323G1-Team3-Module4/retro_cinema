@@ -33,6 +33,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.7.13'
+    implementation 'com.github.hiwepy:zxing-spring-boot-starter:2.0.0.RELEASE'
 }
 
 tasks.named('test') {
