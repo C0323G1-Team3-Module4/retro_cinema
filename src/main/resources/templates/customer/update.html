@@ -287,7 +287,15 @@
                 document.getElementById('thumbnailURL').value = url;
             });
     }
-
+</script>
+<script th:inline="javascript">
+    // Check if the URL contains the desired pattern
+    if (window.location.pathname.includes('/customers/edit')) {
+        // Create the new URL without the specific path segment
+        const newUrl = window.location.origin + '/customers';
+        // Modify the URL without reloading the page
+        window.history.replaceState({}, document.title, newUrl);
+    }
 </script>
 </body>
 </html>
