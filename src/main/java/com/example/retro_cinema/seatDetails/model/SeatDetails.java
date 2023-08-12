@@ -27,6 +27,13 @@ public class SeatDetails {
     public SeatDetails() {
     }
 
+    public SeatDetails(boolean flag, AccountUser accountUser, Screenings screenings, Seats seats) {
+        this.flag = flag;
+        this.accountUser = accountUser;
+        this.screenings = screenings;
+        this.seats = seats;
+    }
+
     public SeatDetails(int id, boolean flag) {
         this.id = id;
         this.flag = flag;

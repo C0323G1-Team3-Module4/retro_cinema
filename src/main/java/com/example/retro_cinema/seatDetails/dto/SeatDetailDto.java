@@ -4,16 +4,16 @@ import com.example.retro_cinema.seats.model.Seats;
 
 public class SeatDetailDto {
     private int idAccount;
-    private int idSeats;
+    private String nameSeats;
     private int idScreenings;
     private boolean flag;
 
     public SeatDetailDto() {
     }
 
-    public SeatDetailDto(int idAccount, int idSeats, int idScreenings, boolean flag) {
+    public SeatDetailDto(int idAccount, String nameSeats, int idScreenings, boolean flag) {
         this.idAccount = idAccount;
-        this.idSeats = idSeats;
+        this.nameSeats = nameSeats;
         this.idScreenings = idScreenings;
         this.flag = flag;
     }
@@ -26,12 +26,12 @@ public class SeatDetailDto {
         this.idAccount = idAccount;
     }
 
-    public int getIdSeats() {
-        return idSeats;
+    public String getNameSeats() {
+        return nameSeats;
     }
 
-    public void setIdSeats(int idSeats) {
-        this.idSeats = idSeats;
+    public void setNameSeats(String nameSeats) {
+        this.nameSeats = nameSeats;
     }
 
     public int getIdScreenings() {
@@ -48,5 +48,15 @@ public class SeatDetailDto {
 
     public void setFlag(boolean flag) {
         this.flag = flag;
+    }
+
+    @Override
+    public String toString() {
+        return "SeatDetailDto{" +
+                "idAccount=" + idAccount +
+                ", nameSeats='" + nameSeats + '\'' +
+                ", idScreenings=" + idScreenings +
+                ", flag=" + flag +
+                '}';
     }
 }

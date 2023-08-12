@@ -438,7 +438,7 @@
             </div>
         </section>
 
-        <button type="button" id="submit-btn" onclick="sendSeatsInfo()">Submit</button>
+        <button type="button" id="submit-btn" onclick="showTickets()">Submit</button>
     </div>
 </div>
 
@@ -483,9 +483,14 @@
 <input id="priceFromScreeningId" type="hidden">
 
 <!--Form of Display Seat Button-->
-<form action="/seatDetail" method="get" id="formOfDisplaySeat">
+<form action="/seatDetail" method="post" id="formOfDisplaySeat">
     <input type="hidden" name="screeningId" id="screeningIdInForm">
     <input type="hidden" name="username" id="usernameInForm">
+</form>
+
+<form action="/showTickets" method="post" id="formOfShowTickets">
+    <input type="hidden" name="screeningId" id="screeningIdToShowTickets">
+    <input type="hidden" name="userId" id="userIdToShowTickets">
 </form>
 
 <!-- Link to main js -->

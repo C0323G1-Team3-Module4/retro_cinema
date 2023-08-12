@@ -187,6 +187,10 @@ main.addEventListener("click", (e) => {
 // intial count and total
 updateSelectedCount();
 
+function showTickets() {
+    sendSeatsInfo();
+}
+
 function sendSeatsInfo() {
     const selectedSeats = document.querySelectorAll(".row .seat.selected");
     const seatsList = [...selectedSeats].map((seat) => seat.textContent);
@@ -194,14 +198,90 @@ function sendSeatsInfo() {
     let userId = document.getElementById("userId").innerText;
     console.log(userId)
     let screeningId = JSON.parse(seatDetailJson)[0].screenings.id;
+    localStorage.setItem("userId",userId.toString());
+    localStorage.setItem("screeningId",screeningId.toString())
     let seatsInfoArr = [];
-
+    let apiSuccess = "";
 
     seatsList.forEach((seatName) => {
-        console.log(seatDetail)
         let flag = true;
-        let seatInfo = [userId, seatName, screeningId, flag]
+        let seatInfo = {
+            idAccount: parseInt(userId),
+            nameSeats: seatName,
+            idScreenings: screeningId,
+            flag: flag
+        };
         seatsInfoArr.push(seatInfo);
-    })
+    });
     console.log(seatsInfoArr);
+    if (seatsInfoArr.length > 0) {
+        Swal.fire({
+            title: "Are you want to confirm buying ticket(s)",
+            text: 'You can not undo this!!!',
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, I do!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch('/api/save-seat-details', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(seatsInfoArr),
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.text(); // Use response.text() to read the response body as text
+                    })
+                    .then(data => {
+                        // Handle the response from the back-end
+                        console.log('Success:', data); // Log the success message
+                        apiSuccess = data;
+                        // Display an alert or update UI if needed
+                        Swal.fire({
+                            title: data,
+                            icon: 'success',
+                            timer: 1500, // Time in milliseconds (2 seconds)
+                            timerProgressBar: true,
+                            showConfirmButton: false // Hide the "Confirm" button
+                        });
+                        // send form to show tickets
+                        sendFormShowTickets();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire({
+                            title: error,
+                            icon: 'error',
+                            timer: 1500, // Time in milliseconds (2 seconds)
+                            timerProgressBar: true,
+                            showConfirmButton: false // Hide the "Confirm" button
+                        });
+                    });
+            }
+        });
+        return true;
+    } else {
+        Swal.fire({
+            title: "No tickets for you to submit, please choose!",
+            icon: 'success',
+            timer: 1500, // Time in milliseconds (2 seconds)
+            timerProgressBar: true,
+            showConfirmButton: false // Hide the "Confirm" button
+        });
+        return false;
+    }
+}
+
+function sendFormShowTickets() {
+    let screeningId = parseInt(localStorage.getItem("screeningId"));
+    let userId = parseInt(localStorage.getItem("userId"));
+    document.getElementById("screeningIdToShowTickets").value = screeningId;
+    document.getElementById("userIdToShowTickets").value = userId;
+    document.getElementById("formOfShowTickets").submit();
 }

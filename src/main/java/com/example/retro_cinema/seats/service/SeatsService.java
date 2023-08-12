@@ -14,4 +14,9 @@ public class SeatsService implements ISeatsService{
     public List<Seats> getAllSeats() {
         return seatsRepository.findAll();
     }
+
+    @Override
+    public Seats findByName(String seatName) {
+        return seatsRepository.findBySeatName(seatName);
+    }
 }
