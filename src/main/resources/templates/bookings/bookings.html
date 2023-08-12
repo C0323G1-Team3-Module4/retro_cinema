@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Booking</title>
+    <!-- Link CSS -->
+    <link rel="stylesheet" href="/static/css/bookings.css"/>
+    <link rel="stylesheet" href="/static/css/ticket.css">
+    <!-- Box Icon -->
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
+    />
+    <!-- or -->
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
+    />
+    <!-- Using SweetAlert2 from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+</head>
+<body>
+<!-- Header -->
+<header>
+    <!-- Navigation Bar -->
+    <div class="nav container">
+        <!-- Logo -->
+        <a href="index.html" class="logo"> Retro<span>Cinema</span> </a>
+        <!-- Search Box -->
+        <div class="search-box">
+            <input
+                    type="search"
+                    name=""
+                    id="search-input"
+                    placeholder="Search Movie"
+            />
+            <i class="bx bx-search"></i>
+        </div>
+        <a href="#" class="user">
+            <img
+                    src="https://cdn.landesa.org/wp-content/uploads/default-user-image.png"
+                    alt="user-img"
+                    class="user-img"
+            />
+        </a>
+        <div class="navbar">
+            <a href="index.html" class="nav-link nav-active">
+                <i class="bx bx-home"></i>
+                <span class="nav-link-title">Home</span>
+            </a>
+            <a href="#home" class="nav-link">
+                <i class="bx bxs-hot"></i>
+                <span class="nav-link-title">Upcoming</span>
+            </a>
+            <a href="#home" class="nav-link">
+                <i class="bx bx-camera-movie"></i>
+                <span class="nav-link-title">Onscreen</span>
+            </a>
+            <a href="#home" class="nav-link">
+                <i class="bx bx-heart"></i>
+                <span class="nav-link-title">Favorite</span>
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- Bookings Container Start -->
+<div class="booking container">
+    <div class="ticket-list">
+        <div class="ticket-title">Your ticket(s)</div>
+        <!-- Ticket Item Start -->
+        <div class="ticket-item" th:each="ticket: ${tickets}">
+            <div class="ticket">
+                <div class="left">
+                    <div class="image">
+                        <img
+                                class="image-item"
+                                th:src="${ticket.getScreenings().getMovie().img}"
+                                alt=""
+                        />
+                        <p class="admit-one">
+                            <span>RetroCinema</span>
+                        </p>
+                    </div>
+                    <div class="ticket-info">
+                        <p class="date">
+                            <span class="june-29" th:text="${ticket.getScreenings().getDateMovie()}">2023-01-01</span>
+                        </p>
+                        <div class="show-name">
+                            <h2 th:text="${ticket.getScreenings().getMovie().movieName}">Movie Name</h2>
+                        </div>
+                        <div class="time">
+                            <p>
+                                <span th:text="${ticket.getScreenings().getShowTimes().getStartTime() + ' '}">8:00 PM</span>
+                                <span>TO</span>
+                                <span th:text="${' ' + ticket.getScreenings().getShowTimes().getEndTime() + ' '}">11:00 PM</span>
+                                <span>@ &nbsp;</span>
+                                <span th:text="${ticket.getScreenings().getShowTimes().getRooms().roomName}">Room</span>
+                                <p th:text="${ticket.getSeats().getSeatName()}">Seat Name</p>
+                            </p>
+                        </div>
+                        <p class="location">
+                            <span>Retro Cinema -  </span>
+                            <span> 280 Tran Hung Dao St.</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="right">
+                    <p class="admit-one">
+                        <span>RetroCinema</span>
+                    </p>
+                    <div class="right-info-container">
+                        <div class="time">
+                            <p>
+                                <span th:text="${ticket.getScreenings().getShowTimes().getStartTime() + ' '}">8:00 PM</span>
+                                <span>@</span>
+                                <span th:text="${' ' + ticket.getScreenings().getShowTimes().getRooms().roomName}">Room</span>
+                            </p>
+                            <p th:text="${ticket.getSeats().getSeatName()}">Seat Name</p>
+                        </div>
+                        <div class="barcode">
+                            <img
+                                    src="https://external-preview.redd.it/cg8k976AV52mDvDb5jDVJABPrSZ3tpi1aXhPjgcDTbw.png?auto=webp&s=1c205ba303c1fa0370b813ea83b9e1bddb7215eb"
+                                    alt="QR code"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="userIdHidden" th:text="${ticket.getAccountUser().id}" style="display: none"></div>
+            <div id="screeningIdHidden" th:text="${ticket.getScreenings().id}" style="display: none"></div>
+        </div>
+        <!-- Ticket Item End -->
+    </div>
+</div>
+<!-- Bookings Container End -->
+
+<!-- Footer -->
+<footer>
+    <div class="info container">
+        <div class="info-text">
+            <p>280 Tran Hung Dao Street, Da Nang City, Viet Nam</p>
+            <p>RETRO CINEMA &copy; COPYRIGHT 2023 ALL RIGHTS RESERVED</p>
+        </div>
+        <div class="info-logo">
+            <a href="https://www.facebook.com" class="info-logo-item"
+            ><i class="bx bxl-facebook-square"></i
+            ></a>
+            <a href="https://www.instagram.com" class="info-logo-item"
+            ><i class="bx bxl-instagram"></i
+            ></a>
+            <a href="https://www.youtube.com" class="info-logo-item"
+            ><i class="bx bxl-youtube"></i
+            ></a>
+        </div>
+    </div>
+</footer>
+<!-- Link to main js -->
+<script src="/static/js/home.js"></script>
+<form action="/confirm" method="post" id="confirmForm">
+    <input type="hidden" name="userId" id="userId">
+    <input type="hidden" name="screeningId" id="screeningId">
+</form>
+
+<!--<script>-->
+<!--    document.addEventListener("DOMContentLoaded", function () {-->
+<!--        confirmAndSetFlagToFalse();-->
+<!--    });-->
+
+<!--    function confirmAndSetFlagToFalse() {-->
+<!--        let msg = "Your tickets had been sent to your email";-->
+<!--        // Display a SweetAlert when the document is ready-->
+<!--        Swal.fire({-->
+<!--            title: msg,-->
+<!--            showClass: {-->
+<!--                popup: 'animate__animated animate__fadeInDown'-->
+<!--            },-->
+<!--            hideClass: {-->
+<!--                popup: 'animate__animated animate__fadeOutUp'-->
+<!--            }-->
+<!--        })-->
+<!--        document.getElementById("userId").value = document.getElementById("userIdHidden").innerText;-->
+<!--        document.getElementById("screeningId").value = document.getElementById("screeningId").innerText;-->
+<!--        document.getElementById("confirmForm").submit();-->
+<!--    }-->
+<!--</script>-->
+</body>
+</html>

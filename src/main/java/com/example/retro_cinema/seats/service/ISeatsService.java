@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ISeatsService {
     List<Seats> getAllSeats();
+    Seats findByName(String seatName);
 }

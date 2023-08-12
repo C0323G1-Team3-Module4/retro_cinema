@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap");
 
 * {
@@ -16,30 +16,32 @@ html {
   color: black;
   font-size: 14px;
   letter-spacing: 0.1em;
-}
+} */
 
 .ticket {
+  height: 13rem;
+  width: 800px;
   margin: auto;
   display: flex;
   background: white;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  border: 2px var(--main-color) solid;
 }
 
 .left {
+  height: 13rem;
   display: flex;
 }
 
 .image {
-  height: 250px;
-  width: 250px;
+  height: 13rem;
+  width: 13rem;
   background-size: contain;
   object-fit: cover;
   opacity: 0.85;
   display: flex;
 }
 
-.image-item {
+#image-item {
   width: 100%;
   overflow: hidden;
 }
@@ -47,7 +49,7 @@ html {
 .admit-one {
   position: absolute;
   color: darkgray;
-  height: 250px;
+  height: 13rem;
   padding: 0 10px;
   letter-spacing: 0.15em;
   display: flex;
@@ -80,6 +82,13 @@ html {
   align-items: center;
 }
 
+.ticket-info h2 {
+  font-size: 1.5rem;
+}
+.ticket-info .location {
+  color: black;
+}
+
 .date {
   border-top: 1px solid gray;
   border-bottom: 1px solid gray;
@@ -91,7 +100,7 @@ html {
 }
 
 .date span {
-  width: 100px;
+  width: 100%;
 }
 
 .date span:first-child {
@@ -104,7 +113,7 @@ html {
 
 .date .june-29 {
   color: #d83565;
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .show-name {
@@ -153,7 +162,8 @@ html {
 }
 
 .right {
-  width: 180px;
+  width: 13rem;
+  height: 13rem;
   border-left: 1px dashed #404040;
 }
 
@@ -166,7 +176,7 @@ html {
 }
 
 .right .right-info-container {
-  height: 250px;
+  height: 13rem;
   padding: 10px 10px 10px 35px;
   display: flex;
   flex-direction: column;
