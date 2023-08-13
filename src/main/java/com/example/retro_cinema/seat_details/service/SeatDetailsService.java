@@ -1,10 +1,12 @@
-package com.example.retro_cinema.seatDetails.service;
+package com.example.retro_cinema.seat_details.service;
 
-import com.example.retro_cinema.seatDetails.model.SeatDetails;
-import com.example.retro_cinema.seatDetails.repository.ISeatDetailsRepository;
+import com.example.retro_cinema.seat_details.model.SeatDetails;
+import com.example.retro_cinema.seat_details.repository.ISeatDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,5 +48,16 @@ public class SeatDetailsService implements ISeatDetailsService {
         SeatDetails oldTicket = seatDetailsRepository.findById(ticket.getId()).get();
         oldTicket.setFlag(false);
         seatDetailsRepository.save(oldTicket);
+    }
+
+    @Override
+    public List<SeatDetails> getAllSeatsDetailsByUser(int userId) {
+        List<SeatDetails> seatDetailsList = new ArrayList<>();
+        for (SeatDetails s: getAllSeatsDetails()) {
+            if(s.getAccountUser().getId()==userId && (Period.between(LocalDate.parse(s.getScreenings().getDateMovie()), LocalDate.now()).getDays() <= 0)){
+                seatDetailsList.add(s);
+            }
+        }
+        return seatDetailsList;
     }
 }

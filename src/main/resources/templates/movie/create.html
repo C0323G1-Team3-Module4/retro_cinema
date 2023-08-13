@@ -140,7 +140,7 @@
                        th:errors="*{director}"></small>
             </div>
             <div class="div">
-                <label for="date">Duration</label>
+                <label for="date">Release Date</label>
                 <input type="date" class="form__input" id="date" th:field="*{releaseDate}" />
                 <small style="color: red" th:if="${#fields.hasErrors('releaseDate')}"
                        th:errors="*{releaseDate}"></small>

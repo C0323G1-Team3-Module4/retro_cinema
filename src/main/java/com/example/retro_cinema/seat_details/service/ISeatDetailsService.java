@@ -1,6 +1,6 @@
-package com.example.retro_cinema.seatDetails.service;
+package com.example.retro_cinema.seat_details.service;
 
-import com.example.retro_cinema.seatDetails.model.SeatDetails;
+import com.example.retro_cinema.seat_details.model.SeatDetails;
 
 import java.util.List;
 
@@ -10,4 +10,5 @@ public interface ISeatDetailsService {
     void save(SeatDetails seatDetails);
     List<SeatDetails> findTicketsByUser(int userId, int screeningId, boolean flag);
     void setFlagToFalse(SeatDetails ticket);
+    List<SeatDetails> getAllSeatsDetailsByUser(int userId);
 }

@@ -1,6 +1,4 @@
-package com.example.retro_cinema.seatDetails.dto;
-
-import com.example.retro_cinema.seats.model.Seats;
+package com.example.retro_cinema.seat_details.dto;
 
 public class SeatDetailDto {
     private int idAccount;
