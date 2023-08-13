@@ -1,11 +1,10 @@
-package com.example.retro_cinema.seatDetails.controller;
+package com.example.retro_cinema.seat_details.controller;
 
-import com.example.retro_cinema.movie.model.Movie;
 import com.example.retro_cinema.movie.service.IMovieService;
 import com.example.retro_cinema.screenings.model.Screenings;
 import com.example.retro_cinema.screenings.service.IScreeningsService;
-import com.example.retro_cinema.seatDetails.model.SeatDetails;
-import com.example.retro_cinema.seatDetails.service.ISeatDetailsService;
+import com.example.retro_cinema.seat_details.model.SeatDetails;
+import com.example.retro_cinema.seat_details.service.ISeatDetailsService;
 import com.example.retro_cinema.user.service.account.IAccountService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,11 +28,11 @@ public class SeatsDetailsController {
     private IAccountService accountService;
     @Autowired
     private IMovieService movieService;
-    @GetMapping("/seatsDetail/list")
-    public String showList(Model model){
-        model.addAttribute("seatDetailsList",seatDetailsService.getAllSeatsDetails());
-        return "/seats_details/list";
-    }
+//    @GetMapping("/seatsDetail/list")
+//    public String showList(Model model){
+//        model.addAttribute("seatDetailsList",seatDetailsService.getAllSeatsDetails());
+//        return "/seats_details/list";
+//    }
     @PostMapping("/seatDetail")
     public String seatsDetail(@RequestParam("screeningId") int screeningId, @RequestParam("username") String username,Model model){
         model.addAttribute("userId",accountService.findByUsername(username).getId());
@@ -72,5 +71,9 @@ public class SeatsDetailsController {
 //        }
 //        System.out.println("Da doi flag");
 //    }
-
+    @GetMapping("/seat-details/bookings/{id}")
+    public String displayGetAllSeatsDetail(@PathVariable int id, Model model){
+        model.addAttribute("bookingsList",seatDetailsService.getAllSeatsDetailsByUser(id));
+        return "/seats_details/list";
+    }
 }

@@ -2,7 +2,7 @@ package com.example.retro_cinema.screenings.model;
 
 import com.example.retro_cinema.movie.model.Movie;
 import com.example.retro_cinema.product_detail.model.ProductDetail;
-import com.example.retro_cinema.seatDetails.model.SeatDetails;
+import com.example.retro_cinema.seat_details.model.SeatDetails;
 import com.example.retro_cinema.showtimes.model.ShowTimes;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 

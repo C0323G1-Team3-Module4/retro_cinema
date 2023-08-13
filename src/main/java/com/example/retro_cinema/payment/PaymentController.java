@@ -1,6 +1,6 @@
 package com.example.retro_cinema.payment;
 
-import com.example.retro_cinema.seatDetails.service.ISeatDetailsService;
+import com.example.retro_cinema.seat_details.service.ISeatDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

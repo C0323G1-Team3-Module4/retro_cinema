@@ -1,4 +1,4 @@
-package com.example.retro_cinema.seatDetails.model;
+package com.example.retro_cinema.seat_details.model;
 
 import com.example.retro_cinema.screenings.model.Screenings;
 import com.example.retro_cinema.seats.model.Seats;

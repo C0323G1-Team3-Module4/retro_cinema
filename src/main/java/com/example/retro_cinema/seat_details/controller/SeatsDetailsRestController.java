@@ -1,11 +1,11 @@
-package com.example.retro_cinema.seatDetails.controller;
+package com.example.retro_cinema.seat_details.controller;
 
 import com.example.retro_cinema.qr_code.controller.QRController;
 import com.example.retro_cinema.screenings.model.Screenings;
 import com.example.retro_cinema.screenings.service.IScreeningsService;
-import com.example.retro_cinema.seatDetails.dto.SeatDetailDto;
-import com.example.retro_cinema.seatDetails.model.SeatDetails;
-import com.example.retro_cinema.seatDetails.service.ISeatDetailsService;
+import com.example.retro_cinema.seat_details.dto.SeatDetailDto;
+import com.example.retro_cinema.seat_details.model.SeatDetails;
+import com.example.retro_cinema.seat_details.service.ISeatDetailsService;
 import com.example.retro_cinema.seats.model.Seats;
 import com.example.retro_cinema.seats.service.ISeatsService;
 import com.example.retro_cinema.user.model.AccountUser;

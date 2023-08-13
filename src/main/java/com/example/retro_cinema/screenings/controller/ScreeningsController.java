@@ -34,10 +34,11 @@ public class ScreeningsController {
     private IShowTimesService showTimesService;
 
     @GetMapping("/screenings/list")
-    public String showList(@RequestParam(defaultValue = "0") int page, Model model) {
+    public String showList(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "") String date ,Model model) {
         Pageable pageable = PageRequest.of(page, 5);
-        Page<Screenings> screeningsPage = screeningsService.getAllPage(pageable, true);
+        Page<Screenings> screeningsPage = screeningsService.getAllPage(pageable,date, true);
         model.addAttribute("screenings", screeningsPage);
+        model.addAttribute("date",date);
         return "screenings/menu";
     }
 

@@ -2,12 +2,13 @@ package com.example.retro_cinema.screenings.dto;
 
 import com.example.retro_cinema.movie.model.Movie;
 import com.example.retro_cinema.product_detail.model.ProductDetail;
-import com.example.retro_cinema.seatDetails.model.SeatDetails;
+import com.example.retro_cinema.seat_details.model.SeatDetails;
 import com.example.retro_cinema.showtimes.model.ShowTimes;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Set;
@@ -15,7 +16,9 @@ import java.util.Set;
 public class ScreeningsDto implements Validator {
     private int id;
     private boolean flag;
+    @NotNull(message = "Show time cannot is empty!")
     private ShowTimes showTimes;
+    @NotNull(message = "Movie Name cannot is empty!")
     private Movie movie;
     private String dateMovie;
     private Set<SeatDetails> seatDetails;

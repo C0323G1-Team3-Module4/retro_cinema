@@ -1,6 +1,6 @@
 package com.example.retro_cinema.qr_code.controller;
 
-import com.example.retro_cinema.seatDetails.model.SeatDetails;
+import com.example.retro_cinema.seat_details.model.SeatDetails;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class QRController {
     public static void generateQRCode(SeatDetails seatDetails) {
-        String qrCodePath = "/Users/lehuy/Documents/IMPORTANT/retro_cinema/src/main/resources/static/qr_code/";
+        String qrCodePath = "D:\\case4\\retro_cinema\\src\\main\\java\\com\\example\\retro_cinema\\qr_code\\controller\\QRController.java";
         String qrCodeName = qrCodePath + seatDetails.getId() + seatDetails.getAccountUser().getId() + seatDetails.getScreenings().getId() + seatDetails.getSeats().getId() + "-QRCODE.png";
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix;

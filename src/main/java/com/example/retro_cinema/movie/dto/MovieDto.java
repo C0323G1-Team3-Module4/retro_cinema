@@ -212,7 +212,7 @@ public class MovieDto implements Validator {
         MovieDto movieDto = (MovieDto) target;
         if (movieDto.getMovieName().equals("")) {
             errors.rejectValue("movieName", "", "Movie name cannot is empty!");
-        } else if (!movieDto.getMovieName().matches("^[\\p{Lu}][\\p{Ll}]*([\\s][\\p{Lu}][\\p{Ll}]*)*$")) {
+        } else if (!movieDto.getMovieName().matches("^[A-Za-z0-9\\s:]+$")) {
             errors.rejectValue("movieName", "", "Invalid movie name!");
         }
         try{
@@ -227,7 +227,7 @@ public class MovieDto implements Validator {
 
         if (movieDto.getDirector().equals("")) {
             errors.rejectValue("director", "", "Director's name cannot is empty!");
-        } else if (!movieDto.getDirector().matches("^[\\p{Lu}][\\p{Ll}\\p{Lu}]*([,\\s]+[\\p{Lu}][\\p{Ll}\\p{Lu}]*)*$")) {
+        } else if (!movieDto.getDirector().matches("^[\\p{Lu}][\\p{Ll}]*([\\s][\\p{Lu}][\\p{Ll}]*)*$")) {
             errors.rejectValue("director", "", "Invalid Director's name!");
         }
         if (movieDto.getPerformer().equals("")) {
