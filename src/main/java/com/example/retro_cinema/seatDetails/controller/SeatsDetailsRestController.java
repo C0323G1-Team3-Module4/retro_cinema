@@ -1,6 +1,6 @@
 package com.example.retro_cinema.seatDetails.controller;
 
-import com.example.retro_cinema.qr_code.controller.QRController;
+//import com.example.retro_cinema.qr_code.controller.QRController;
 import com.example.retro_cinema.screenings.model.Screenings;
 import com.example.retro_cinema.screenings.service.IScreeningsService;
 import com.example.retro_cinema.seatDetails.dto.SeatDetailDto;
@@ -37,7 +37,7 @@ public class SeatsDetailsRestController {
             boolean flag = seatDetail.isFlag();
             SeatDetails newSeatDetail = new SeatDetails(flag, accountUser, screening, seat);
             seatDetailsService.save(newSeatDetail);
-            QRController.generateQRCode(newSeatDetail);
+//            QRController.generateQRCode(newSeatDetail);
         }
         String message = "You had a successful purchase";
         return ResponseEntity.ok(message);

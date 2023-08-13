@@ -78,7 +78,7 @@ public class AccountServiceImpl implements IAccountService {
 
 
     @Override
-    public void sendVerificationReset(AccountUser accountUser, String siteURL) throws MessagingException, UnsupportedEncodingException, MessagingException {
+    public void sendVerificationReset(AccountUser accountUser, String siteURL) throws UnsupportedEncodingException, MessagingException {
         String toAddress = accountUser.getEmail();
         String fromAddress = "phantaanhdao@gmail.com";
         String senderName = "Cinema";
@@ -133,7 +133,7 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public void sendVerificationEmail(AccountUser accountUser, String siteURL) throws MessagingException, UnsupportedEncodingException, MessagingException {
+    public void sendVerificationEmail(AccountUser accountUser, String siteURL) throws UnsupportedEncodingException, MessagingException {
         String toAddress = accountUser.getEmail();
         String fromAddress = "phantaanhdao@gmail.com";
         String senderName = "cinema";
@@ -241,65 +241,24 @@ public class AccountServiceImpl implements IAccountService {
         iAccountRepository.save(oldUser);
     }
 
-//    @Override
-//    public void sendTicketMail(AccountUser accountUser, String siteURL) throws UnsupportedEncodingException, MessagingException {
-//        String toAddress = accountUser.getTicketMail();
-//        String fromAddress = "phantaanhdao@gmail.com";
-//        String sendName = "cinema";
-//        String subject = "Movie ticket information you have booked";
-//        String content = "<body>\n" +
-//                "    <div class=\"container\">\n" +
-//                "      <div class=\"card card-left\">\n" +
-//                "        <h1><span>Cinema</span></h1>\n" +
-//                "        <div class=\"title\">\n" +
-//                "          <h1>captain america: civil war</h1>\n" +
-//                "          <span>Movie</span>\n" +
-//                "        </div>\n" +
-//                "        <div class=\"seat\">\n" +
-//                "          <h2>100$</h2>\n" +
-//                "          <span>price</span>\n" +
-//                "        </div>\n" +
-//                "        <div class=\"seat\">\n" +
-//                "          <h2>12-12-2000</h2>\n" +
-//                "          <span>day</span>\n" +
-//                "        </div>\n" +
-//                "        <div class=\"time\"  >\n" +
-//                "            <h2>001</h2>\n" +
-//                "            <span>room</span>\n" +
-//                "          </div>\n" +
-//                "        <div class=\"time\" style=\"padding-left: 1rem\">\n" +
-//                "          <h2>12.00</h2>\n" +
-//                "          <span>start time</span>\n" +
-//                "        </div>\n" +
-//                "        <div class=\"time\" style=\"padding-left: 1rem\">\n" +
-//                "          <h2>12.00</h2>\n" +
-//                "          <span>end time</span>\n" +
-//                "        </div>\n" +
-//                "      </div>\n" +
-//                "      <div class=\"card card-right\">\n" +
-//                "        <div class=\"eye\"></div>\n" +
-//                "        <div class=\"number\">\n" +
-//                "          <div>G1</div>\n" +
-//                "          <span>seat</span>\n" +
-//                "        </div>\n" +
-//                "        </div>\n" +
-//                "        <div class=\"barcode\"></div>\n" +
-//                "      </div>\n" +
-//                "    </div>\n" +
-//                "  </body>";
-//
-//        MimeMessage message = mailSender.createMimeMessage();
-//        MimeMessageHelper helper = new MimeMessageHelper(message);
-//        try {
-//            helper.setFrom(fromAddress,sendName);
-//        }catch (MessagingException e){
-//            throw new RuntimeException(e);
-//        }
-//        helper.setTo(toAddress);
-//        helper.setSubject(subject);
-//        helper.setText(content,true);
-//        mailSender.send(message);
-//    }
+    @Override
+    public void sendTicketEmail(AccountUser accountUser, String siteURL) throws UnsupportedEncodingException, MessagingException {
+        String toAddress = accountUser.getEmail();
+        String fromAddress = "phantaanhdao@gmail.com";
+        String sendName = "cinema";
+        String subject = "Movie ticket information you have booked";
+        String content = "Hello!";
 
-
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+        try {
+            helper.setFrom(fromAddress,sendName);
+        }catch (MessagingException e){
+            throw new RuntimeException(e);
+        }
+        helper.setTo(toAddress);
+        helper.setSubject(subject);
+        helper.setText(content,true);
+        mailSender.send(message);
+    }
 }
