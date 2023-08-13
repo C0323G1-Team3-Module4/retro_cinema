@@ -1,6 +1,5 @@
 package com.example.retro_cinema.seat_details.controller;
 
-//import com.example.retro_cinema.qr_code.controller.QRController;
 import com.example.retro_cinema.qr_code.controller.QRController;
 import com.example.retro_cinema.screenings.model.Screenings;
 import com.example.retro_cinema.screenings.service.IScreeningsService;
@@ -35,8 +34,9 @@ public class SeatsDetailsRestController {
             AccountUser accountUser = accountService.findByIdAccount(seatDetail.getIdAccount());
             Seats seat = seatsService.findByName(seatDetail.getNameSeats());
             Screenings screening = screeningsService.getScreeningById(seatDetail.getIdScreenings());
+            System.out.println("TEST SCREENING: " + seatDetail.getIdScreenings());
             boolean flag = seatDetail.isFlag();
-            SeatDetails newSeatDetail = new SeatDetails(flag, accountUser, screening, seat);
+            SeatDetails newSeatDetail = new SeatDetails(flag,accountUser,screening,seat);
             String qrCode = QRController.generateQRCode(newSeatDetail);
             newSeatDetail.setQrCode(qrCode);
             seatDetailsService.save(newSeatDetail);
