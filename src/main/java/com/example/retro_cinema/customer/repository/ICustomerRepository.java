@@ -17,4 +17,5 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
     Optional<Customer> findById(Integer id);
     Customer findCustomerByAccountUser_Id(Integer id);
     Page<Customer> findCustomerByFullNameContainingAndFlag(String name, Pageable pageable, boolean flag);
+    Customer findCustomerByAccountUser_Username(String name);
 }

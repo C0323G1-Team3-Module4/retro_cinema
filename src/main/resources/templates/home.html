@@ -71,7 +71,8 @@
                 </div>
                 <div class="dropdown-item" th:if="${#request.isUserInRole('ROLE_USER')}">
                     <i class="bx bx-cog"></i>
-                    <div class="dropdown-text" onclick="toCustomerDetails()">Preferences</div>
+                    <input type="hidden" id="name" th:value="${#request.userPrincipal.getName()}" />
+                    <div class="dropdown-text" onclick="toDetailUser()">Preferences</div>
                 </div>
                 <div class="dropdown-item">
                     <i class="bx bx-log-out-circle"></i>
@@ -231,7 +232,10 @@
     function toPreference() {
         window.location.href = "/preference";
     }
-
+function toDetailUser(){
+        let name = document.getElementById("name").value
+        window.location.href="/customer/info/" + name;
+}
     function toCustomerDetails() {
         document.getElementById("toCustomerPreference").submit();
     }

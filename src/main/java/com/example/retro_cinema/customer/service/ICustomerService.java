@@ -15,4 +15,5 @@ public interface ICustomerService {
     void delete(Integer id);
     Customer findByIdAccount(Integer id);
     Customer findById(int id);
+    Customer findByNameCustomer(String name);
 }

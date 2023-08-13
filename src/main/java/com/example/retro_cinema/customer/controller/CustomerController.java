@@ -46,29 +46,6 @@ public class CustomerController {
         return "/customer/detail";
     }
 
-    @GetMapping("/edit/{id}")
-    public String formEditCustomer(@PathVariable Integer id, Model model) {
-        Customer customer = iCustomerService.findByIdCustomer(id);
-        CustomerDto customerDto = new CustomerDto();
-        BeanUtils.copyProperties(customer, customerDto);
-        model.addAttribute("customerDto", customerDto);
-        model.addAttribute("accountDto", iAccountService.findAll());
-        return "/customer/update";
-    }
-
-    @PostMapping("/update")
-    public String update(@Valid @ModelAttribute CustomerDto customerDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        Customer customer = new Customer();
-        new CustomerDto().validate(customerDto, bindingResult);
-        if (bindingResult.hasErrors()) {
-            return "/customer/update";
-        }
-        BeanUtils.copyProperties(customerDto, customer);
-        iCustomerService.update(customer);
-        redirectAttributes.addFlashAttribute("message", "Update Customer Success!");
-        String url = "redirect:/customers/info/" + customer.getId();
-        return url;
-    }
 
     @PostMapping("/delete")
     public String delete(@RequestParam("idDelete") Integer id, RedirectAttributes redirectAttributes) {

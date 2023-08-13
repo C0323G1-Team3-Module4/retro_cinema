@@ -79,4 +79,13 @@ public class CustomerService implements ICustomerService {
         return iCustomerRepository.findById(id).get();
     }
 
+    @Override
+    public Customer findByNameCustomer(String name) {
+        if (iCustomerRepository.findCustomerByAccountUser_Username(name) != null) {
+            return iCustomerRepository.findCustomerByAccountUser_Username(name);
+        } else {
+            return null;
+        }
+    }
+
 }

@@ -149,7 +149,32 @@
         });
     });
 </script>
-<div th:replace="/dashboard"></div>
+<div class="sidebar">
+    <div class="logo-details">
+        <i class="bx bxs-registered icon"></i>
+        <div class="logo_name" onclick="toHome()">Retro<span id="cinema">Cinema</span></div>
+        <i class="bx bx-menu" id="btn"></i>
+    </div>
+    <ul class="nav-list">
+        <li>
+            <a th:href="@{/seat-details/bookings/__${customer.id}__}">
+                <i class="bx bx-cart-alt"></i>
+                <span class="links_name">Bookings</span>
+            </a>
+            <span class="tooltip">Bookings</span>
+        </li>
+
+        <li class="profile">
+            <div class="profile-details">
+                <img src="https://cdn.landesa.org/wp-content/uploads/default-user-image.png" alt="profileImg"/>
+                <div class="name_job">
+                    <div class="name" id="username" th:text="${#request.userPrincipal.getName()}">Username</div>
+                </div>
+            </div>
+            <i class="bx bx-log-out" id="log_out" onclick="toHome()"></i>
+        </li>
+    </ul>
+</div>
 <section class="home-section">
     <img src="/img/movie-background-collage.png"
          alt="background" class="background">
@@ -204,14 +229,15 @@
 
     function toEdit() {
         let id = document.getElementById("id").value;
-        window.location.href = "/customers/edit/" + id;
+        let username = document.getElementById("username").innerText
+        window.location.href = "/customer/edit/" + id +"/" + username;
     }
 </script>
 <script th:inline="javascript">
     // Check if the URL contains the desired pattern
-    if (window.location.pathname.includes('/customers/info')) {
+    if (window.location.pathname.includes('/customer/info')) {
         // Create the new URL without the specific path segment
-        const newUrl = window.location.origin + '/customers';
+        const newUrl = window.location.origin + '/customer';
         // Modify the URL without reloading the page
         window.history.replaceState({}, document.title, newUrl);
     }
