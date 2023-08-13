@@ -41,6 +41,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         Set<GrantedAuthority> grantList = new HashSet<>();
         GrantedAuthority authority = new SimpleGrantedAuthority(role);
+        System.out.println("Authority: "  + authority);
         grantList.add(authority);
 
         UserDetails userDetails = (UserDetails) new User(accountUser.getUsername(), accountUser.getPass(), accountUser.isEnabled(), true, true, true, grantList);
