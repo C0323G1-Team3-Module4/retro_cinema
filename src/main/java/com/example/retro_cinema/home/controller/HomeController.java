@@ -46,7 +46,6 @@ public class HomeController {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-//        model.addAttribute("screeningList",screeningsList);
 
         return "/screenings/screening";
     }

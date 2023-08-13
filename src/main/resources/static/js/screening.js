@@ -1,5 +1,5 @@
-
-
+// Var to Get timeselector:
+let timeSelectorValue = 0;
 
 // Get time selector
 const timeSelector = document.getElementById("timeSelector");
@@ -77,7 +77,8 @@ function populateShowTimeOptions(selectedDate) {
 
 // display seats button
 function sendScreeningId() {
-    let screeningId = timeSelector.value;
+    timeSelectorValue = parseInt(timeSelector.value);
+    let screeningId = parseInt(timeSelector.value);
     document.getElementById("screeningIdInForm").value = screeningId;
     let username = document.getElementById("user-info").innerText;
     document.getElementById("usernameInForm").value = username;
@@ -197,10 +198,9 @@ function showTickets() {
 function sendSeatsInfo() {
     const selectedSeats = document.querySelectorAll(".row .seat.selected");
     const seatsList = [...selectedSeats].map((seat) => seat.textContent);
-    const screeningsJson = document.getElementById("screeningsJson").innerText;
     let userId = document.getElementById("userId").innerText;
     console.log(userId)
-    let screeningId = JSON.parse(screeningsJson)[0].id;
+    let screeningId = document.getElementById("trueScreeningId").innerText;
     localStorage.setItem("userId",userId.toString());
     localStorage.setItem("screeningId",screeningId.toString())
     let seatsInfoArr = [];

@@ -37,6 +37,8 @@ public class SeatsDetailsController {
     public String seatsDetail(@RequestParam("screeningId") int screeningId, @RequestParam("username") String username,Model model){
         model.addAttribute("userId",accountService.findByUsername(username).getId());
         model.addAttribute("seatDetail",seatDetailsService.getBySeatDetailsByIdScreenings(screeningId));
+        model.addAttribute("trueScreening", screeningId);
+        System.out.println(seatDetailsService.getBySeatDetailsByIdScreenings(screeningId));
         Screenings screenings = screeningsService.getScreeningById(screeningId);
         List<Screenings> screeningsList = screeningsService.getAllByNameMovie(screenings.getMovie().getMovieName());
         ObjectMapper objectMapper = new ObjectMapper();
@@ -73,7 +75,7 @@ public class SeatsDetailsController {
 //    }
     @GetMapping("/seat-details/bookings/{id}")
     public String displayGetAllSeatsDetail(@PathVariable int id, Model model){
-        model.addAttribute("bookingsList",seatDetailsService.getAllSeatsDetailsByUser(id));
+        model.addAttribute( "bookingsList",seatDetailsService.getAllSeatsDetailsByUser(id));
         return "/seats_details/list";
     }
 }
