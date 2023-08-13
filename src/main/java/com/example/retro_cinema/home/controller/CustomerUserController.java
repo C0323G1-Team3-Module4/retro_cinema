@@ -34,9 +34,13 @@ public class CustomerUserController {
     public String formEditCustomer(@PathVariable Integer id, @PathVariable String username, Model model) {
         Customer customer = iCustomerService.findByIdCustomer(id);
         CustomerDto customerDto = new CustomerDto();
-        BeanUtils.copyProperties(customer, customerDto);
+        customerDto.setAddress(customer.getAddress());
+        customerDto.setFullName(customer.getFullName());
+        customerDto.setDob(customer.getDob());
+        customerDto.setPhone(customer.getPhone());
+        customerDto.setGender(customer.getGender());
+        customerDto.setImage(customer.getImage());
         model.addAttribute("customerDto", customerDto);
-        model.addAttribute("accountDto", iAccountService.findAll());
         model.addAttribute("username",username);
         return "/user/update";
     }

@@ -17,7 +17,7 @@ public class Customer {
     private String gender;
     private String dob;
     private String image;
-    @Column(columnDefinition = "bit default 1")
+    @Column(columnDefinition = "bit default true")
     private boolean flag;
     @ManyToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id")
