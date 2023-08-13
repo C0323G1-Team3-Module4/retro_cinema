@@ -1,6 +1,6 @@
 package com.example.retro_cinema.seat_details.controller;
 
-import com.example.retro_cinema.qr_code.controller.QRController;
+//import com.example.retro_cinema.qr_code.controller.QRController;
 import com.example.retro_cinema.screenings.model.Screenings;
 import com.example.retro_cinema.screenings.service.IScreeningsService;
 import com.example.retro_cinema.seat_details.dto.SeatDetailDto;

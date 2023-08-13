@@ -155,6 +155,17 @@ public class Login {
         return "redirect:/login";
     }
 
+    @PostMapping("/ticket_email")
+    public String ticket_email(@RequestParam("email") String email, HttpServletRequest request, RedirectAttributes redirectAttributes)throws UnsupportedEncodingException, MessagingException{
+        AccountUser accountUser = iAccountService.findByEmail(email);
+        accountUser.setExpiryDate(calculateExpiryDate());
+        iAccountService.reset(accountUser);
+        String siteURL = getSiteURL(request);
+        iAccountService.sendTicketEmail(accountUser,siteURL);
+        redirectAttributes.addFlashAttribute("success","Please check your email to verify your movie ticket.");
+        return "redirect:/preference";
+    }
+
     @GetMapping("/reset_pw")
     public String reset_pw(@ModelAttribute AccountUserDto accountUserDto, Model model) {
         model.addAttribute("accountUserDto", new AccountUserDto());

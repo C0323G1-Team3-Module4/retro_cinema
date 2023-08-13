@@ -47,3 +47,4 @@ public class QRController {
         return "Miss src attribute";
     }
 }
+

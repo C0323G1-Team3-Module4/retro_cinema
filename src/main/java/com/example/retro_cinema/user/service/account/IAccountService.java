@@ -23,4 +23,5 @@ public interface IAccountService {
     boolean verifyReset(String verificationCode);
     AccountUser findByUsername(String username);
     void reset_pw(AccountUser accountUser, String new_pw);
+    void sendTicketEmail(AccountUser accountUser, String siteURL) throws UnsupportedEncodingException, MessagingException;
 }

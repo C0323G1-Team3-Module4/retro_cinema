@@ -173,7 +173,7 @@
                 <small style="color: red" th:if="${#fields.hasErrors('address')}"
                        th:errors="*{address}"></small>
             </div>
-            <div class="div">
+            <div class="div"> Gender
                 <select id="gender" th:field="*{gender}" required>
                     <option value="" disabled selected>Select gender</option>
                     <option value="male">Male</option>
@@ -202,7 +202,8 @@
         </div>
         <div class="end-buttons">
             <button class="my-button">Update</button>
-            <button type="button" class="my-button"><a href="/customers">Cancel</a></button>
+<!--            <button type="button" class="my-button"><a href="/customers">Cancel</a></button>-->
+            <button type="button" onclick="back_detail()">cancel</button>
         </div>
     </form>
 </div>
@@ -295,6 +296,9 @@
         const newUrl = window.location.origin + '/customers';
         // Modify the URL without reloading the page
         window.history.replaceState({}, document.title, newUrl);
+    }
+    function back_detail() {
+        history.back()
     }
 </script>
 </body>
