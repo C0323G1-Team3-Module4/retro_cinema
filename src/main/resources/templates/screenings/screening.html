@@ -222,15 +222,7 @@
         <!-- Logo -->
         <a href="/" class="logo"> Retro<span>Cinema</span> </a>
         <!-- Search Box -->
-        <div class="search-box">
-            <input
-                    type="search"
-                    th:name="name"
-                    id="search-input"
-                    placeholder="Search Movie"
-            />
-            <i class="bx bx-search" onclick="toSearch()"></i>
-        </div>
+
         <!-- User -->
         <div>
 
@@ -287,6 +279,10 @@
     </div>
 </header>
 
+<form action="/customers/toPreference" method="post" id="toCustomerPreference"
+      th:if="${#request.userPrincipal !=null }">
+    <input type="hidden" name="username" id="username" th:value="${#request.userPrincipal.getName()}">
+</form>
 <!-- Seat Container -->
 <div class="container main">
     <!-- Left side -->
@@ -495,5 +491,22 @@
 
 <!-- Link to main js -->
 <script src="/static/js/screening.js"></script>
+<script>
+    function toLogin() {
+        window.location.href = "/login";
+    }
+
+    function toLogout() {
+        window.location.href = "/logout";
+    }
+
+    function toPreference() {
+        window.location.href = "/preference";
+    }
+    function toCustomerDetails() {
+        document.getElementById("toCustomerPreference").submit();
+    }
+
+</script>
 </body>
 </html>

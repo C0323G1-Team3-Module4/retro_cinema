@@ -22,50 +22,15 @@
       }
 
     </style>
+
   </head>
   <body>
     <!-- Header -->
     <header>
-      <!-- Navigation Bar -->
-      <div class="nav container">
-        <!-- Logo -->
-        <a href="index.html" class="logo"> Retro<span>Cinema</span> </a>
-        <!-- Search Box -->
-        <div class="search-box">
-          <input
-            type="search"
-            name=""
-            id="search-input"
-            placeholder="Search Movie"
-          />
-          <i class="bx bx-search"></i>
-        </div>
-        <a href="#" class="user">
-          <img
-            src="https://cdn.landesa.org/wp-content/uploads/default-user-image.png"
-            alt="user-img"
-            class="user-img"
-          />
-        </a>
-        <div class="navbar">
-          <a href="index.html" class="nav-link nav-active">
-            <i class="bx bx-home"></i>
-            <span class="nav-link-title">Home</span>
-          </a>
-          <a href="#home" class="nav-link">
-            <i class="bx bxs-hot"></i>
-            <span class="nav-link-title">Upcoming</span>
-          </a>
-          <a href="#home" class="nav-link">
-            <i class="bx bx-camera-movie"></i>
-            <span class="nav-link-title">Onscreen</span>
-          </a>
-          <a href="#home" class="nav-link">
-            <i class="bx bx-heart"></i>
-            <span class="nav-link-title">Favorite</span>
-          </a>
-        </div>
-      </div>
+
+      <section th:replace="/nav_bar">
+
+      </section>
     </header>
 
     <!-- Play Movie Container -->
@@ -93,10 +58,19 @@
           <span>4K</span>
         </div>
         <!-- Trailer Button -->
+<!--        <span th:if="${#request.userPrincipal == null}" class="user-info" onclick="toLogin()">-->
+<!--          <i class='bx bx-cart'></i>-->
+<!--          <span>Booking</span>-->
+<!--        </span>-->
+        <span th:if="${#request.userPrincipal == null}" class="promo-button" onclick="toLogin()">
+          <i class='bx bx-cart'></i>
+          <span>Booking</span>
+        </span>
+        <span th:if="${#request.userPrincipal !=null}">
         <a th:href="@{/home/screening/__${movie.id}__}" class="promo-button">
           <i class='bx bx-cart'></i>
           <span>Booking</span>
-        </a>
+        </a></span>
       </div>
 
       <!-- Play Button -->
@@ -163,4 +137,25 @@
     <!-- Link to main js -->
     <script src="/js/home.js"></script>
   </body>
+  <script>
+    function toLogin() {
+      window.location.href = "/login";
+    }
+
+    function toLogout() {
+      window.location.href = "/logout";
+    }
+
+    function toPreference() {
+      window.location.href = "/preference";
+    }
+
+    function toCustomerDetails() {
+      document.getElementById("toCustomerPreference").submit();
+    }
+    function toSearch() {
+      let name = document.getElementById("search-input").value;
+      window.location.href = "?name="+name;
+    }
+  </script>
 </html>
