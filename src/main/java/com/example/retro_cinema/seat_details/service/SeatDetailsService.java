@@ -22,6 +22,7 @@ public class SeatDetailsService implements ISeatDetailsService {
 
     @Override
     public List<SeatDetails> getBySeatDetailsByIdScreenings(int id) {
+        System.out.println("ID:" + id);
         List<SeatDetails> seatDetailsList = new ArrayList<>();
         List<SeatDetails> seatDetails = getAllSeatsDetails();
         for (SeatDetails s : seatDetails) {
@@ -29,6 +30,7 @@ public class SeatDetailsService implements ISeatDetailsService {
                 seatDetailsList.add(s);
             }
         }
+        System.out.println("TEST" + seatDetailsList);
         return seatDetailsList;
     }
 

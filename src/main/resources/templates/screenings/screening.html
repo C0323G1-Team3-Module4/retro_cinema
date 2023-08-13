@@ -478,6 +478,9 @@
 <!--Div to store price-->
 <input id="priceFromScreeningId" type="hidden">
 
+<!--Div to store TRUE screeningId-->
+<div th:if="${trueScreening}" th:text="${trueScreening}" style="display: none" id="trueScreeningId"></div>
+
 <!--Form of Display Seat Button-->
 <form action="/seatDetail" method="post" id="formOfDisplaySeat">
     <input type="hidden" name="screeningId" id="screeningIdInForm">
