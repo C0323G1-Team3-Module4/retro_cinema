@@ -1,6 +1,6 @@
 package com.example.retro_cinema.seats.model;
 
-import com.example.retro_cinema.seatDetails.model.SeatDetails;
+import com.example.retro_cinema.seat_details.model.SeatDetails;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;

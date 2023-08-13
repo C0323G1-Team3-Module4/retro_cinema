@@ -27,6 +27,7 @@
         .content {
             width: 100%;
         }
+
         select {
             width: 100%;
             padding: 10px;
@@ -37,6 +38,13 @@
             font-size: 16px;
             color: #495057;
         }
+
+        option {
+            font-size: 16px;
+            color: darkblue;
+
+        }
+
         input {
             width: 100%;
             padding: 10px;
@@ -47,6 +55,7 @@
             font-size: 16px;
             color: #495057;
         }
+
         .input {
             width: 97%;
             padding: 10px;
@@ -114,10 +123,10 @@
 <body>
 <!--Sweet Alert-->
 <div>
-    <div th:if="${param.message}">
+    <div  th:if="${param.message}">
         <span th:text="${param.message}" id="message" style="display: none"></span>
     </div>
-    <div th:if="${message}">
+    <div  th:if="${message}">
         <span th:text="${message}" id="message" style="display: none"></span>
     </div>
 </div>
@@ -135,26 +144,31 @@
         </select>
     </div>
     <div class="content">
-        <small th:if="${#fields.hasErrors('movie')}" th:errors="*{movie}"></small>
+        <div style="height: 20px"><small th:if="${#fields.hasErrors('movie')}" th:errors="*{movie}"
+                                         style="color: red;"></small></div>
         <label>Screenings</label>
         <select th:field="*{showTimes}">
             <option value="">Choose screenings</option>
-            <th:block th:each="m:${showTimesList}">
+            <th:block  th:each="m:${showTimesList}">
                 <option th:value="${m.id}"
                         th:text="${m.getStartTime()}+'-'+${m.getEndTime()}+'-'+${m.getRoomName()}"></option>
             </th:block>
         </select>
-        <small th:if="${#fields.hasErrors('showTimes')}" th:errors="*{showTimes}"></small>
+        <div style="height: 20px"><small th:if="${#fields.hasErrors('showTimes')}" th:errors="*{showTimes}"
+                                         style="color: red"></small></div>
     </div>
     <div class="content">
         <label>Show date</label>
         <input class="input" type="date" th:field="*{dateMovie}">
-        <small th:if="${#fields.hasErrors('dateMovie')}" th:errors="*{dateMovie}"></small>
+        <div style="height: 20px"><small th:if="${#fields.hasErrors('dateMovie')}" style="color: red"
+                                         th:errors="*{dateMovie}"></small></div>
     </div>
 
     <div id="button">
         <button class="button">Add</button>
-        <a href="/screenings/list"><button class="button" type="button">Cancel</button></a>
+        <a href="/screenings/list">
+            <button class="button" type="button">Cancel</button>
+        </a>
     </div>
 </form>
 <script>
@@ -167,6 +181,7 @@
             timer: 2000, // Time in milliseconds (2 seconds)
             timerProgressBar: true,
             showConfirmButton: false // Hide the "Confirm" button
+
         });
     });
 </script>

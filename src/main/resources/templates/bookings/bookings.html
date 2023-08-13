@@ -26,26 +26,54 @@
     <!-- Navigation Bar -->
     <div class="nav container">
         <!-- Logo -->
-        <a href="index.html" class="logo"> Retro<span>Cinema</span> </a>
+        <a href="/" class="logo"> Retro<span>Cinema</span> </a>
         <!-- Search Box -->
         <div class="search-box">
             <input
                     type="search"
-                    name=""
+                    th:name="name"
                     id="search-input"
                     placeholder="Search Movie"
             />
-            <i class="bx bx-search"></i>
+            <i class="bx bx-search" onclick="toSearch()"></i>
+        </div>
+        <!-- User -->
+        <div>
+
         </div>
         <a href="#" class="user">
-            <img
-                    src="https://cdn.landesa.org/wp-content/uploads/default-user-image.png"
-                    alt="user-img"
-                    class="user-img"
+            <img th:if="${#request.userPrincipal == null}"
+                 src="https://cdn.landesa.org/wp-content/uploads/default-user-image.png"
+                 alt="user-img"
+                 class="user-img"
             />
+            <img th:if="${#request.userPrincipal !=null}"
+                 src="https://cdn2.iconfinder.com/data/icons/audio-16/96/user_avatar_profile_login_button_account_member-512.png"
+                 alt="user-img"
+                 class="user-img">
+            <span th:if="${#request.userPrincipal == null}" class="user-info" onclick="toLogin()">Login</span>
+            <span th:if="${#request.userPrincipal !=null}" th:text="${#request.userPrincipal.getName()}"
+                  class="user-info"></span>
+            <!-- Dropdown list Start -->
+            <div th:if="${#request.userPrincipal!=null}" class="dropdown-list">
+                <div class="dropdown-item" th:if="${#request.isUserInRole('ROLE_ADMIN')}">
+                    <i class="bx bx-cog"></i>
+                    <div class="dropdown-text" onclick="toPreference()">Preferences</div>
+                </div>
+                <div class="dropdown-item" th:if="${#request.isUserInRole('ROLE_USER')}">
+                    <i class="bx bx-cog"></i>
+                    <div class="dropdown-text" onclick="toCustomerDetails()">Preferences</div>
+                </div>
+                <div class="dropdown-item">
+                    <i class="bx bx-log-out-circle"></i>
+                    <div class="dropdown-text" onclick="toLogout()">Log out</div>
+                </div>
+            </div>
+            <!-- Dropdown list end -->
         </a>
+        <!-- Nav bar column -->
         <div class="navbar">
-            <a href="index.html" class="nav-link nav-active">
+            <a href="/" class="nav-link nav-active">
                 <i class="bx bx-home"></i>
                 <span class="nav-link-title">Home</span>
             </a>
@@ -185,5 +213,27 @@
 <!--        document.getElementById("confirmForm").submit();-->
 <!--    }-->
 <!--</script>-->
+
+<script>
+    function toLogin() {
+        window.location.href = "/login";
+    }
+
+    function toLogout() {
+        window.location.href = "/logout";
+    }
+
+    function toPreference() {
+        window.location.href = "/preference";
+    }
+
+    function toCustomerDetails() {
+        document.getElementById("toCustomerPreference").submit();
+    }
+    function toSearch() {
+        let name = document.getElementById("search-input").value;
+        window.location.href = "?name="+name;
+    }
+</script>
 </body>
 </html>

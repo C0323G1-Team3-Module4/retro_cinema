@@ -1,6 +1,6 @@
-package com.example.retro_cinema.seatDetails.repository;
+package com.example.retro_cinema.seat_details.repository;
 
-import com.example.retro_cinema.seatDetails.model.SeatDetails;
+import com.example.retro_cinema.seat_details.model.SeatDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -32,7 +32,7 @@ public class ScreeningsService implements IScreeningsService {
         List<Screenings> screeningsList = new ArrayList<>();
         List<Screenings> getAllListDto = screeningsRepository.findAll();
         for (Screenings i: getAllListDto) {
-            if(i.getMovie().getMovieName().equals(nameMovie)){
+            if(i.getMovie().getMovieName().equals(nameMovie) && i.isFlag()){
                 screeningsList.add(i);
             }
         }
@@ -62,8 +62,8 @@ public class ScreeningsService implements IScreeningsService {
     }
 
     @Override
-    public Page<Screenings> getAllPage(Pageable pageable,Boolean flag) {
-        return screeningsRepository.findAllByFlag(pageable,true);
+    public Page<Screenings> getAllPage(Pageable pageable,String date,Boolean flag) {
+        return screeningsRepository.findScreeningsByDateMovieContainingAndFlag(pageable,date,true);
     }
 
     @Override

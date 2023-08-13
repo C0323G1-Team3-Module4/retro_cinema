@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface IScreeningsRepository extends JpaRepository<Screenings, Integer> {
-    Page<Screenings> findAllByFlag(Pageable pageable,boolean flag);
+    Page<Screenings> findScreeningsByDateMovieContainingAndFlag(Pageable pageable,String date,boolean flag);
 }

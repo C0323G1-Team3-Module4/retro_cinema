@@ -194,10 +194,10 @@ function showTickets() {
 function sendSeatsInfo() {
     const selectedSeats = document.querySelectorAll(".row .seat.selected");
     const seatsList = [...selectedSeats].map((seat) => seat.textContent);
-    const seatDetailJson = document.getElementById("seatDetailJson").innerText;
+    const screeningsJson = document.getElementById("screeningsJson").innerText;
     let userId = document.getElementById("userId").innerText;
     console.log(userId)
-    let screeningId = JSON.parse(seatDetailJson)[0].screenings.id;
+    let screeningId = JSON.parse(screeningsJson)[0].id;
     localStorage.setItem("userId",userId.toString());
     localStorage.setItem("screeningId",screeningId.toString())
     let seatsInfoArr = [];
