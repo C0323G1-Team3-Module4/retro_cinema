@@ -1,3 +1,6 @@
+
+
+
 // Get time selector
 const timeSelector = document.getElementById("timeSelector");
 // Get date selector
@@ -8,6 +11,10 @@ const screeningsJson = document.getElementById("screeningsJson");
 if (screeningsJson != null) {
     populateDateOptions(getArrayFromJson());
 }
+//Get ticket price
+let seatPrice = JSON.parse(screeningsJson.innerText)[0].movie.price;
+document.getElementById("priceFromScreeningId").value = seatPrice;
+console.log(seatPrice);
 
 dateSelector.addEventListener("change", (event) => {
     const selectedDate = event.target.value;
@@ -97,10 +104,6 @@ function seatDetail() {
         console.log(seatDetailArray)
         seatDetailArray.forEach((seatDetail) => {
             seatsArray.push(seatDetail.seats.id);
-            let seatPrice = seatDetail.screenings.movie.price;
-            // let seatFee = seatDetail.seats.fee;
-            document.getElementById("priceFromScreeningId").value = seatPrice;
-            console.log(seatPrice);
         });
         console.log(seatsArray)
         return seatsArray;
