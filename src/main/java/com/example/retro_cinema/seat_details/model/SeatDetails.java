@@ -23,15 +23,18 @@ public class SeatDetails {
     @ManyToOne
     @JoinColumn(name = "seat_id", referencedColumnName = "id")
     private Seats seats;
+    @Column(name = "qr_code", columnDefinition = "MEDIUMTEXT")
+    private String qrCode;
 
     public SeatDetails() {
     }
 
-    public SeatDetails(boolean flag, AccountUser accountUser, Screenings screenings, Seats seats) {
+    public SeatDetails(boolean flag, AccountUser accountUser, Screenings screenings, Seats seats, String qrCode) {
         this.flag = flag;
         this.accountUser = accountUser;
         this.screenings = screenings;
         this.seats = seats;
+        this.qrCode = qrCode;
     }
 
     public SeatDetails(int id, boolean flag) {
@@ -39,8 +42,16 @@ public class SeatDetails {
         this.flag = flag;
     }
 
-    public SeatDetails(int id, boolean flag, AccountUser accountUser, Screenings screenings, Seats seats) {
+    public SeatDetails(int id, boolean flag, AccountUser accountUser, Screenings screenings, Seats seats, String qrCode) {
         this.id = id;
+        this.flag = flag;
+        this.accountUser = accountUser;
+        this.screenings = screenings;
+        this.seats = seats;
+        this.qrCode = qrCode;
+    }
+
+    public SeatDetails(boolean flag, AccountUser accountUser, Screenings screenings, Seats seats) {
         this.flag = flag;
         this.accountUser = accountUser;
         this.screenings = screenings;
@@ -85,5 +96,13 @@ public class SeatDetails {
 
     public void setSeats(Seats seats) {
         this.seats = seats;
+    }
+
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
     }
 }

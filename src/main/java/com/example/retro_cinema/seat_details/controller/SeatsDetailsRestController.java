@@ -36,8 +36,9 @@ public class SeatsDetailsRestController {
             Screenings screening = screeningsService.getScreeningById(seatDetail.getIdScreenings());
             boolean flag = seatDetail.isFlag();
             SeatDetails newSeatDetail = new SeatDetails(flag, accountUser, screening, seat);
+            String qrCode = QRController.generateQRCode(newSeatDetail);
+            newSeatDetail.setQrCode(qrCode);
             seatDetailsService.save(newSeatDetail);
-//            QRController.generateQRCode(newSeatDetail);
         }
         String message = "You had a successful purchase";
         return ResponseEntity.ok(message);
