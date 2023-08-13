@@ -155,7 +155,7 @@ public class Login {
         return "redirect:/login";
     }
 
-    @GetMapping ("/ticket_email")
+    @PostMapping("/ticket_email")
     public String ticket_email(@RequestParam("email") String email, HttpServletRequest request, RedirectAttributes redirectAttributes)throws UnsupportedEncodingException, MessagingException{
         AccountUser accountUser = iAccountService.findByEmail(email);
         accountUser.setExpiryDate(calculateExpiryDate());
