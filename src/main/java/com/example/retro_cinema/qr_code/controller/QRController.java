@@ -17,7 +17,7 @@ import java.io.IOException;
 
 public class QRController {
     public static String generateQRCode(SeatDetails seatDetails) {
-        String qrCodePath = "/Users/lehuy/Documents/IMPORTANT/retro_cinema/src/main/resources/static/qr_code/";
+        String qrCodePath = "D:\\case4\\retro_cinema\\src\\main\\resources\\static\\qr_code";
         String qrCodeName = qrCodePath + seatDetails.getId() + seatDetails.getAccountUser().getId() + seatDetails.getScreenings().getId() + seatDetails.getSeats().getId() + "-QRCODE.png";
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix;
