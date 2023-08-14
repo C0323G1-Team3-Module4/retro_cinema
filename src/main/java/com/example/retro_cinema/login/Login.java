@@ -114,7 +114,7 @@ public class Login {
             accountUser.setExpiryDate(calculateExpiryDate());
             System.out.println(accountUser.getExpiryDate());
             iAccountService.createAccount(accountUser);
-            Customer customer = new Customer("https://img.freepik.com/vecteurs-libre/illustration-homme-affaires_53876-5856.jpg?q=10&h=200",true,accountUser);
+            Customer customer = new Customer(true,accountUser);
             iCustomerService.create(customer);
             String siteURL = getSiteURL(request);
             iAccountService.sendVerificationEmail(accountUser, siteURL);
