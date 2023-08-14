@@ -164,6 +164,7 @@
         <a th:if="${productsList.hasPrevious()}" th:href="@{/products/list(page=${productsList.number-1})}" class="pagination-button" id="previous">
             <i class="bx bx-left-arrow-circle"></i>
         </a>
+        <span th:text="${productsList.number+1}"></span>/<span th:text="${productsList.totalPages}"></span>
         <a th:if="${productsList.hasNext()}" th:href="@{/products/list(page=${productsList.number+1})}" class="pagination-button" id="next">
             <i class="bx bx-right-arrow-circle"></i>
         </a>

@@ -158,6 +158,7 @@
         <a th:if="${screenings.hasPrevious()}" th:href="@{/screenings/list(page=${screenings.number-1})}" class="pagination-button" id="previous">
             <i class="bx bx-left-arrow-circle"></i>
         </a>
+        <span th:text="${screenings.number+1}"></span>/<span th:text="${screenings.totalPages}"></span>
         <a th:if="${screenings.hasNext()}" th:href="@{/screenings/list(page=${screenings.number+1})}" class="pagination-button" id="next">
             <i class="bx bx-right-arrow-circle"></i>
         </a>
