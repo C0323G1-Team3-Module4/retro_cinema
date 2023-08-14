@@ -154,10 +154,6 @@
     <img src="/img/movie-background-collage.png"
          alt="background" class="background">
     <div class="wrapper">
-        <div class="top-icons" th:object="${customer}">
-            <i class='bx bx-trash' style="color: rgb(170, 29, 29);"></i>
-            <i class='bx bx-cog' onclick="toEdit()"></i>
-        </div>
         <div class="user" th:object="${customer}">
             <img
                     th:src="${customer.image}"

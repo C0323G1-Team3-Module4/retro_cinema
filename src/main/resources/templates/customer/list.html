@@ -18,7 +18,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <style>
-        .swal2-title{
+        .swal2-title {
             font-size: 20px;
         }
     </style>
@@ -29,18 +29,16 @@
     <h1 class="table-header">Customers List</h1>
     <div class="container">
         <div class="table-function">
-            <a href="#" class="function-btn" id="add">
-                <i class="bx bx-folder-plus"></i>
-            </a>
-            <div class="search-box" >
-                <input
-                        type="search"
-                        name="searchByName"
-                        id="search-input"
-                        placeholder="Search"
-                        th:name="searchByName"
-                />
-                <i class="bx bx-search"></i>
+            <div class="search-box">
+                <form id="search-form" th:action="@{/customers}" style="display:flex;">
+                    <input
+                            type="search"
+                            th:name="searchByName"
+                            id="search-input"
+                            placeholder="Search"
+                    />
+                    <i class="bx bx-search" id="search-icon" style="margin-top: auto"></i>
+                </form>
             </div>
         </div>
         <table>
@@ -62,9 +60,9 @@
                     <a th:href="@{/customers/info/__${customer.id}__}" class="function-btn" id="detail">
                         <i class="bx bx-info-circle"></i>
                     </a>
-                    <a href="#" class="function-btn" id="delete" th:attr="onclick=|deleteCustomers('${customer.id}','${customer.fullName}')|">
-                        <i class="bx bx-trash"></i>
-                    </a>
+                    <!--                    <a href="#" class="function-btn" id="delete" th:attr="onclick=|deleteCustomers('${customer.id}','${customer.fullName}')|">-->
+                    <!--                        <i class="bx bx-trash"></i>-->
+                    <!--                    </a>-->
                 </td>
             </tr>
         </table>
@@ -72,11 +70,14 @@
 
     <!-- Pagination Start -->
     <div class="pagination">
-        <a th:if="${customerList.hasPrevious()}" th:href="@{'/customers'(page=${customerList.number-1}, searchByName=${searchByName})}"
+        <a th:if="${customerList.hasPrevious()}"
+           th:href="@{'/customers'(page=${customerList.number-1}, searchByName=${searchByName})}"
            class="pagination-button" id="previous">
             <i class="bx bx-left-arrow-circle"></i>
         </a>
-        <a th:if="${customerList.hasNext()}" th:href="@{'/customers'(page=${customerList.number+1}, searchByName=${searchByName})}"
+        <span th:text="${customerList.number+1}"></span>/<span th:text="${customerList.totalPages}"></span>
+        <a th:if="${customerList.hasNext()}"
+           th:href="@{'/customers'(page=${customerList.number+1}, searchByName=${searchByName})}"
            class="pagination-button" id="next">
             <i class="bx bx-right-arrow-circle"></i>
         </a>
@@ -129,6 +130,9 @@
             }
         });
     }
+    document.getElementById("search-icon").addEventListener("click", function() {
+        document.getElementById("search-form").submit();
+    });
 </script>
 </body>
 </html>
