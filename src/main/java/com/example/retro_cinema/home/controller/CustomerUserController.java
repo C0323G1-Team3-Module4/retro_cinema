@@ -53,7 +53,7 @@ public class CustomerUserController {
             return "/user/update";
         }
         BeanUtils.copyProperties(customerDto, customer);
-        iCustomerService.update(customer);
+        iCustomerService.update(customer,username);
         redirectAttributes.addFlashAttribute("message", "Update Customer Success!");
         String url = "redirect:/customer/info/"+ username ;
         return url;

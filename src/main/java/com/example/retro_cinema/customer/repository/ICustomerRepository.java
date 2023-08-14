@@ -13,8 +13,7 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
 //    @Query(value = "select * from Customers where full_name like CONCAT('%', :searchByName,'%') ",nativeQuery = true)
 //   Page<Customer> findAll(@Param("searchByName") String name, Pageable pageable,boolean flag);
 //
-    @Query(value = "select * from customers where id = :id and flag = true ",nativeQuery = true)
-    Optional<Customer> findById(Integer id);
+    @Query(value = "select * from retro_cinema.customers where id = :id and flag = true ",nativeQuery = true)
     Customer findCustomerByAccountUser_Id(Integer id);
     Page<Customer> findCustomerByFullNameContainingAndFlag(String name, Pageable pageable, boolean flag);
     Customer findCustomerByAccountUser_Username(String name);
