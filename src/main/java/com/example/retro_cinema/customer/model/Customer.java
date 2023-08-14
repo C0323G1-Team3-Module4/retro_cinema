@@ -19,6 +19,12 @@ public class Customer {
     private String image;
     @Column(columnDefinition = "bit default true")
     private boolean flag;
+
+    public Customer(boolean flag, AccountUser accountUser) {
+        this.flag = flag;
+        this.accountUser = accountUser;
+    }
+
     @ManyToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     private AccountUser accountUser;
