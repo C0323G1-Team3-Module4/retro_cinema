@@ -20,8 +20,7 @@ public class Customer {
     @Column(columnDefinition = "bit default true")
     private boolean flag;
 
-    public Customer(String image, boolean flag, AccountUser accountUser) {
-        this.image = image;
+    public Customer(boolean flag, AccountUser accountUser) {
         this.flag = flag;
         this.accountUser = accountUser;
     }
