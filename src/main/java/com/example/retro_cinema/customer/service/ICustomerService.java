@@ -11,7 +11,7 @@ public interface ICustomerService {
     Page<Customer> findAll(String searchByName, Pageable pageable,boolean flag);
     Customer findByIdCustomer(Integer id);
     void create(Customer customer);
-    void update(Customer customer);
+    void update(Customer customer, String username);
     void delete(Integer id);
     Customer findByIdAccount(Integer id);
     Customer findById(int id);

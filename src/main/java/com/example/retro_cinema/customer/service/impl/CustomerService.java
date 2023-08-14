@@ -43,9 +43,8 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public void update(Customer customer) {
-        customer.setFlag(true);
-        Customer oldCustomer = iCustomerRepository.findById(customer.getId()).get();
+    public void update(Customer customer, String username) {
+        Customer oldCustomer = iCustomerRepository.findCustomerByAccountUser_Username(username);
         oldCustomer.setImage(customer.getImage());
         oldCustomer.setFullName(customer.getFullName());
         oldCustomer.setAddress(customer.getAddress());
