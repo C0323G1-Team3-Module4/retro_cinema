@@ -56,10 +56,11 @@ public class SeatDetailsService implements ISeatDetailsService {
     public List<SeatDetails> getAllSeatsDetailsByUser(int userId) {
         List<SeatDetails> seatDetailsList = new ArrayList<>();
         for (SeatDetails s: getAllSeatsDetails()) {
-            if(s.getAccountUser().getId()==userId && (Period.between(LocalDate.parse(s.getScreenings().getDateMovie()), LocalDate.now()).getDays() <= 0)){
+            if(s.getAccountUser().getId()==userId){
                 seatDetailsList.add(s);
             }
         }
+        System.out.println("TEST booking" + seatDetailsList);
         return seatDetailsList;
     }
 }
